@@ -109,7 +109,6 @@
       }
     }
   },
-  "defaultProject": "itasks.pro",
   "schematics": {
     "@ngrx/schematics:component": {
       "prefix": "app",
