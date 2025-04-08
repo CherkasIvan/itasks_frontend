@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="4px" height="18px" viewBox="0 0 4 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>More Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1_board_pull" transform="translate(-586.000000, -106.000000)" fill="#CCD3DA">
+            <path d="M581,117 C579.895431,117 579,116.104569 579,115 C579,113.895431 579.895431,113 581,113 C582.104569,113 583,113.895431 583,115 C583,116.104569 582.104569,117 581,117 Z M588,117 C586.895431,117 586,116.104569 586,115 C586,113.895431 586.895431,113 588,113 C589.104569,113 590,113.895431 590,115 C590,116.104569 589.104569,117 588,117 Z M595,117 C593.895431,117 593,116.104569 593,115 C593,113.895431 593.895431,113 595,113 C596.104569,113 597,113.895431 597,115 C597,116.104569 596.104569,117 595,117 Z" id="More-Icon" transform="translate(588.000000, 115.000000) rotate(90.000000) translate(-588.000000, -115.000000) "></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,100 @@
+@import "~less/mixins";
+
+:host {
+  position: absolute;
+  width: 250px;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 12px 23px 0 rgba(133, 143, 151, 0.47);
+  right: 5px;
+  top: 31px;
+  z-index: 10;
+  padding: 15px 0;
+
+  .filter-popup {
+    &__header {
+      margin: 0 14px 15px;
+      font-size: 15px;
+      color: #25282c;
+      .bold()
+    }
+
+    &__input-wrapper {
+      margin: 0 14px;
+    }
+
+    &__input {
+    }
+
+    &__list {
+      overflow-y: scroll;
+      overflow-x: hidden;
+      max-height: 155px;
+      padding: 6px;
+    }
+
+    &__footer {
+      margin: 20px 18px 0;
+    }
+
+    &__name {
+      flex: 1 1 auto;
+      border-bottom: 1px solid #eff5f6;
+      padding: 10px 0;
+      margin-right: 10px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+
+    &__drag {
+      display: none;
+      font-size: 7px;
+      color: #B3BFC9;
+      position: absolute;
+      left: 7px;
+      top: 16px;
+    }
+
+    &__right {
+      display: none;
+      margin-left: auto;
+      flex-shrink: 0;
+    }
+
+    &__item {
+      display: flex;
+      font-size: 13px;
+      color: #25282c;
+      align-items: center;
+      padding-left: 21px;
+      margin-top: -1px;
+      position: relative;
+      cursor: pointer;
+      &:hover {
+        border-radius: 8px;
+        background-color: #eff5f6;
+        .filter-popup__right,
+        .filter-popup__drag {
+          display: flex;
+        }
+      }
+      &:last-child {
+        .filter-popup__name {
+          border-color: transparent;
+        }
+      }
+    }
+
+    &__control {
+      color: #B3BFC9;
+      font-size: 14px;
+      height: 39px;
+      width: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+  }
+}

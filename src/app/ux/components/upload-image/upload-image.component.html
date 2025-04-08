@@ -1,0 +1,9 @@
+<div class="upload-image__upload"
+     [title]="image.error"
+     [ngClass]="{'upload-image__upload_error': image.isError}">
+  <i class="icon-close upload-image__delete" (click)="onDelete.emit($event)"></i>
+  <i class="icon-error-upload-file upload-image__error-icon"></i>
+  <div class="upload-image__progress-wrapper">
+    <div class="upload-image__progress" [style.width.%]="image.progress"></div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+:host {
+  position: absolute;
+  width: 233px;
+  border-radius: 4px;
+  background-color: #fff;
+  right: 6px;
+  top: 57px;
+  z-index: 10;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+  padding-top: 25px;
+
+  .user-menu {
+
+    &__header {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+    &__avatar {
+      width: 88px;
+      height: 88px;
+    }
+
+    &__name {
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 13px;
+      font-family: Avenir, "Segoe UI", Arial, sans-serif;
+    }
+    &__menu {
+      padding: 5px;
+      margin-top: 15px;
+    }
+
+    &__menu-item {
+      border-radius: 4px;
+
+      padding: 5px 10px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 6px;
+
+      &:hover {
+        background-color: #f0f5f7;
+      }
+
+      svg {
+        width: 21px;
+      }
+
+      span {
+        margin-left: 10px;
+        color: #3D474D;
+      }
+
+      &_w19 {
+        svg {
+          width: 19px;
+        }
+      }
+    }
+
+    &__menu-other {
+      border-top: 1px solid #CED5D9;
+      margin-top: 20px;
+      padding-top: 12px;
+    }
+  }
+}

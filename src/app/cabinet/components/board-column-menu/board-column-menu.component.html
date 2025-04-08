@@ -1,0 +1,10 @@
+<!--<app-select-icon class="board-column-menu__select-icon"></app-select-icon>-->
+<app-select-color (onChangeColor)="onChangeColor($event)"
+                  [color]="model.color"
+                  class="board-column-menu__select-color select-color_no-padding">
+</app-select-color>
+
+<div class="board-column-menu__bottom">
+    <a class="board-column-menu__delete" (click)="onDelete()">{{confirmDelete ? 'Вы уверены?' : 'Удалить'}}</a>
+</div>
+

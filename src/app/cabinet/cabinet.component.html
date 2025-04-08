@@ -1,0 +1,32 @@
+<div class="cabinet">
+    <app-sidebar class="cabinet__sidebar"
+                 *ngIf="isShowSidebar$ | async"
+                 [@enterAnimation]>
+    </app-sidebar>
+    <div class="cabinet__wrapper">
+        <app-header></app-header>
+        <div class="cabinet__content">
+            <div class="cabinet__work">
+                <router-outlet></router-outlet>
+            </div>
+            <div class="cabinet__sidebar-left" [ngSwitch]="isShowSidebarFilter$ | async">
+                <app-sidebar-filter class="cabinet__sidebar-filter" *ngSwitchCase="true"></app-sidebar-filter>
+                <app-sidebar-user class="cabinet__sidebar-user" *ngSwitchCase="false"></app-sidebar-user>
+            </div>
+        </div>
+        <router-outlet name="task"></router-outlet>
+    </div>
+</div>
+<router-outlet name="popup"></router-outlet>
+<app-project-menu *ngIf="(popupProjectMenu$ | async).isOpen"
+                  [ngStyle]="{'bottom.px': (popupProjectMenu$ | async).position}">
+</app-project-menu>
+
+<app-project-form *ngIf="(popupProjectForm$ | async).isOpen"
+                  [ngStyle]="{
+                  'top.px': (popupProjectForm$ | async).top,
+                  'left.px': (popupProjectForm$ | async).left
+                  }"
+                  class="project-menu__project-form">
+</app-project-form>
+<ux-image *ngIf="imageService.isOpen"></ux-image>

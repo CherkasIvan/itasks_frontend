@@ -1,0 +1,87 @@
+<div class="task-view-check-list__header">
+  <div class="task-view-check-list__title">Чек-лист</div>
+  <i class="icon-arrow-down task-view-check-list__context-icon" (click)="toggleMenu()"></i>
+  <ux-context-menu class="preview-image__context-menu"
+                   *ngIf="isShowMenu"
+                   #contextMenu>
+      <ux-context-menu-item menu1 icon="icon-save" name="Сохранить"></ux-context-menu-item>
+      <ux-context-menu-item menu1 icon="icon-upload" name="Загрузить" (click)="contextMenu.showMenu($event, 2);"></ux-context-menu-item>
+      <ux-context-menu-item menu1 icon="icon-trash" name="Удалить"></ux-context-menu-item>
+
+      <ux-context-menu-item menu2 icon="icon-arrow-left" iconColor="#29beb0" name="Назад" (click)="contextMenu.showMenu($event, 1); "></ux-context-menu-item>
+      <ux-context-menu-item menu2 name="Принятие сотрудника на работу"></ux-context-menu-item>
+      <ux-context-menu-item menu2 name="Постановка новой задачи"></ux-context-menu-item>
+      <ux-context-menu-item menu2 name="Коммуникация"></ux-context-menu-item>
+      <ux-context-menu-item menu2 name="Ввод нового менеджера"></ux-context-menu-item>
+  </ux-context-menu>
+</div>
+
+
+<div class="task-view-check-list__list">
+  <div class="task-view-check-list__item">
+    <input id="task-view-check-list__status" class="task-view-check-list__status checkbox" type="checkbox">
+    <label for="task-view-check-list__status" class="task-view-check-list__status-label">
+      <i class="icon-check"></i>
+    </label>
+    <input class="task-view-check-list__input"  value="Пункт 1 чек листа" type="text" placeholder="Введите текст">
+    <div class="task-view-check-list__right">
+      <i class="icon-delete task-view-check-list__icon task-view-check-list__icon_fs13"></i>
+      <i class="icon-burger task-view-check-list__icon"></i>
+    </div>
+  </div>
+
+  <div class="task-view-check-list__item">
+    <input id="task-view-check-list__status1" class="task-view-check-list__status checkbox" type="checkbox">
+    <label for="task-view-check-list__status1" class="task-view-check-list__status-label">
+      <i class="icon-check"></i>
+    </label>
+    <input class="task-view-check-list__input"  value="Пункт 1 чек листа" type="text" placeholder="Введите текст">
+    <div class="task-view-check-list__right">
+      <i class="icon-delete task-view-check-list__icon task-view-check-list__icon_fs13"></i>
+      <i class="icon-burger task-view-check-list__icon"></i>
+    </div>
+  </div>
+
+  <div class="task-view-check-list__item">
+    <input id="task-view-check-list__status2" class="task-view-check-list__status checkbox" type="checkbox">
+    <label for="task-view-check-list__status2" class="task-view-check-list__status-label">
+      <i class="icon-check"></i>
+    </label>
+    <input class="task-view-check-list__input"  value="Пункт 1 чек листа" type="text" placeholder="Введите текст">
+    <div class="task-view-check-list__right">
+      <i class="icon-delete task-view-check-list__icon task-view-check-list__icon_fs13"></i>
+      <i class="icon-burger task-view-check-list__icon"></i>
+    </div>
+  </div>
+
+  <div class="task-view-check-list__item">
+    <input id="task-view-check-list__status3" class="task-view-check-list__status checkbox" type="checkbox">
+    <label for="task-view-check-list__status3" class="task-view-check-list__status-label">
+      <i class="icon-check"></i>
+    </label>
+    <input class="task-view-check-list__input"  value="Пункт 1 чек листа" type="text" placeholder="Введите текст">
+    <div class="task-view-check-list__right">
+      <i class="icon-delete task-view-check-list__icon task-view-check-list__icon_fs13"></i>
+      <i class="icon-burger task-view-check-list__icon"></i>
+    </div>
+  </div>
+
+  <div class="task-view-check-list__item">
+    <input id="task-view-check-list__status4" class="task-view-check-list__status checkbox" type="checkbox">
+    <label for="task-view-check-list__status4" class="task-view-check-list__status-label">
+      <i class="icon-check"></i>
+    </label>
+    <input class="task-view-check-list__input"  value="Пункт 1 чек листа" type="text" placeholder="Введите текст">
+    <div class="task-view-check-list__right">
+      <i class="icon-delete task-view-check-list__icon task-view-check-list__icon_fs13"></i>
+      <i class="icon-burger task-view-check-list__icon"></i>
+    </div>
+  </div>
+
+  <div class="task-view-check-list__add-btn">
+    <div class="task-view-check-list__icon-add">
+      <i class="icon-plus"></i>
+    </div>
+    <div class="task-view-check-list__add-label">Добавить пункт</div>
+  </div>
+</div>

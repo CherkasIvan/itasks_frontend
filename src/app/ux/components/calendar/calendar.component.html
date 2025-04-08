@@ -1,0 +1,33 @@
+<div class="calendar">
+  <div class="calendar__header">
+    <div class="calendar__prev calendar__change-month" (click)="prevMonth()"><i class="icon-arrow-left"></i></div>
+    <div class="calendar__month-year">{{ currentDate.format('MMMM') }}, {{ currentDate.format('YYYY') }}</div>
+    <div class="calendar__next calendar__change-month" (click)="nextMonth()"><i class="icon-arrow-right"></i></div>
+  </div>
+  <div class="calendar__grid">
+    <div class="calendar__days">
+      <div *ngFor="let name of dayNames" class="calendar__day p9">
+        {{ name }}
+      </div>
+    </div>
+    <div class="calendar__weeks">
+      <div *ngFor="let week of weeks" class="calendar__week">
+        <ng-container *ngFor="let day of week">
+          <div class="calendar__week-date calendar__week-date_disabled" *ngIf="!isSelectedMonth(day.mDate)">
+            <span class="calendar__day-text">{{ day.mDate.date() }}</span>
+          </div>
+          <div class="calendar__week-date calendar__week-date_enabled"
+               *ngIf="isSelectedMonth(day.mDate)"
+               (click)="selectDate(day)"
+               [ngClass]="{ 'calendar__week-date_today': day.today, 'calendar__week-date_selected': isSelected(day.mDate) }">
+            <span class="calendar__day-text">{{ day.mDate.date() }}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div class="calendar__footer">
+    <span class="calendar__delete-date" (click)="onClearDay()">Удалить дату</span>
+  </div>
+</div>

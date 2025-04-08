@@ -1,0 +1,14 @@
+<ux-avatar class="avatar-select__avatar"
+           [user]="user"
+           [showDeleteBtn]="true"
+           (remove)="remove.emit()"
+           (click)="onTogglePopup()">
+</ux-avatar>
+<ux-popup-user class="avatar-select__popup"
+               [ngStyle]="popupStyle"
+               [value]="value"
+               [delayClickOutsideInit]="true"
+               (clickOutside)="onClosePopup()"
+               (selectItem)="onSelect($event)"
+               *ngIf="isOpenPopup">
+</ux-popup-user>

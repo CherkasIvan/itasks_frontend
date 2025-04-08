@@ -1,0 +1,68 @@
+@import '~less/variables';
+
+.button {
+  display: inline-block;
+  border: 0;
+  background-color: @button-style-2_normal;
+  padding: 8.5px 20px;
+  border-radius: @border-radius;
+  color: #354052;
+  font-size: 14px;
+  transition: @form-background-animate;
+  &:hover {
+    background-color: @button-style-2_hover;
+  }
+
+  &:active {
+    background-color: @button-style-2_pressed;
+  }
+
+  &[disabled] {
+    background-color: @button-style-2_disable;
+  }
+
+  &_full-width {
+    display: block;
+    width: 100%;
+  }
+
+  &_green {
+    background-color: @button-style-1_normal;
+    color: #ffffff;
+
+    &:hover {
+      background-color: @button-style-1_hover;
+    }
+
+    &:active {
+      background-color: @button-style-1_pressed;
+    }
+
+    &[disabled] {
+      background-color: @button-style-1_disable;
+    }
+  }
+
+  &_plr16 {
+    padding: 7px 16px;
+  }
+
+  &_plr11 {
+    padding-left: 11px;
+    padding-right: 11px;
+  }
+
+  &_lrg {
+    padding: 12px 26px;
+  }
+
+  &_upgrade {
+    border-radius: 18px;
+    background-color: #ffd580;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    padding: 6px 18px;
+  }
+}
+

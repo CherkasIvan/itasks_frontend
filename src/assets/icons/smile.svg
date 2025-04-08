@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 48.2 (47327) - http://www.bohemiancoding.com/sketch -->
+    <title>897AA3C2-118D-48B3-B721-0E3F69D9C0EE</title>
+    <desc>Created with sketchtool.</desc>
+    <defs></defs>
+    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-850.000000, -590.000000)">
+        <g id="Smile" transform="translate(850.000000, 590.000000)">
+            <path d="M8,0 C3.58922105,0 0,3.58921637 0,8.00000105 C0,12.4107794 3.58922105,16 8,16 C12.4107789,16 16,12.4107794 16,8.00000105 C16,3.58921637 12.4107789,2.10526288e-06 8,2.10526288e-06 L8,0 Z M8,1.26315773 C11.7281053,1.26315773 14.7368421,4.27188575 14.7368421,8.00000105 C14.7368421,11.7281058 11.7281053,14.7368423 8,14.7368423 C4.27189474,14.7368423 1.26315789,11.7281058 1.26315789,8.00000105 C1.26315789,4.27188575 4.27189474,1.26315983 8,1.26315983 L8,1.26315773 Z" id="Shape" fill="#B5BFCB" fill-rule="nonzero"></path>
+            <circle id="Oval" fill="#B5BFCB" cx="6" cy="7" r="1"></circle>
+            <circle id="Oval-Copy" fill="#B5BFCB" cx="10" cy="7" r="1"></circle>
+            <path d="M6,11 C7.33333333,12.232015 8.66666667,12.232015 10,11" id="Path-4" stroke="#B5BFCB" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>

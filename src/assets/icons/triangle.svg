@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="6px" viewBox="0 0 8 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49 (51002) - http://www.bohemiancoding.com/sketch -->
+    <title>Triangle Copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Sign_up_5" transform="translate(-585.000000, -293.000000)" fill="#DFE3E9">
+            <g id="Group-2" transform="translate(283.000000, 246.000000)">
+                <path d="M306.768221,47.3598407 L309.63318,50.7977907 C309.986744,51.2220676 309.92942,51.8526323 309.505143,52.2061964 C309.325428,52.3559589 309.098895,52.4379751 308.864958,52.4379751 L303.135042,52.4379751 C302.582757,52.4379751 302.135042,51.9902599 302.135042,51.4379751 C302.135042,51.2040386 302.217058,50.9775057 302.36682,50.7977907 L305.231779,47.3598407 C305.585343,46.9355638 306.215908,46.8782397 306.640184,47.2318038 C306.686647,47.270523 306.729502,47.3133776 306.768221,47.3598407 Z" id="Triangle-Copy" transform="translate(306.000013, 49.718988) scale(1, -1) translate(-306.000013, -49.718988) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

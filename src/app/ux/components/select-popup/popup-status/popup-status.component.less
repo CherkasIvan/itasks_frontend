@@ -1,0 +1,70 @@
+@import "../~less/variables";
+@import "../~less/select-popup";
+
+.backgroundColorStatus(@color) {
+  background-color: @color;
+}
+
+:host {
+  display: block;
+
+  .popup-status {
+    &__color {
+      border-radius: 50%;
+      display: flex;
+      width: 26px;
+      height: 26px;
+      min-width: 26px;
+      min-height: 26px;
+      position: relative;
+
+      &:before {
+        border-radius: 50%;
+        content: '';
+        position: absolute;
+        left: -2px;
+        top: -2px;
+        bottom: -2px;
+        right: -2px;
+        border: 2px solid #fff;
+      }
+
+      &_bg-1 {
+        .backgroundColorStatus(@status-theme-1);
+      }
+      &_bg-2 {
+        .backgroundColorStatus(@status-theme-2);
+      }
+      &_bg-3 {
+        .backgroundColorStatus(@status-theme-3);
+      }
+      &_bg-4 {
+        .backgroundColorStatus(@status-theme-4);
+      }
+      &_bg-5 {
+        .backgroundColorStatus(@status-theme-5);
+      }
+      &_bg-6 {
+        .backgroundColorStatus(@status-theme-6);
+      }
+      &_bg-7 {
+        .backgroundColorStatus(@status-theme-7);
+      }
+      &_bg-8 {
+        .backgroundColorStatus(@status-theme-8);
+      }
+      &_bg-9 {
+        .backgroundColorStatus(@status-theme-9);
+      }
+      &_bg-10 {
+        .backgroundColorStatus(@status-theme-10);
+      }
+      &_bg-11 {
+        .backgroundColorStatus(@status-theme-11);
+      }
+      &_bg-12 {
+        .backgroundColorStatus(@status-theme-12);
+      }
+    }
+  }
+}

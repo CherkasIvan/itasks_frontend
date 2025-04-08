@@ -1,0 +1,45 @@
+<div class="task-view-archive-popup__wrapper">
+  <div class="task-view-archive-popup__header">
+    <div class="task-view-archive-popup__title">{{task?.name}}</div>
+    <div class="task-view-archive-popup__right task-view-archive-popup__video">
+      <video height="40" autoplay>
+        <source src="/assets/complete.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="task-view-archive-popup__info">
+    <div class="task-view-archive-popup__label">Создана: {{task.createdAt | date: 'd MMM yyyy H:mm'}}</div>
+    <div class="task-view-archive-popup__label" *ngIf="task.archivedAt">Архивирована: {{task.archivedAt | date: 'd MMM yyyy H:mm'}}</div>
+    <!--<div class="task-view-archive-popup__label">13 дней на выполнение</div>-->
+    <div class="task-view-archive-popup__label" *ngIf="task.spentTime">{{task.spentTime}}ч. затрачено</div>
+  </div>
+
+  <div class="task-view-archive-popup__user" *ngIf="task.userComplete?.user">
+    <ux-avatar class="task-view-archive-popup__avatar" [user]="task.userComplete.user"></ux-avatar>
+    <div class="task-view-archive-popup__user-info">
+      <div class="task-view-archive-popup__user-name">Завершил: {{task.userComplete.user.firstName}} {{task.userComplete.user.lastName}}</div>
+      <div class="task-view-archive-popup__label">{{task.completedAt | date: 'd MMM yyyy H:mm'}}</div>
+    </div>
+  </div>
+
+  <div class="task-view-archive-popup__user" *ngIf="task.userArchive?.user">
+    <ux-avatar class="task-view-archive-popup__avatar" [user]="task.userArchive.user"></ux-avatar>
+    <div class="task-view-archive-popup__user-info">
+      <div class="task-view-archive-popup__user-name">Архивировал: {{task.userArchive.user.firstName}} {{task.userArchive.user.lastName}}</div>
+      <div class="task-view-archive-popup__label">{{task.archivedAt | date: 'd MMM yyyy H:mm'}}</div>
+    </div>
+  </div>
+
+  <div class="task-view-archive-popup__footer">
+    <button class="button button_plr11 task-view-archive-popup__btn-revert" type="button" (click)="onRevert()">Вернуть в работу</button>
+    <button class="button button_plr11 button_green" type="button" (click)="onArchive()">В архив</button>
+    <div class="task-view-archive-popup__right task-view-archive-popup__help">
+      <span class="task-view-archive-popup__help-icon"></span>
+      <div class="hint">
+        Задача не будет выводится в общем списке задач. Архивные задачи можно вывести включив в расширенном фильтре галочку "включить в поиск архивные задачи"
+      </div>
+    </div>
+  </div>
+
+</div>

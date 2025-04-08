@@ -1,0 +1,21 @@
+<span class="task-view-followers__label">Подписчики</span>
+
+<ux-avatar class="task-view-followers__follower"
+           *ngFor="let user of taskViewComponent.task.followersUsers"
+           [user]="user"
+           (remove)="onDeleteFollower($event)"
+           [showDeleteBtn]="user.id !== taskViewComponent.task.responsibleId">
+</ux-avatar>
+
+<div class="task-view-followers__add">
+    <span class="task-view-followers__add-btn" (click)="onToggle()"><i class="icon-plus"></i></span>
+    <ux-popup-user class="task-view-followers__user-popup"
+                   (changeItems)="onChangeFollowers($event)"
+                   [delayClickOutsideInit]="true"
+                   (clickOutside)="onClose()"
+                   [value]="taskViewComponent.task.followers"
+                   [multiple]="true"
+                   header="Подписчики"
+                   *ngIf="isOpenPopup">
+    </ux-popup-user>
+</div>

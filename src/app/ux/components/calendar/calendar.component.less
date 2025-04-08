@@ -1,0 +1,147 @@
+@import "~less/mixins";
+
+@size: 33px;
+:host {
+  position: absolute;
+  z-index: 3;
+  border-radius: 4px;
+  background-color: #ffffff;
+  box-shadow: 4px 5px 23px 0 rgba(133, 143, 151, 0.47);
+  padding: 16px;
+
+  .calendar {
+    display: block;
+    width: (@size * 7) + 14;
+    margin: 0 auto;
+
+    &__change-month {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 23px;
+      min-height: 23px;
+      cursor: pointer;
+      line-height: 1;
+      color: #ddd;
+      i {
+        width: 7px;
+        height: 12px;
+        font-size: 12px;
+      }
+      &:hover {
+        color: #29beb0;
+      }
+    }
+
+    &__month-year {
+      flex: 1 1 auto;
+      text-align: center;
+      font-size: 15px;
+      color: #25282c;
+      .bold();
+    }
+
+    &__header {
+      display: flex;
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    &__month {
+      padding: @size;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &__year {
+      padding: @size;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &__days {
+      display: flex;
+      flex-direction: row;
+      padding: 3px 0;
+      color: #cfd6de;
+      border-bottom: 1px solid #eff5f6;
+      border-top: 1px solid #eff5f6;
+      margin-bottom: 16px;
+    }
+
+    &__footer {
+      border-top: solid 1px #eff5f6;
+      margin-top: 10px;
+      padding-top: 15px;
+      text-align: center;
+    }
+
+    &__delete-date {
+      color: #61b7ee;
+      border-bottom: 1px solid transparent;
+      cursor: pointer;
+      &:hover {
+        border-color: #61b7ee;
+      }
+    }
+
+    &__weeks {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__week {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &__day, &__week-date {
+      text-align: center;
+      padding: 5px;
+      width: @size;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__week-date {
+      height: @size;
+      position: relative;
+      color: #25282c;
+      margin: 1px;
+      border-radius: 50%;
+      border: 1px solid transparent;
+
+      &_enabled {
+        cursor: pointer;
+        &:hover {
+          border: solid 1px #e0e4e9;
+
+        }
+      }
+
+      &_selected {
+        color: #fff;
+        background-color: #61b7ee;
+        &:hover {
+          border-color: transparent;
+        }
+      }
+
+      &_disabled {
+        color: #b7c1cc;
+      }
+
+      &_today {
+        .bold();
+      }
+    }
+
+    &__day-text {
+      z-index: 10;
+      font-size: 14px;
+    }
+  }
+}

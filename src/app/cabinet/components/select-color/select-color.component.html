@@ -1,0 +1,9 @@
+<div class="label label_style-1 select-color__label">Цвет</div>
+<div class="select-color__items">
+  <div *ngFor="let item of cssClasses"
+       [ngClass]="item.cssClass"
+       [class.select-color__item-color_active]="color === item.color"
+       (click)="onChangeColor.emit(item.color)"
+       class="select-color__item-color">
+  </div>
+</div>

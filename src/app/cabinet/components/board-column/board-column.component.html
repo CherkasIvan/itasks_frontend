@@ -1,0 +1,57 @@
+<div class="board-column__wrapper">
+    <div class="board-column__style-color board-column__dd" [ngStyle]="{'background-color': model.color}"></div>
+    <div class="board-column__header">
+        <span class="board-column__status-icon board-column__dd">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" viewBox="0 0 19 18">
+                <path fill="#909FAF" fill-rule="nonzero" d="M15.838 17.765l-.775-1.122c-.15-.217-.024-.488.275-.597.3-.109.674-.018.824.199l.775 1.104c.15.217.024.488-.275.597-.1.036-.2.054-.275.054-.225 0-.45-.072-.55-.235zm2.927-2.932l-1.122-.77c-.217-.149-.488-.025-.597.273-.109.298-.018.67.199.82l1.104.77c.072.05.144.074.199.074.162 0 .325-.124.398-.323.126-.323.018-.695-.181-.844zM1.355 3.925c.072.05.145.075.2.075.163 0 .326-.126.399-.327.109-.302.018-.679-.2-.83l-1.108-.78c-.218-.15-.49-.024-.6.278-.109.301-.018.678.2.83l1.108.754zM2.337.044c-.3.11-.424.384-.275.603l.775 1.115a.718.718 0 0 0 .55.238c.099 0 .199-.018.274-.055.3-.11.424-.384.275-.603L3.162.227c-.15-.183-.524-.293-.824-.183zM19 7.69v.114c0 .113-.046.204-.138.294 0 .023-.023.023-.023.046L9.724 17.84h-.022l-.046.046-.023.022s-.023 0-.023.023c-.023 0-.023.023-.046.023 0 0-.023 0-.023.022h-.046c-.023 0-.046.023-.069.023H9.105c-.023 0-.046 0-.046-.023h-.023-.023-.023c-.023 0-.023-.022-.046-.022 0 0-.023 0-.023-.023 0 0-.023 0-.023-.023l-.023-.022c-.023 0-.023-.023-.046-.023l.023-.023-.023-.022-7.691-9.72C1.046 7.984 1 7.893 1 7.758V7.69c0-.113.069-.226.138-.317l.023-.023 4.224-4.169A.57.57 0 0 1 5.775 3h8.427c.16 0 .298.068.39.181l4.224 4.17a.56.56 0 0 1 .184.34zM12 4l1.635 3H17l-3.245-3H12zM9.198 4L8 7h4l-1.198-3H9.198zM3 7h3.365L8 4H6.27L3 7zm5 8L6.158 8H3l5 7zm5-7H7l2.415 7L13 8zm4 0h-3.217L11 15l6-7z"/>
+            </svg>
+        </span>
+        <input type="text"
+               name="statusName"
+               class="board-column__status-name"
+               [readonly]="!isAdmin"
+               [disabled]="isLoading"
+               (keydown.enter)="onEnterInputStatusName()"
+               (blur)="onBlurInputStatusName()"
+               [(ngModel)]="modelCopy.name">
+        <span class="board-column__menu-btn" *ngIf="isAdmin" (click)="toggleMenu()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="4" height="18" viewBox="0 0 4 18">
+                <path fill-rule="evenodd" d="M0 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm0 7a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+            </svg>
+        </span>
+        <app-board-column-menu class="board-column__menu"
+                               [model]="model"
+                               (clickOutside)="close()"
+                               [exclude]="'.board-column__menu-btn'"
+                               *ngIf="isShowMenu">
+        </app-board-column-menu>
+    </div>
+    <div class="board-column__task-plus board-column__task-plus_top" *ngIf="items.length">
+        <ux-task-plus (click)="onShowTaskForm(0, null, items[0].id)"></ux-task-plus>
+    </div>
+    <div class="board-column__cards">
+        <app-board-card
+                class="board-column__card"
+                *ngFor="let task of items; let i = index"
+                (click)="openTask(task.id)"
+                [attr.taskId]="task.id"
+                [model]="task"
+                [index]="i"
+                [taskId]="task.id">
+        </app-board-card>
+        <div class="board-column__task-plus board-column__task-plus_bottom" *ngIf="!(taskLoadingOrder$ | async)">
+            <ux-task-plus class="task-plus_visible" (click)="onShowTaskForm(items.length, (items.length ? items[items.length-1].id : null), null)"></ux-task-plus>
+        </div>
+
+        <div class="board-column__no-task" *ngIf="!items.length">
+            <div class="board-column__no-task-text">Задачи отсутствуют</div>
+            <div class="board-column__no-task-text board-column__no-task-text_small">Перетащите задачи сюда<br>или нажмите + чтобы добавить новые задачи.</div>
+            <img src="assets/img/no-task.png">
+        </div>
+    </div>
+</div>
+
+<div class="board-column__sidebar" *ngIf="model.isBackLog" (click)="onToggleBackLog()">
+    <div class="board-column__style-color board-column__dd" [ngStyle]="{'background-color': model.color}"></div>
+    <div class="board-column__status-name-sidebar">{{ modelCopy.name }}</div>
+</div>

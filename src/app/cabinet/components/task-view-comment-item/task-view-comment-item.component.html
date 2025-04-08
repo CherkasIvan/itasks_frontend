@@ -1,0 +1,66 @@
+<div class="task-view-comment-item__left" *ngIf="prevUserId !== message.authorId">
+  <ux-avatar class="task-view-comment-item__avatar"
+             [user]="message.invite?.user">
+  </ux-avatar>
+</div>
+<div class="task-view-comment-item__right" [ngClass]="{'task-view-comment-item__right_short': prevUserId === message.authorId}">
+  <div class="task-view-comment-item__header">
+    <div class="task-view-comment-item__user" [ngClass]="{'task-view-comment-item__user_my': userId == message.authorId}">{{ message.invite?.user.firstName }} {{ message.invite?.user.lastName }}</div>
+
+    <div class="task-view-comment-item__header-right">
+      <div class="task-view-comment-item__time">{{ message.createdAt | date: 'd MMM H:mm'}}</div>
+      <div class="task-view-comment-item__like"
+           [ngClass]="{ 'task-view-comment-item__like_active': message.isLike }"
+           (click)="onLike()">
+        <div class="task-view-comment-item__like-count">{{ message.likes.length ? message.likes.length : '' }}</div>
+        <i class="icon-like task-view-comment-item__like-icon"></i>
+      </div>
+
+      <div class="task-view-comment-item__menu">
+        <i class="icon-more-v task-view-comment-item__menu-icon" (click)="onToggleMenu()"></i>
+
+        <ux-context-menu class="task-view-comment-item__context-menu"
+                         *ngIf="isShowMenu"
+                         (clickOutside)="onCloseMenu()"
+                         [delayClickOutsideInit]="true">
+          <ux-context-menu-item menu1
+                                icon="icon-plus-circle"
+                                [name]="message.isPin ? 'Открепить' : 'Закрепить'"
+                                (click)="onPin()">
+          </ux-context-menu-item>
+            <ux-context-menu-item menu1
+                                  *ngIf="message.canUpdate"
+                                  icon="icon-edit-2"
+                                  name="Редактировать"
+                                  (click)="onEdit()">
+            </ux-context-menu-item>
+            <ux-context-menu-item menu1
+                                  *ngIf="message.canUpdate"
+                                  icon="icon-trash"
+                                  [name]="!deleteConfirm ? 'Удалить' : 'Вы уверены?'"
+                                  (click)="onDelete()">
+            </ux-context-menu-item>
+        </ux-context-menu>
+      </div>
+    </div>
+  </div>
+  <div class="task-view-comment-item__body">
+    <div class="task-view-comment-item__spent-time-wrapper" *ngIf="message.time">
+      <i class="icon-time task-view-comment-item__spent-time-icon"></i> <span class="task-view-comment-item__spent-time">{{message.time}} ч.</span>
+    </div>
+    <div class="task-view-comment-item__message" [innerHTML]="message.message | linky"></div>
+    <!--<app-task-view-comment-link-preview class="task-view-comment-item__link-preview"></app-task-view-comment-link-preview>-->
+
+    <div class="task-view-comment-item__files" *ngIf="files.length">
+      <ux-preview-file class="task-view-files__item task-view-files__item_mb0" *ngFor="let file of files" [file]="file"></ux-preview-file>
+    </div>
+
+    <div class="task-view-comment-item__images" *ngIf="images.length">
+      <div class="task-view-comment-item__images-column" *ngFor="let column of images">
+        <img *ngFor="let image of column"
+             (click)="imageService.open(image)"
+             src="{{ image | imagePreview }}">
+      </div>
+    </div>
+  </div>
+</div>

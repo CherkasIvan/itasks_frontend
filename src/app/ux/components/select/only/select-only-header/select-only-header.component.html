@@ -1,0 +1,6 @@
+<div class="select-only-header__wrapper"
+     [class.select-only-header__wrapper_opened]="selectOnlyComponent.isOpen"
+     (click)="selectOnlyComponent.toggle()">
+    <div class="select-only-header__value" [ngClass]="{'select-only-header__value_placeholder': !selectOnlyComponent.selectedItem}">{{ selectOnlyComponent.selectedItem ? selectOnlyComponent.selectedItem[selectOnlyComponent.valueFiled] : selectOnlyComponent.emptyText }}</div>
+    <i class="icon-triangle select-only-header__icon"></i>
+</div>

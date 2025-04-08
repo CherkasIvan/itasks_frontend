@@ -1,0 +1,47 @@
+@import "~less/mixins";
+@import "~less/variables";
+
+:host {
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+
+  .select-only-header {
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      height: @form-height;
+      border-radius: @border-radius;
+      background-color: #fff;
+      border: solid 1px @form-border-color_normal;
+      font-size: @form-font-size;
+      transition: @form-border-animate;
+
+      &_opened {
+        border-color: @form-border-color_active;
+      }
+
+      &:hover:not(&_opened) {
+        border-color: @form-border-color_hover;
+      }
+    }
+
+    &__value {
+      font-size: @form-font-size;
+      color: #25282c;
+      padding: 0 10px;
+
+      &_placeholder {
+        color: @theme-1-color-placeholder;
+      }
+    }
+
+    &__icon {
+      color: #dfe3e9;
+      font-size: 7px;
+      margin-left: auto;
+      margin-right: 11px;
+    }
+  }
+}

@@ -1,0 +1,220 @@
+@font-face {
+	font-family: "icon";
+	src: url('/assets/fonts/icon.eot');
+	src: url('/assets/fonts/icon.eot?#iefix') format('eot'),
+		url('/assets/fonts/icon.woff2') format('woff2'),
+		url('/assets/fonts/icon.woff') format('woff'),
+		url('/assets/fonts/icon.ttf') format('truetype'),
+		url('/assets/fonts/icon.svg#icon') format('svg');
+}
+
+.icon-base-pseudo {
+	font-family: "icon";
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	// speak: none; // only necessary if not using the private unicode range (firstGlyph option)
+	text-decoration: none;
+	text-transform: none;
+}
+
+.icon-char(@filename) {
+	@add: "\E001";
+	@archive: "\E002";
+	@arrow-down: "\E003";
+	@arrow-left: "\E004";
+	@arrow-right: "\E005";
+	@burger: "\E006";
+	@calendar-2: "\E007";
+	@calendar: "\E008";
+	@check-list: "\E009";
+	@check: "\E00A";
+	@checkbox: "\E00B";
+	@circle-check: "\E00C";
+	@close: "\E00D";
+	@copy: "\E00E";
+	@delete: "\E00F";
+	@download: "\E010";
+	@drag: "\E011";
+	@edit-2: "\E012";
+	@edit: "\E013";
+	@error-upload-file: "\E014";
+	@eye: "\E015";
+	@file: "\E016";
+	@filter: "\E017";
+	@like: "\E018";
+	@man: "\E019";
+	@more-v: "\E01A";
+	@more: "\E01B";
+	@ok: "\E01C";
+	@pack-1: "\E01D";
+	@pack-2: "\E01E";
+	@plus-circle: "\E01F";
+	@plus: "\E020";
+	@project-icon: "\E021";
+	@question: "\E022";
+	@save: "\E023";
+	@search-input-light: "\E024";
+	@search-input: "\E025";
+	@send: "\E026";
+	@smile: "\E027";
+	@star: "\E028";
+	@status: "\E029";
+	@tag: "\E02A";
+	@time: "\E02B";
+	@trash: "\E02C";
+	@triangle: "\E02D";
+	@upload: "\E02E";
+	
+	content: @@filename;
+}
+
+.icon(@filename, @insert: before) {
+	@pseudo-selector: ~":@{insert}";
+
+	&@{pseudo-selector} {
+		&:extend(.icon-base-pseudo);
+		.icon-char(@filename);
+	}
+}
+
+.icon-add {
+	.icon(add);
+}
+.icon-archive {
+	.icon(archive);
+}
+.icon-arrow-down {
+	.icon(arrow-down);
+}
+.icon-arrow-left {
+	.icon(arrow-left);
+}
+.icon-arrow-right {
+	.icon(arrow-right);
+}
+.icon-burger {
+	.icon(burger);
+}
+.icon-calendar-2 {
+	.icon(calendar-2);
+}
+.icon-calendar {
+	.icon(calendar);
+}
+.icon-check-list {
+	.icon(check-list);
+}
+.icon-check {
+	.icon(check);
+}
+.icon-checkbox {
+	.icon(checkbox);
+}
+.icon-circle-check {
+	.icon(circle-check);
+}
+.icon-close {
+	.icon(close);
+}
+.icon-copy {
+	.icon(copy);
+}
+.icon-delete {
+	.icon(delete);
+}
+.icon-download {
+	.icon(download);
+}
+.icon-drag {
+	.icon(drag);
+}
+.icon-edit-2 {
+	.icon(edit-2);
+}
+.icon-edit {
+	.icon(edit);
+}
+.icon-error-upload-file {
+	.icon(error-upload-file);
+}
+.icon-eye {
+	.icon(eye);
+}
+.icon-file {
+	.icon(file);
+}
+.icon-filter {
+	.icon(filter);
+}
+.icon-like {
+	.icon(like);
+}
+.icon-man {
+	.icon(man);
+}
+.icon-more-v {
+	.icon(more-v);
+}
+.icon-more {
+	.icon(more);
+}
+.icon-ok {
+	.icon(ok);
+}
+.icon-pack-1 {
+	.icon(pack-1);
+}
+.icon-pack-2 {
+	.icon(pack-2);
+}
+.icon-plus-circle {
+	.icon(plus-circle);
+}
+.icon-plus {
+	.icon(plus);
+}
+.icon-project-icon {
+	.icon(project-icon);
+}
+.icon-question {
+	.icon(question);
+}
+.icon-save {
+	.icon(save);
+}
+.icon-search-input-light {
+	.icon(search-input-light);
+}
+.icon-search-input {
+	.icon(search-input);
+}
+.icon-send {
+	.icon(send);
+}
+.icon-smile {
+	.icon(smile);
+}
+.icon-star {
+	.icon(star);
+}
+.icon-status {
+	.icon(status);
+}
+.icon-tag {
+	.icon(tag);
+}
+.icon-time {
+	.icon(time);
+}
+.icon-trash {
+	.icon(trash);
+}
+.icon-triangle {
+	.icon(triangle);
+}
+.icon-upload {
+	.icon(upload);
+}

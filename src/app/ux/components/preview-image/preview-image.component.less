@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  position: relative;
+
+  &:hover {
+    .preview-image__menu-icon {
+      visibility: visible;
+    }
+  }
+
+  .preview-image {
+    &__item {
+      display: flex;
+      width: 50px;
+      height: 50px;
+      border-radius: 4px;
+      background-color: #afafaf;
+      background-position: center;
+      background-size: cover;
+      cursor: pointer;
+    }
+
+    &__menu-icon {
+      cursor: pointer;
+      display: flex;
+      visibility: hidden;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      right: -5px;
+      top: -5px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      color: #93A2B3;
+      font-size: 4px;
+    }
+
+    &__context-menu {
+      top: -60px;
+      left: -15px;
+    }
+  }
+}

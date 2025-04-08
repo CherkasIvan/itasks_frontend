@@ -1,0 +1,34 @@
+<div class="task-view-files__header">
+    <div class="task-view-files__title">Файлы</div>
+    <i class="icon-arrow-down task-view-files__context-icon" (click)="toggleMenu()"></i>
+    <ux-context-menu class="preview-image__context-menu" *ngIf="isShowMenu" (clickOutside)="onClose()" [delayClickOutsideInit]="10">
+        <ux-context-menu-item menu1 icon="icon-plus-circle" name="Добавить файл" isSelectFile="true" (onSelectFile)="taskView.onFileUpload($event)"></ux-context-menu-item>
+        <!--<ux-context-menu-item menu1 icon="icon-download" name="Скачать все"></ux-context-menu-item>-->
+        <!--<ux-context-menu-item menu1 icon="icon-question" iconSize="13" name="Отправить на почту"></ux-context-menu-item>-->
+        <!--<ux-context-menu-item menu1 icon="icon-trash" name="Удалить все"></ux-context-menu-item>-->
+    </ux-context-menu>
+</div>
+
+<div class="task-view-files__items">
+    <ux-preview-image *ngFor="let image of filesList | filterBy : {'isImage': true}"
+                      [image]="image"
+                      class="task-view-files__item">
+    </ux-preview-image>
+
+    <ux-upload-image
+            *ngFor="let image of loadingFilesList"
+            [image]="image"
+            (onDelete)="onStopUploadAndDeleteFile(image)"
+            class="task-view-comments-form__file-item">
+    </ux-upload-image>
+
+    <div class="task-view-files__select">
+        <input type="file" [multiple]="true" (change)="taskView.onFileUpload($event.target.files)">
+        <i class="icon-plus task-view-files__icon-file"></i>
+    </div>
+</div>
+
+<div class="task-view-files__items task-view-files__items_mt10 task-view-files__items_row">
+    <ux-preview-file *ngFor="let file of filesList | filterBy : {'isImage': false}" [file]="file"></ux-preview-file>
+</div>
+

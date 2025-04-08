@@ -1,0 +1,229 @@
+@import "../../less/mixins";
+@import "../../less/variables";
+
+:host {
+  width: 100%;
+  height: 100%;
+  background-color: #f1f1f1;;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  ::ng-deep .auth-module {
+
+    &__wrapper {
+      display: flex;
+      width: 900px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: -1px 1px 4px 0 rgba(58, 70, 93, .12);
+    }
+
+    &__left {
+      display: flex;
+      justify-content: space-between;
+      width: 48%;
+      flex-shrink: 0;
+      align-items: center;
+      flex-direction: column;
+      background-color: #f9fbfc;
+      border-radius: 4px 0 0 4px;
+
+      &_no-between {
+        justify-content: normal;
+      }
+    }
+
+    &__right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 52%;
+      min-width: 52%;
+      max-width: 52%;
+      padding: 50px 0;
+
+      svg {
+        width: 300px;
+      }
+
+      image-cropper {
+        padding: 0 20px;
+        border-radius: 20px;
+        max-width: 350px;
+
+        .source-image {
+          border-radius: 4px;
+        }
+      }
+    }
+
+    &__header {
+      font-size: 22px;
+      color: #25282c;
+      margin: 44px 0;
+      .bold();
+
+      &_mrb25 {
+        margin-bottom: 25px;
+      }
+    }
+
+    &__google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 320px;
+      padding: 15px 0;
+      border-radius: 4px;
+      background-color: #ffffff;
+      box-shadow: 0 5px 14px 0 rgba(0, 0, 0, 0.05);
+      color: #b2bac5;
+      font-size: 16px;
+
+      svg {
+        width: 29px;
+        margin-right: 11px;
+      }
+    }
+
+    &__or {
+      position: relative;
+      margin-top: 35px;
+      margin-bottom: 28px;
+    }
+
+    &__or-text {
+      position: relative;
+      z-index: 2;
+      font-size: 14px;
+      line-height: 1.5;
+      color: #747a82;
+      padding: 0 14px;
+      background-color: #f9fbfc;
+      text-transform: uppercase;
+    }
+
+    &__or-line {
+      width: 200px;
+      position: absolute;
+      border-bottom: 1px solid #ddd;
+      right: -73px;
+      top: 11px;
+      z-index: 0;
+    }
+
+    &__form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 0 65px;
+      margin-bottom: 55px;
+    }
+
+    &__form-row {
+      width: 100%;
+      margin-top: 14px;
+
+      &:first-child {
+        margin: 0;
+      }
+    }
+
+    &__button {
+      margin-top: 35px;
+    }
+
+    &__avatar {
+      border-radius: 50%;
+      border: 3px solid #dfe3e9;
+      width: 80px;
+      height: 80px;
+      overflow: hidden;
+      position: relative;
+      background: #fff 50% 50%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      svg {
+        width: 58px;
+        z-index: 0;
+      }
+      input[type=file] {
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        position: absolute;
+        left: -20px;
+        right: -20px;
+        top: -20px;
+        bottom: -20px;
+        outline: none;
+        overflow: hidden;
+        width: 100px;
+        height: 100px;
+        z-index: 2;
+      }
+    }
+
+    &__avatar-img {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      top: 0;
+      background-size: cover;
+      z-index: 1;
+    }
+
+    &__help {
+      width: 267px;
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.43;
+      color: #b0bbc7;
+      margin-bottom: 34px;
+    }
+
+    &__footer {
+      border-top: 1px solid #e4ebef;
+      width: 320px;
+      padding: 10px 0 20px 0;
+      text-align: center;
+    }
+
+    &__footer-label {
+      font-size: 14px;
+      line-height: 1.5;
+      text-align: center;
+      color: #636363;
+      margin-bottom: 3px;
+    }
+
+    &__sign-up-link {
+      font-size: 15px;
+      color: #5ab5f0;
+      border-bottom: 1px solid #5ab5f0;
+    }
+  }
+
+  @media (max-width: @screen-sm-max) {
+    ::ng-deep .auth-module {
+      &__right {
+        display: none;
+      }
+      &__wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+      }
+      &__left {
+        width: 100%;
+        border-radius: 0;
+      }
+    }
+  }
+}

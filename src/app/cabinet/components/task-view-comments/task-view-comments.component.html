@@ -1,0 +1,28 @@
+<div class="task-view-comments__comment-items" *ngIf="messageListPinned.length">
+    <app-task-view-comment-item class="task-view-comments__comment task-view-comment-item_pinned" *ngFor="let message of messageListPinned" [message]="message"></app-task-view-comment-item>
+</div>
+
+<ng-container [ngSwitch]="isShowMoreMessage" *ngIf="messageListHide.length">
+    <div class="task-view-comments__more-message" *ngSwitchCase="false"><span (click)="showMoreMessage()">Остальные {{ messageListHide.length }} сообщений</span></div>
+    <div class="task-view-comments__more-message" *ngSwitchCase="true"><span (click)="hideMoreMessage()">Свернуть сообщения</span></div>
+</ng-container>
+
+
+<div class="task-view-comments__comment-items" *ngIf="isShowMoreMessage">
+    <app-task-view-comment-item class="task-view-comments__comment"
+                                *ngFor="let message of messageListHide; let index = index"
+                                [message]="message"
+                                [prevUserId]="index > 0 ? messageListHide[index - 1].authorId : false"
+    ></app-task-view-comment-item>
+</div>
+
+
+<div class="task-view-comments__comment-items">
+    <app-task-view-comment-item class="task-view-comments__comment"
+                                *ngFor="let message of messageList; let index = index"
+                                [message]="message"
+                                [prevUserId]="index > 0 ? messageList[index - 1].authorId : false"
+    >
+    </app-task-view-comment-item>
+  <div id="destination"></div>
+</div>

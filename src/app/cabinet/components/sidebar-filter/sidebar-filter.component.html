@@ -1,0 +1,145 @@
+<div class="sidebar-filter__header">
+  <div class="sidebar-filter__title">{{filterModel.id ? 'Редактировать: "' + filterModel.name +'"' : 'Новый фильтр'}}
+  </div>
+  <i class="icon-close sidebar-filter__close" (click)="onClose()"></i>
+</div>
+
+<div class="sidebar-filter__scroll">
+  <div class="sidebar-filter__form-element">
+    <div class="form__row">
+      <i class="input-icon input-icon_left0 input-icon_top20 icon-search-input-light sidebar-filter__icon"></i>
+      <input type="search" placeholder="Поиск текста" class="input input_icon input_theme-2"
+             [(ngModel)]="filterModel.text">
+    </div>
+  </div>
+
+  <div class="sidebar-filter__form-element" *ngIf="users.length">
+    <ux-select [items]="users"
+               [value]="filterModel.responsibleIds"
+               (onSelect)="onChangeResponsible($event)"
+               #selectUser>
+      <ux-select-header-user icon="icon-man" placeholder="Исполнитель">
+        <ux-user
+          items
+          *ngFor="let item of selectUser.selectedModel"
+          [user]="item">
+        </ux-user>
+      </ux-select-header-user>
+      <ux-popup-user items
+                     class="select-popup_top-40"
+                     header="Исполнитель"
+                     [multiple]="true"
+                     [value]="selectUser.value"
+                     (selectItem)="selectUser.select($event)">
+      </ux-popup-user>
+    </ux-select>
+  </div>
+
+  <div class="sidebar-filter__form-element" *ngIf="users.length">
+    <ux-select [items]="users"
+               [value]="filterModel.authorIds"
+               (onSelect)="onChangeAuthor($event)"
+               #selectUserAuthor>
+      <ux-select-header-user icon="icon-edit" placeholder="Автор">
+        <ux-user
+          items
+          *ngFor="let item of selectUserAuthor.selectedModel"
+          [user]="item">
+        </ux-user>
+      </ux-select-header-user>
+      <ux-popup-user items
+                     class="select-popup_top-70"
+                     header="Автор"
+                     [multiple]="true"
+                     [value]="selectUserAuthor.value"
+                     (selectItem)="selectUserAuthor.select($event)">
+      </ux-popup-user>
+    </ux-select>
+  </div>
+
+  <div class="sidebar-filter__form-element" *ngIf="statuses.length">
+    <ux-select [items]="statuses"
+               [value]="filterModel.statusIds"
+               (onSelect)="onChangeStatus($event)"
+               #selectStatus>
+      <ux-select-header-user icon="icon-status" placeholder="Статус">
+        <ux-status items
+                   *ngFor="let item of selectStatus.selectedModel"
+                   [status]="item">
+        </ux-status>
+      </ux-select-header-user>
+      <ux-popup-status items
+                       class="select-popup_top-140"
+                       header="Статус"
+                       [multiple]="true"
+                       [value]="selectStatus.value"
+                       (selectItem)="selectStatus.select($event)">
+      </ux-popup-status>
+    </ux-select>
+
+  </div>
+
+  <div class="sidebar-filter__form-element" *ngIf="tags.length">
+    <ux-select [items]="tags"
+               [value]="filterModel.tagIds"
+               (onSelect)="onChangeTag($event)"
+               #selectTag>
+      <ux-select-header-user icon="icon-tag" placeholder="Тэги">
+        <ux-tag items
+                *ngFor="let item of selectTag.selectedModel"
+                [model]="item">
+        </ux-tag>
+      </ux-select-header-user>
+      <ux-popup-tag items
+                    class="select-popup_top-190"
+                    header="Тег"
+                    [multiple]="true"
+                    [value]="selectTag.value"
+                    (selectItem)="selectTag.select($event)">
+      </ux-popup-tag>
+    </ux-select>
+
+  </div>
+
+  <div class="sidebar-filter__form-element sidebar-filter__form-element_no-border">
+    <span class="sidebar-filter__label-radio">Искать в архиве</span>
+
+    <div class="sidebar-filter__right">
+      <input type="radio"
+             class="radio"
+             id="archive-yes"
+             name="archive"
+             [value]="1"
+             [(ngModel)]="filterModel.isArchive">
+      <label class="sidebar-filter__radio-label" for="archive-yes">Да</label>
+
+      <input type="radio"
+             class="radio"
+             id="archive-no"
+             name="archive"
+             [value]="0"
+             [(ngModel)]="filterModel.isArchive">
+      <label class="sidebar-filter__radio-label sidebar-filter__radio-label_ml-14" for="archive-no">Нет</label>
+    </div>
+  </div>
+</div>
+
+<div class="sidebar-filter__footer">
+  <div class="sidebar-filter__footer-top">
+    <button class="button button_green sidebar-filter__filter-btn" (click)="onSubmit()">Применить фильтр</button>
+  </div>
+
+  <div class="sidebar-filter__footer-bottom" *ngIf="footerView == 'saveFilter'">
+    <input class="input input_theme-1 sidebar-filter__filter-name"
+           [(ngModel)]="filterModel.name"
+           [autoFocus]="true"
+           type="text"
+           placeholder="Введите название фильтра">
+    <button class="button button_plr16" type="button" (click)="onSaveFilter()">OK</button>
+  </div>
+
+  <div class="sidebar-filter__footer-bottom" *ngIf="footerView == 'default'">
+    <button class="button button_plr16" type="button" (click)="onSaveFilter()">Сохранить</button>
+    <a class="sidebar-filter__reset" (click)="onResetFilter()">Сбросить фильтр</a>
+  </div>
+</div>

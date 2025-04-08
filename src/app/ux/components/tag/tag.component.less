@@ -1,0 +1,115 @@
+@import "~less/variables.less";
+
+.hover(@background) {
+  .tag {
+    &__text {
+      background-color: darken(@background, 8%);
+    }
+    &__ico {
+      fill: darken(@background, 8%);
+    }
+  }
+}
+
+.background(@background) {
+  &__text {
+    background-color: @background;
+  }
+  &__ico {
+    fill: @background;
+  }
+}
+
+:host {
+  white-space: nowrap;
+  display: flex;
+  height: 17px;
+  align-items: center;
+  max-width: 200px;
+  cursor: pointer;
+
+  svg {
+    height: 17px;
+  }
+
+  &.tag {
+    &_bg-1 & {
+      .background(@tag-theme-1);
+    }
+    &_bg-2 & {
+      .background(@tag-theme-2);
+    }
+    &_bg-3 & {
+      .background(@tag-theme-3);
+    }
+    &_bg-4 & {
+      .background(@tag-theme-4);
+    }
+    &_bg-5 & {
+      .background(@tag-theme-5);
+    }
+    &_bg-6 & {
+      .background(@tag-theme-6);
+    }
+    &_bg-7 & {
+      .background(@tag-theme-7);
+    }
+    &_bg-8 & {
+      .background(@tag-theme-8);
+    }
+
+    &_no-text {
+      .tag__text {
+        font-size: 0;
+      }
+    }
+  }
+
+  &:hover {
+    &.tag {
+      &_bg-1 {
+        .hover(@tag-theme-1);
+      }
+      &_bg-2 {
+        .hover(@tag-theme-2);
+      }
+      &_bg-3 {
+        .hover(@tag-theme-3);
+      }
+      &_bg-4 {
+        .hover(@tag-theme-4);
+      }
+      &_bg-5 {
+        .hover(@tag-theme-5);
+      }
+      &_bg-6 {
+        .hover(@tag-theme-6);
+      }
+      &_bg-7 {
+        .hover(@tag-theme-7);
+      }
+      &_bg-8 {
+        .hover(@tag-theme-8);
+      }
+    }
+  }
+
+  .tag {
+    &__ico {
+      min-width: 11px;
+    }
+    &__text {
+      min-width: 16px;
+      height: 100%;
+      margin-left: -1px;
+      line-height: 17px;
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: -0.2px;
+      padding-right: 4px;
+      border-radius: 0 4px 4px 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -1,0 +1,77 @@
+@import "~less/variables";
+
+.no-mac {
+  :host {
+    .sidebar-user {
+      &__scroll {
+        padding-right: 15px;
+      }
+    }
+  }
+}
+
+:host {
+  display: block;
+  min-width: 48px;
+  max-width: 48px;
+  height: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 1px 30px 0 rgba(61, 61, 61, 0.04), inset 0 -1px 0 0 #e4ebef;
+  @media (max-width: @screen-sm-min) {
+    display: none;
+  }
+  .sidebar-user {
+
+    &__btn {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: solid 1px #d3d9de;
+      width: 36px;
+      height: 36px;
+      margin-top: 20px;
+      cursor: pointer;
+      visibility: hidden;
+      color: #d3d9de;
+      i {
+        margin-top: 3px;
+      }
+
+      &:hover {
+        border-color: #3cd2c8;
+        color: #3cd2c8;
+      }
+
+      &_settings {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+
+    &__scroll {
+      display: flex;
+      height: 100%;
+      padding-right: 20px;
+      overflow-y: scroll;
+      min-width: 68px;
+      flex-direction: column;
+      align-items: center;
+
+      &:hover {
+        .sidebar-user {
+          &__btn {
+            visibility: visible;
+          }
+        }
+      }
+    }
+
+    &__avatar {
+      margin-top: 10px;
+      width: 36px;
+      height: 36px;
+    }
+  }
+}

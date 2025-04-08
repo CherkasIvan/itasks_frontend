@@ -1,0 +1,7 @@
+<app-task-list class="view-table__table"
+               (particleLoad)="onParticleLoad()"
+               [ngClass]="{'view-table__table_open': isOpenTask}">
+</app-task-list>
+<app-task-view class="view-table__view view-table__view_open"
+               *ngIf="isOpenTask">
+</app-task-view>

@@ -1,0 +1,22 @@
+<ux-tag class="tag_no-text" [model]="tagCopy"></ux-tag>
+<div class="setting-tag-item__text">
+  <input type="text"
+         class="input input_theme-1 input_border-focus"
+         [(ngModel)]="tagCopy.name"
+         (focus)="onFocus()"
+         (blur)="onBlur()"
+         placeholder="Добавить новый тег"
+         (keydown.enter)="onSave()">
+</div>
+<ng-container *ngIf="!isEditMode">
+  <div class="setting-tag-item__colors">
+    <div class="setting-tag-item__color-wrapper" *ngFor="let item of cssClasses">
+      <div [ngClass]="item.cssClass"
+           [class.setting-tag-item__color_active]="item.cssClassApi === tagCopy.cssClass"
+           (click)="onChangeCssClass(item.cssClassApi)"
+           class="setting-tag-item__color">
+      </div>
+    </div>
+  </div>
+  <span class="setting-tag-item__delete" (click)="onDelete()" *ngIf="!isNew"><i class="icon-close"></i></span>
+</ng-container>

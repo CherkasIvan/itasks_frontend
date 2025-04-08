@@ -1,0 +1,10 @@
+<i [ngClass]="icon"
+   class="context-menu-item__icon"
+   [style.fontSize.px]="iconSize"
+   [style.color]="iconColor"></i>
+<div class="context-menu-item__name">{{ name }}</div>
+<input type="file"
+       class="context-menu-item__file"
+       *ngIf="isSelectFile"
+       [multiple]="true"
+       (change)="onSelectFile.emit($event.target.files)">

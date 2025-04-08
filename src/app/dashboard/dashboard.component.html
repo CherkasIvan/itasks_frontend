@@ -1,0 +1,72 @@
+<div class="dashboard__wrapper" style="background-image: url(assets/jeremy-bishop-502211.png)">
+
+    <div class="dashboard__left">
+        <div class="dashboard__logo">itasks<span>.</span>pro</div>
+        <div class="dashboard__quote">
+            <div class="dashboard__quote-share"></div>
+            <div class="dashboard__quote-text">«Наши достижения всегда соответсвуют нашим амбициям.»</div>
+            <div class="dashboard__quote-author">А. В. Курпатов</div>
+        </div>
+
+        <div class="dashboard__project-menu" [ngClass]="{'dashboard__project-menu_open': isOpenChangeProjectListPopup}">
+            <div class="dashboard__project-menu-header" (click)="onOpenChangeProjectListPopup()"><span>{{ isArchiveProjectList ? 'Проекты в архиве' : 'Проекты' }}</span> <i class="icon-arrow-down"></i></div>
+            <div class="dashboard__project-menu-popup">
+                <div class="dashboard__project-menu-item" (click)="onChangeProjectList(false)">
+                    <i class="icon-circle-check"></i> Активные проекты
+                </div>
+                <div class="dashboard__project-menu-item" (click)="onChangeProjectList(true)">
+                    <i class="icon-archive"></i> Проекты в архиве
+                </div>
+            </div>
+        </div>
+
+      <div class="dashboard__project-list" [ngSwitch]="isArchiveProjectList">
+
+        <ng-container *ngSwitchCase="false">
+          <a class="dashboard__project-item"
+             [routerLink]="['/cabinet', project.id, 'load', 'list']"
+             *ngFor="let project of activeProjectList">
+            <i class="icon-project-icon dashboard__project-item-icon"></i>
+            <div class="dashboard__project-item-text">{{project.name}}</div>
+            <i class="icon-more dashboard__project-item-more"
+               *ngIf="project.canUpdate"
+               (click)="onOpenProjectMenu($event, project.id)"></i>
+          </a>
+        </ng-container>
+
+        <ng-container *ngSwitchCase="true">
+          <a class="dashboard__project-item"
+             [routerLink]="['/cabinet', project.id, 'load', 'list']"
+             *ngFor="let project of archiveProjectList">
+            <i class="icon-project-icon dashboard__project-item-icon"></i>
+            <div class="dashboard__project-item-text">{{project.name}}</div>
+            <i class="icon-more dashboard__project-item-more"
+               *ngIf="project.canUpdate"
+               (click)="onOpenProjectMenu($event, project.id)"></i>
+          </a>
+        </ng-container>
+
+      </div>
+
+        <div class="dashboard__footer">
+            <div class="dashboard__add-btn" (click)="onOpenCreateForm($event)"><span><i class="icon-plus"></i></span>Добавить проект</div>
+
+            <!--<div class="dashboard__footer-row">-->
+                <!--<ux-avatar [user]="user" class="dashboard__avatar"></ux-avatar>-->
+                <!--<a class="button_upgrade">Upgrade your plan</a>-->
+            <!--</div>-->
+        </div>
+    </div>
+</div>
+
+<app-project-menu *ngIf="(popupProjectMenu$ | async).isOpen"
+                  [ngStyle]="{'bottom.px': (popupProjectMenu$ | async).position}">
+</app-project-menu>
+
+<app-project-form *ngIf="(popupProjectForm$ | async).isOpen"
+                  [ngStyle]="{
+                  'top.px': (popupProjectForm$ | async).top,
+                  'left.px': (popupProjectForm$ | async).left
+                  }"
+                  class="project-menu__project-form">
+</app-project-form>

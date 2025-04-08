@@ -1,0 +1,10 @@
+<app-burger class="header__burger" (click)="onToggleSidebar()" *ngIf="!(cabinetComponent.isShowSidebar$ | async)"></app-burger>
+<app-menu class="header__menu"></app-menu>
+<app-fast-search class="header__fast-search"></app-fast-search>
+<div class="header__right">
+    <ux-avatar [user]="user" class="header__avatar" (click)="onToggleMenu()"></ux-avatar>
+    <ux-user-menu *ngIf="isOpenMenu"
+                  (clickOutside)="onClose()"
+                  [delayClickOutsideInit]="true">
+    </ux-user-menu>
+</div>

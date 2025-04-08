@@ -1,0 +1,13 @@
+<div class="menu__wrapper" (click)="onMoveSolid($event)">
+  <a class="menu__item"
+     routerLink="list"
+     routerLinkActive="menu__item_active"
+     [queryParams]="{id: null, sort: null}"
+     queryParamsHandling="merge">Table</a>
+  <a class="menu__item"
+     routerLink="board"
+     routerLinkActive="menu__item_active"
+     [queryParams]="{id: null, sort: null}"
+     queryParamsHandling="merge">Board</a>
+  <span class="menu__active" [ngStyle]="{'left.px': headerActiveLineLeft,'width.px': headerActiveLineWidth}"></span>
+</div>

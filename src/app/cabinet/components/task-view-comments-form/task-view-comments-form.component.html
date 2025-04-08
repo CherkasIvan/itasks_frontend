@@ -1,0 +1,62 @@
+<div class="task-view-comments-form__edit-content" *ngIf="message.id">
+    <div class="task-view-comments-form__edit-content-left">
+        <div class="task-view-comments-form__edit-content-close" (click)="onCloseEdit()"><i class="icon-close"></i></div>
+    </div>
+    <div class="task-view-comments-form__edit-content-right">
+        <div class="task-view-comments-form__edit-content-header">Редактировать сообщение</div>
+        <div class="task-view-comments-form__edit-content-text">{{messageOrigin.message}}</div>
+    </div>
+</div>
+<div class="task-view-comments-form__row">
+    <textarea autosize
+              rows="1"
+              class="task-view-comments-form__comment-form"
+              placeholder="Написать сообщение…"
+              [autoFocus]="true"
+              (keydown.enter)="onSubmit($event)"
+              (paste)="onPasteFile($event)"
+              [(ngModel)]="message.message">
+    </textarea>
+  <div class="task-view-comments-form__controls">
+    <div class="task-view-comments-form__icons">
+      <!--<span class="task-view-comments-form__icon"><i class="icon-smile"></i></span>-->
+      <span class="task-view-comments-form__icon" (click)="onOpenTimeForm()"><i class="icon-time"></i></span>
+      <span class="task-view-comments-form__icon task-view-comments-form__icon_file"><input #inputUploadFiles type="file" [multiple]="true" (change)="onFileUpload($event.target.files)"><i
+              class="icon-add"></i></span>
+      <span class="task-view-comments-form__icon task-view-comments-form__icon_active" (click)="onSubmit($event)"><i class="icon-send"></i></span>
+    </div>
+    <app-task-view-comments-time *ngIf="isOpenTimeForm"
+                                 (clickOutside)="onCloseTimeForm()"
+                                 [delayClickOutsideInit]="true"
+                                 (save)="onSetTime($event)"
+                                 class="task-view-comments-form__time-popup">
+    </app-task-view-comments-time>
+
+    <!--<span class="task-view-comments-form__info">Enter<br>для отправки</span>-->
+  </div>
+</div>
+
+<div class="task-view-comments-form__files" *ngIf="message.files.length || files.length">
+    <div class="task-view-comments-form__files-images">
+        <ux-preview-image *ngFor="let image of message.files | filterBy : {'isImage': true}"
+                          [image]="image"
+                          class="task-view-comments-form__file-item">
+        </ux-preview-image>
+
+        <ux-upload-image
+                *ngFor="let image of files"
+                [image]="image"
+                (onDelete)="onStopUploadAndDeleteFile(image)"
+                class="task-view-comments-form__file-item">
+        </ux-upload-image>
+    </div>
+
+    <div class="task-view-comments-form__files-file">
+        <ux-preview-file *ngFor="let file of message.files | filterBy : {'isImage': false}" [file]="file"></ux-preview-file>
+    </div>
+</div>
+<app-task-view-comment-form-time *ngIf="message.time"
+                                 [time]="message.time"
+                                 (clear)="onClearTime()"
+                                 class="task-view-comments-form__time">
+</app-task-view-comment-form-time>

@@ -1,0 +1,24 @@
+<div class="preview-image__item"
+     [style.backgroundImage]="'url(' + url + ')'"
+     (click)="imageService.open(image)">
+</div>
+
+<i class="icon-arrow-down preview-image__menu-icon" (click)="onToggleMenu()"></i>
+<ux-context-menu class="preview-image__context-menu"
+                 *ngIf="isShowMenu"
+                 [delayClickOutsideInit]="true"
+                 (clickOutside)="onCloseMenu($event)">
+    <ux-context-menu-item menu1
+                          icon="icon-eye"
+                          iconSize="11.5"
+                          name="Просмотр"
+                          (click)="imageService.open(image)">
+    </ux-context-menu-item>
+    <ux-context-menu-item menu1
+                          icon="icon-download"
+                          name="Скачать"
+                          (click)="onDownloadFile()">
+    </ux-context-menu-item>
+    <!--<ux-context-menu-item menu1 icon="icon-question" iconSize="13" name="Отправить на почту"></ux-context-menu-item>-->
+    <!--<ux-context-menu-item menu1 icon="icon-trash" name="Удалить"></ux-context-menu-item>-->
+</ux-context-menu>

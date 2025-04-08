@@ -1,0 +1,134 @@
+@import "~less/variables.less";
+
+.background(@background) {
+  &:after {
+    background-color: @background;
+  }
+  &:hover {
+    border: 1px solid @background;
+  }
+}
+
+:host {
+  display: block;
+  .select-color {
+    &__label {
+      padding-left: 27px;
+      padding-right: 27px;
+    }
+
+    &__items {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 17px;
+      justify-content: center;
+    }
+
+    &__item-color {
+      width: 26px;
+      height: 26px;
+      margin: 4px 8px;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      position: relative;
+      cursor: pointer;
+      transition: border 0.2s;
+
+      &:after {
+        content: '';
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        border-radius: 100%;
+      }
+
+      &_bg-1 {
+        .background(@status-theme-1);
+      }
+      &_bg-2 {
+        .background(@status-theme-2);
+      }
+      &_bg-3 {
+        .background(@status-theme-3);
+      }
+      &_bg-4 {
+        .background(@status-theme-4);
+      }
+      &_bg-5 {
+        .background(@status-theme-5);
+      }
+      &_bg-6 {
+        .background(@status-theme-6);
+      }
+      &_bg-7 {
+        .background(@status-theme-7);
+      }
+      &_bg-8 {
+        .background(@status-theme-8);
+      }
+      &_bg-9 {
+        .background(@status-theme-9);
+      }
+      &_bg-10 {
+        .background(@status-theme-10);
+      }
+      &_bg-11 {
+        .background(@status-theme-11);
+      }
+      &_bg-12 {
+        .background(@status-theme-12);
+      }
+
+      &_active {
+        &.select-color__item-color {
+          &_bg-1 {
+            border: 1px solid @status-theme-1;
+          }
+          &_bg-2 {
+            border: 1px solid @status-theme-2;
+          }
+          &_bg-3 {
+            border: 1px solid @status-theme-3;
+          }
+          &_bg-4 {
+            border: 1px solid @status-theme-4;
+          }
+          &_bg-5 {
+            border: 1px solid @status-theme-5;
+          }
+          &_bg-6 {
+            border: 1px solid @status-theme-6;
+          }
+          &_bg-7 {
+            border: 1px solid @status-theme-7;
+          }
+          &_bg-8 {
+            border: 1px solid @status-theme-8;
+          }
+          &_bg-9 {
+            border: 1px solid @status-theme-9;
+          }
+          &_bg-10 {
+            border: 1px solid @status-theme-10;
+          }
+          &_bg-11 {
+            border: 1px solid @status-theme-11;
+          }
+          &_bg-12 {
+            border: 1px solid @status-theme-12;
+          }
+        }
+      }
+    }
+  }
+
+  &.select-color {
+    &_no-padding {
+      .select-color__items {
+        padding: 0;
+      }
+    }
+  }
+}

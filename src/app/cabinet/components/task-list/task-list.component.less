@@ -1,0 +1,149 @@
+@import "~less/variables";
+
+:host {
+  display: block;
+  background: #fff;
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12);
+
+  @media (max-width: @screen-sm-min) {
+    .task-list__tag {
+      display: none;
+    }
+  }
+
+  .task-list {
+
+    &__header {
+      display: flex;
+      height: 50px;
+      border-bottom: 1px solid #e6eaee;
+    }
+
+    &__tasks {
+      height: ~'calc(100% - 67px)';
+      overflow-y: scroll;
+      margin: 17px 0;
+      padding-bottom: 45px;
+    }
+
+    &__item {
+      padding: 4px 0;
+      border-bottom: 1px solid #e6eaee;
+      display: flex;
+      align-items: center;
+    }
+
+    &__task {
+      cursor: pointer;
+      padding: 1px 20px 0 20px;
+      margin-top: -1px;
+
+      &:hover, &_active {
+        background-color: #eff5f6;
+
+        .task-list__item {
+          border-color: transparent;
+        }
+      }
+    }
+
+    &__toggle-back-log {
+      cursor: pointer;
+      text-transform: lowercase;
+      font-size: 14px;
+      margin-right: 10px;
+      color: #bfc7cf;
+      white-space: nowrap;
+
+      &_active {
+        color: #5ab5ef;
+      }
+    }
+
+    &__right {
+      margin-left: auto;
+      flex-shrink: 0;
+      flex-wrap: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    &__tag {
+      margin-right: 5px;
+    }
+
+    &__left {
+      display: flex;
+      margin-left: 13px;
+      overflow: hidden;
+      white-space: nowrap;
+
+      &_center {
+        align-items: center;
+      }
+    }
+
+    &__name {
+      font-size: 14px;
+      color: #25282c;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      &_archive {
+        text-decoration: line-through;
+      }
+
+      input {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        padding: 11px 0;
+      }
+    }
+
+    &__status {
+      margin-right: 7px;
+      top: -3px;
+    }
+
+    &__plus-btn {
+      transition: transform .3s;
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: solid 1px #d3d9de;
+      width: 31px;
+      height: 31px;
+      cursor: pointer;
+      color: #d3d9de;
+
+      i {
+        transform: rotate(90deg);
+        text-align: center;
+        align-items: center;
+        width: 14px;
+        height: 14px;
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -7px 0 0 -7px;
+      }
+
+      &_open {
+        transform: rotate(45deg);
+      }
+
+      &:hover {
+        border-color: #3cd2c8;
+        color: #3cd2c8;
+      }
+    }
+  }
+}

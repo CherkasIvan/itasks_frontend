@@ -1,0 +1,51 @@
+@import "~less/variables";
+
+:host {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 16px 16px 0 16px;
+  justify-content: center;
+
+  @media (max-width: @screen-sm-min) {
+    padding: 16px 0 0;
+  }
+
+  .view-table {
+    &__table {
+      //max-width: 700px;
+      width: 90%;
+      flex-shrink: 0;
+      &_open {
+        margin-right: 8px;
+        width: 40%;
+        max-width: 40%;
+      }
+    }
+
+    &__view {
+      background: #fff;
+      border-radius: 4px;
+      width: 60%;
+      flex-shrink: 0;
+      max-width: 60%;
+
+      &_open {
+        margin-left: 8px;
+      }
+
+      @media (max-width: @screen-md-max) {
+        margin-left: 0;
+        z-index: 6;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        max-width: 100%;
+        width: 100%;
+        border-radius: 0;
+      }
+    }
+  }
+}

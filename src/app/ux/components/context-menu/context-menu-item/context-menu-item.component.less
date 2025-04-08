@@ -1,0 +1,39 @@
+:host {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  border-radius: 4px;
+  height: 32px;
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background-color: #eff5f6;
+  }
+
+  .context-menu-item {
+    &__icon {
+      color: #b5bfcb;
+      font-size: 15px;
+      margin-right: 10px;
+    }
+    &__name {
+      font-size: 13px;
+      line-height: 2.77;
+      color: #25282c;
+    }
+    &__file {
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      outline: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+  }
+}

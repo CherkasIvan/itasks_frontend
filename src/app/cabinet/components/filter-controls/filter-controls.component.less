@@ -1,0 +1,42 @@
+:host {
+  display: flex;
+  flex-shrink: 0;
+  height: 26px;
+  background-color: #fff;
+  position: relative;
+  .filter-controls {
+    &__active-filter {
+      display: flex;
+      border-radius: 17px;
+      background-color: #5ab5f0;
+      color: #fff;
+      height: 20px;
+      font-size: 13px;
+      padding: 0 10px;
+      line-height: 20px;
+      align-items: center;
+
+      i {
+        font-size: 10px;
+        margin-top: 2px;
+        margin-left: 6px;
+      }
+    }
+
+    &__right {
+      display: flex;
+      margin-left: auto;
+      align-items: center;
+    }
+
+    &__toggle-filter {
+      display: flex;
+      min-width: 26px;
+      max-width: 26px;
+      margin-right: 7px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  }
+}

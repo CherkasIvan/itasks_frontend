@@ -1,0 +1,18 @@
+<div class="preview-file__link">
+    <a target="_blank" [href]="link">
+        <i class="icon-file preview-file__icon"></i>
+        <div class="preview-file__name">{{ file.originalName }}</div>
+    </a>
+    <i class="preview-file__menu-icon icon-arrow-down preview-image__menu-icon" (click)="onToggleMenu()"></i>
+    <ux-context-menu class="preview-file__context-menu"
+                     *ngIf="isShowMenu"
+                     [delayClickOutsideInit]="true"
+                     (clickOutside)="onCloseMenu($event)">
+        <!--<ux-context-menu-item menu1 icon="icon-eye" iconSize="11.5" name="Просмотр"></ux-context-menu-item>-->
+        <ux-context-menu-item menu1 icon="icon-download"
+                              (click)="onDownloadFile()"
+                              name="Скачать"></ux-context-menu-item>
+        <!--<ux-context-menu-item menu1 icon="icon-question" iconSize="13" name="Отправить на почту"></ux-context-menu-item>-->
+        <!--<ux-context-menu-item menu1 icon="icon-trash" name="Удалить"></ux-context-menu-item>-->
+    </ux-context-menu>
+</div>

@@ -1,0 +1,39 @@
+<div class="select-popup__header">
+    <div class="select-popup__title">Сменить статус</div>
+</div>
+
+<div class="form__row select-popup__search">
+    <i class="input-icon icon-search-input"></i>
+    <input class="input input_theme-1 input_icon"
+           (keydown.arrowup)="onArrowUp()"
+           (keydown.arrowdown)="onArrowDown()"
+           (keydown.enter)="onSelect(items[selectIndex])"
+           autoFocus
+           placeholder="Сменить статус"
+           type="search"
+           [(ngModel)]="match">
+</div>
+
+<div class="select-popup__items">
+    <div class="select-popup__item"
+         *ngFor="let item of items | filter: match; let i = index"
+         [ngClass]="{
+         'select-popup__item_active': hasSelected(item.id),
+         'select-popup__item_hover': selectIndex === i
+         }"
+         (click)="onSelect(item)">
+        <div class="popup-status__color" [ngStyle]="{'background-color': item.color}"></div>
+        <div class="select-popup__underline">
+            <div class="select-popup__text">{{ item.name }}</div>
+            <div class="select-popup__check">
+                <svg width="12px" height="10px" viewBox="0 0 12 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Final" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="1_Board_filter_2" transform="translate(-1419.000000, -216.000000)" fill-rule="nonzero" fill="#3CD2C8">
+                            <path d="M1429.00933,216.446917 C1427.0451,219.144225 1425.08006,221.841533 1423.11583,224.538455 C1423.41606,224.371607 1423.7159,224.20476 1424.01614,224.037527 C1424.70279,224.033288 1424.82987,224.468711 1424.17698,223.835614 C1423.69684,223.36975 1423.2167,222.903501 1422.73656,222.437638 C1422.08486,221.805312 1421.43356,221.172986 1420.78186,220.54066 C1419.83032,219.61741 1418.35615,221.047753 1419.30729,221.971389 C1420.43953,223.069578 1421.57097,224.167768 1422.70281,225.265958 C1423.5213,226.060122 1424.31121,226.390735 1425.0896,225.322216 C1426.99625,222.704286 1428.9033,220.086356 1430.80955,217.468426 C1431.58794,216.399907 1429.77859,215.391113 1429.00933,216.446917 L1429.00933,216.446917 Z" id="Shape-Copy-6"></path>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>

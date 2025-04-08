@@ -1,0 +1,29 @@
+<div class="user-menu__header">
+  <ux-avatar class="user-menu__avatar avatar_online-big" [user]="user"></ux-avatar>
+  <div class="user-menu__name">{{user.firstName}} {{user.lastName}}</div>
+</div>
+
+<div class="user-menu__menu">
+  <div class="user-menu__menu-item user-menu__menu-item_w19" *ngIf="user.canAdmin" (click)="onOpenSettings()">
+    <span>Настройки проекта</span>
+  </div>
+
+  <a class="user-menu__menu-item"
+     target="_blank"
+     href="https://t.me/itask_bot?start={{user.telegramToken}}">
+    <span>Телеграм-бот</span>
+  </a>
+
+  <div class="user-menu__menu-item" (click)="onLogout()">
+    <span>Выход</span>
+  </div>
+
+  <div class=" user-menu__menu-other">
+    <a class="user-menu__menu-item" href="https://logtime.ru" target="_blank">
+      <span>logtime.ru</span>
+    </a>
+    <a class="user-menu__menu-item" href="https://mybase.pro" target="_blank">
+      <span>mybase.pro</span>
+    </a>
+  </div>
+</div>

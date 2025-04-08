@@ -1,0 +1,26 @@
+<div class="filter-popup__header">
+  Сохраненные фильтры
+</div>
+
+<div class="filter-popup__input-wrapper">
+  <input type="text"
+         class="filter-popup__input input input_theme-1"
+         placeholder="Поиск"
+         (input)="onFilterItems($event.target.value)">
+</div>
+
+<div class="filter-popup__list">
+  <div class="filter-popup__item" *ngFor="let filter of filteredFilters" (click)="onSubmitFilter(filter)">
+    <i class="icon-drag filter-popup__drag"></i>
+    <div class="filter-popup__name">{{filter.name}}</div>
+    <div class="filter-popup__right">
+      <span class="filter-popup__control" (click)="$event.stopPropagation();onEdit(filter)"><i class="icon-edit-2"></i></span>
+      <span class="filter-popup__control" (click)="$event.stopPropagation();onDelete(filter)"><i class="icon-delete"></i></span>
+    </div>
+  </div>
+</div>
+
+<div class="filter-popup__footer">
+  <button class="button button_green button_full-width" (click)="onOpenSidebar()">Расширенный фильтр</button>
+</div>
+

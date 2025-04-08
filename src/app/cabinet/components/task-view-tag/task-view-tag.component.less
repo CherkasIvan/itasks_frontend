@@ -1,0 +1,36 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  position: relative;
+  .task-view-tag {
+    &__item {
+      margin: 0 5px 5px 0;
+    }
+
+    &__add-tag-wrapper {
+      position: relative;
+    }
+
+    &__add-tag-popup {
+      top: -85px;
+      left: 50px;
+    }
+
+    &__add {
+      width: 25px;
+      height: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b5bfcb;
+      font-size: 7px;
+      border: solid 1px #b5bfcb;
+      border-radius: 10px;
+      cursor: pointer;
+      i {
+        height: 10px;
+      }
+    }
+  }
+}

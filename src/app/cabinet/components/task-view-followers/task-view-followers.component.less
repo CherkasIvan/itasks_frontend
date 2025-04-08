@@ -1,0 +1,71 @@
+@import "../../../../less/mixins";
+
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f9fbfc;
+  border-top: 1px solid #e4ebef;
+  align-items: center;
+  padding: 8px 20px;
+
+  .task-view-followers {
+
+    &__label {
+      color: #a1acb7;
+      font-family: ProximaNovaRegular;
+      font-size: 13px;
+    }
+
+    &__follower {
+      display: flex;
+      flex-shrink: 0;
+      margin-left: 8px;
+      width: 24px;
+      height: 24px;
+    }
+
+    &__user-popup {
+      bottom: 43px;
+      left: -100px;
+      top: auto;
+    }
+
+    &__add {
+      position: relative;
+      margin-left: 8px;
+    }
+
+    &__add-btn {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 1px solid #e0e4e9;
+      color: #e0e4e9;
+      cursor: pointer;
+      line-height: 1;
+
+      i {
+        font-size: 10px;
+        width: 9.5px;
+        height: 11px;
+      }
+
+      &:hover {
+        color: #29beb0;
+        border: 1px solid #29beb0;
+      }
+    }
+  }
+
+  @media (max-width: @screen-sm-max) {
+    .task-view-followers {
+      &__label {
+        display: none;
+      }
+    }
+  }
+}

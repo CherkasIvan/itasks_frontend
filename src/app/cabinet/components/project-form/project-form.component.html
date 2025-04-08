@@ -1,0 +1,31 @@
+<form class="form"
+      novalidate
+      (clickOutside)="onClose($event)"
+      [exclude]="'.sidebar__plus, .project-menu__item, .dashboard__add-btn'"
+      (ngSubmit)="onSubmit($event)"
+      #projectForm="ngForm">
+    <div class="form__row form__row_column project-form__row">
+        <label class="label label_style-1">Название проекта</label>
+        <input #nameField="ngModel"
+               [(ngModel)]="model.name"
+               class="input input_theme-1"
+               placeholder="Введите название"
+               type="text"
+               required
+               autoFocus="true"
+               name="name">
+    </div>
+
+    <!--<app-select-icon class="project-form__select-icon"></app-select-icon>-->
+    <app-select-color
+      (onChangeColor)="onChangeColor($event)"
+      [color]="model.color"
+      class="project-form__select-color">
+    </app-select-color>
+
+    <div class="project-form__footer">
+        <button class="button" type="button" (click)="onClose($event)">Отмена</button>
+        <button [disabled]="projectForm.invalid || isSending"
+                class="button button_green">Сохранить</button>
+    </div>
+</form>

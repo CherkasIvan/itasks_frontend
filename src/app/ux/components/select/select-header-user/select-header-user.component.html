@@ -1,0 +1,8 @@
+<div class="select-header-user__header select-header-user_theme-2" (click)="selectComponent.toggle()">
+    <i class="select-header-user__icon" [ngClass]="icon"></i>
+    <div class="select-header-user__placeholder" *ngIf="selectComponent.value.length == 0">{{ placeholder }}</div>
+
+    <div class="select-header-user__items">
+        <ng-content class="select-header-user__avatar" select="[items]"></ng-content>
+    </div>
+</div>

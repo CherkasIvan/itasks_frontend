@@ -1,0 +1,59 @@
+:host {
+  display: flex;
+  position: relative;
+
+  &:hover {
+    .preview-file__menu-icon {
+      visibility: visible;
+    }
+  }
+
+  .preview-file {
+    &__link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      max-width: 100%;
+
+      a {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &__name {
+      margin-left: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    &__menu-icon {
+      cursor: pointer;
+      display: flex;
+      visibility: hidden;
+      justify-content: center;
+      align-items: center;
+      min-width: 15px;
+      min-height: 15px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+      margin-left: 6px;
+      color: #93A2B3;
+      font-size: 4px;
+    }
+
+    &__icon {
+      color: #b5bfcb;
+      font-size: 20px;
+      margin-top: 5px;
+    }
+
+    &__context-menu {
+      right: -80px;
+      top: -35px;
+    }
+  }
+}

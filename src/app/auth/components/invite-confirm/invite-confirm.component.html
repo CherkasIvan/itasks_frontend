@@ -1,0 +1,6 @@
+<p>
+    Подожите, происходит подтверждение доступа
+</p>
+<p *ngIf="errors">Ошибка: {{errors?.token}} </p>
+<a *ngIf="nextButton === 'goCabinet'" routerLink="/dashboard">Перейти в кабинет</a>
+<a *ngIf="nextButton === 'goSignIn'" routerLink="/auth/sign-in">Перейти к авторизации</a>

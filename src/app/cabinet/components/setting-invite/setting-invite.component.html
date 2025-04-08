@@ -1,0 +1,84 @@
+<form class="form setting-invite__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="email" class="label label_style-1">Добавить сотрудника</label>
+    <div class="form__row">
+      <input type="text" class="input input_theme-1 setting-invite__mr-14"
+             id="email"
+             placeholder="Введите e-mail"
+             formControlName="email"
+             [class.input_theme-1_error]="getIsFieldValid('email')">
+
+      <ux-select-only class="setting-invite__mr-14"
+                      [items]="roles"
+                      idFiled="id"
+                      formControlName="role"
+                      [ngClass]="getDisplayFieldCssClass('role')">
+        <ux-select-only-header header></ux-select-only-header>
+        <ux-select-only-items items></ux-select-only-items>
+      </ux-select-only>
+      <button class="button button_green" [disabled]="form.invalid || isLoadingForm">Отправить</button>
+    </div>
+  <div class="error" *ngIf="checkFieldValidator('role', 'required')">Укажите роль</div>
+  <div class="error" *ngIf="validateErrors?.email">{{validateErrors.email}}</div>
+  <div class="error" *ngIf="checkFieldValidator('email', 'required')">Укажите Ваш email адрес</div>
+  <div class="error" *ngIf="checkFieldValidator('email', 'email')">Неверный формат email</div>
+  <p class="setting-invite__info">Приглашение отправиться в форме письма на указанную вами почту</p>
+</form>
+
+<div class="setting-invite__table" *ngIf="notActiveInvite.length">
+  <div class="setting-invite__table-row">
+    <div class="setting-invite__table-col setting-invite__table-col_bold">Ожидают подтверждения</div>
+    <div class="setting-invite__table-col"></div>
+  </div>
+
+  <div class="setting-invite__table-row" *ngFor="let invite of notActiveInvite">
+    <div class="setting-invite__table-col"><ux-avatar [user]="invite.user" style="width: 36px; height: 36px"></ux-avatar></div>
+    <div class="setting-invite__table-col setting-invite__table-col_email">{{invite.user.email}}</div>
+    <div class="setting-invite__table-col setting-invite__table-col_role setting-invite__table-col_hover-visible">
+      <ux-select-only [items]="roles"
+                      [(ngModel)]="invite.role"
+                      (ngModelChange)="onChangeRole(invite)"
+                      idFiled="id"
+                      [ngClass]="getDisplayFieldCssClass('role')">
+        <ux-select-only-header header></ux-select-only-header>
+        <ux-select-only-items items></ux-select-only-items>
+      </ux-select-only>
+    </div>
+    <div class="setting-invite__table-col setting-invite__table-col_hover-visible">
+      <button type="button" class="button" (click)="onResend(invite.id)" [disabled]="isLoadingForm">Пригласить повторно</button>
+    </div>
+    <div class="setting-invite__table-col">
+      <span class="setting-invite__delete" (click)="onDelete(invite.id)"><i class="icon-close"></i></span>
+    </div>
+
+  </div>
+</div>
+
+<div class="setting-invite__table" *ngIf="activeInvite.length">
+  <div class="setting-invite__table-row">
+    <div class="setting-invite__table-col setting-invite__table-col_bold">Активные сотрудники</div>
+    <div class="setting-invite__table-col"></div>
+  </div>
+
+  <div class="setting-invite__table-row" *ngFor="let invite of activeInvite">
+    <div class="setting-invite__table-col"><ux-avatar [user]="invite.user" style="width: 36px; height: 36px"></ux-avatar></div>
+    <div class="setting-invite__table-col setting-invite__table-col_email">
+      <div>{{invite.user.firstName}} {{invite.user.lastName}}</div>
+      <div class="setting-invite__info setting-invite__info_mr0">{{invite.user.email}}</div>
+    </div>
+    <div class="setting-invite__table-col setting-invite__table-col_hover-visible setting-invite__table-col_role">
+      <ux-select-only *ngIf="user?.id !== invite.userId"
+                      [items]="roles"
+                      [(ngModel)]="invite.role"
+                      (ngModelChange)="onChangeRole(invite)"
+                      idFiled="id"
+                      [ngClass]="getDisplayFieldCssClass('role')">
+        <ux-select-only-header header></ux-select-only-header>
+        <ux-select-only-items items></ux-select-only-items>
+      </ux-select-only>
+      <span *ngIf="user?.id === invite.userId">{{invite.role === 'admin' ? 'Администратор' : 'Пользователь'}}</span>
+    </div>
+    <div class="setting-invite__table-col">
+      <span *ngIf="user?.id !== invite.userId" class="setting-invite__delete" (click)="onDelete(invite.id)"><i class="icon-close"></i></span>
+    </div>
+  </div>
+</div>

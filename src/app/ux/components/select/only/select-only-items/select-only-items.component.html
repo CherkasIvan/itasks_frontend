@@ -1,0 +1,9 @@
+<div class="select-only-items__items">
+    <div class="select-only-items__item"
+         *ngFor="let item of selectOnlyComponent.items"
+        (click)="selectOnlyComponent.select(item)">
+        {{item.name}}
+    </div>
+</div>
+<!--[class.select-only-items__item_active]="item.id && item.id === selectOnlyComponent.value"-->
+

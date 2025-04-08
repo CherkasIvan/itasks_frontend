@@ -1,0 +1,105 @@
+@import '~less/mixins';
+
+:host {
+  display: block;
+
+  .setting-invite {
+    &__form {
+      margin-top: 10px;
+      padding: 0 20px;
+      border-bottom: 1px solid #eff5f6;
+    }
+
+    &__mr-14 {
+      margin-right: 14px;
+    }
+
+    &__info {
+      color: #a1acb7;
+      font-size: 12px;
+      margin: 6px 0;
+      &_mr0 {
+        margin: 0;
+      }
+    }
+
+    &__delete {
+      cursor: pointer;
+      width: 13px;
+      height: 13px;
+      background-color: #b5bfcb;
+      display: none;
+      align-items: center;
+      border-radius: 50%;
+      font-size: 7px;
+      justify-content: center;
+      color: #fff;
+      padding-top: 2px;
+    }
+
+    &__table {
+      display: flex;
+      flex-direction: column;
+      margin-top: 20px;
+    }
+
+    &__table-row {
+      display: flex;
+      border-bottom: solid 1px #eff5f6;
+      padding: 10px 20px;
+      align-items: center;
+
+      &_header {
+
+      }
+
+      &:hover {
+        .setting-invite__delete {
+          display: flex;
+        }
+
+        .setting-invite__table-col_hover-visible {
+          display: flex;
+        }
+      }
+    }
+
+    &__table-col {
+      margin-right: 22px;
+
+      &:first-child {
+        margin-right: 8px;
+      }
+
+      &:last-child {
+        margin-left: auto;
+      }
+
+      &_email {
+        width: 162px;
+        overflow: hidden;
+      }
+
+      &_role {
+        width: 145px;
+      }
+
+      //&_hover-visible {
+      //  display: none;
+      //}
+
+      &_bold {
+        .bold()
+      }
+    }
+  }
+
+  @media (max-width: @screen-sm-max) {
+    .form__row {
+      flex-direction: column;
+      > * {
+        margin-bottom: 5px;
+      }
+    }
+  }
+}

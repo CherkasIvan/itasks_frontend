@@ -1,0 +1,73 @@
+<div class="project-menu__list" (clickOutside)="onClose()" [exclude]="'.sidebar__item-right, .project-menu__project-form'" excludeBeforeClick="true">
+    <div class="project-menu__item" (click)="onOpenEditForm($event)">
+        <div class="project-menu__icon">
+            <svg width="14px" height="15px" viewBox="0 0 14 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-986.000000, -61.000000)">
+                    <g id="Edit" transform="translate(986.000000, 61.000000)" fill="#B3BFC9">
+                        <path d="M13.3280488,13.5621951 L0.768292683,13.5621951 C0.464634146,13.5621951 0.219512195,13.8073171 0.219512195,14.1109756 C0.219512195,14.4146341 0.464634146,14.6597561 0.768292683,14.6597561 L13.3280488,14.6597561 C13.6317073,14.6597561 13.8768293,14.4146341 13.8768293,14.1109756 C13.8768293,13.8073171 13.6317073,13.5621951 13.3280488,13.5621951 M1.34634146,9.24512195 L7.44878049,3.12073171 L9.01463415,4.6902439 L2.90487805,10.8036585 L1.34634146,10.8036585 L1.34634146,9.24512195 Z M9.12073171,1.44146341 L10.6939024,3.01463415 L9.79390244,3.91463415 L8.22439024,2.34512195 L9.12073171,1.44146341 Z M0.797560976,11.9012195 L3.13170732,11.9012195 C3.27804878,11.9012195 3.41707317,11.8426829 3.5195122,11.7402439 L11.8573171,3.40243902 C11.9597561,3.3 12.0182927,3.15731707 12.0182927,3.01463415 C12.0182927,2.86829268 11.9597561,2.72926829 11.8573171,2.62682927 L9.50853659,0.27804878 C9.40609756,0.175609756 9.26707317,0.117073171 9.12073171,0.117073171 C8.97439024,0.117073171 8.83536585,0.175609756 8.73292683,0.27804878 L0.409756098,8.6304878 C0.307317073,8.73658537 0.248780488,8.87560976 0.248780488,9.01829268 L0.248780488,11.352439 C0.248780488,11.6560976 0.493902439,11.9012195 0.797560976,11.9012195 Z" id="7H"></path>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <div class="project-menu__right">
+            <div class="project-menu__text">Редактировать</div>
+            <div class="project-menu__arrow"></div>
+        </div>
+    </div>
+
+    <!--<div class="project-menu__item">-->
+        <!--<div class="project-menu__icon">-->
+            <!--<svg width="12px" height="13px" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">-->
+                <!--<g id="2_Table_Group_2" stroke="none" stroke-width="1" transform="translate(-231.000000, -624.000000)">-->
+                    <!--<g id="Group-24-Copy" transform="translate(210.000000, 491.000000)">-->
+                        <!--<g id="Copy" transform="translate(21.000000, 133.000000)">-->
+                            <!--<rect id="Rectangle-4" stroke="#B3BFC9" x="0.5" y="0.5" width="7" height="9" rx="1"></rect>-->
+                            <!--<rect id="Rectangle-4-Copy" x="3" y="2" width="8" height="10" rx="1"></rect>-->
+                            <!--<rect id="Rectangle-4-Copy-2" stroke="#B3BFC9" x="4.5" y="3.5" width="7" height="9" rx="1"></rect>-->
+                        <!--</g>-->
+                    <!--</g>-->
+                <!--</g>-->
+            <!--</svg>-->
+        <!--</div>-->
+        <!--<div class="project-menu__right">-->
+            <!--<div class="project-menu__text">Копировать</div>-->
+            <!--<div class="project-menu__arrow"></div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div class="project-menu__item" (click)="onDelete()" *ngIf="!model.isArchive">
+        <div class="project-menu__icon">
+            <svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-987.000000, -170.000000)">
+                    <g id="Trash" transform="translate(987.000000, 170.000000)" fill="#B3BFC9" fill-rule="nonzero">
+                        <path d="M12,2.25 L7.83,2.25 L7.83,1.84 C7.7330777,0.92434994 6.96076542,0.229472953 6.04,0.229472953 C5.11923458,0.229472953 4.3469223,0.92434994 4.25,1.84 L4.25,2.25 L0,2.25 L0,3.25 L1.08,3.25 L1.92,13.33 C1.96179703,13.8508219 2.39750629,14.2516745 2.92,14.25 L9.08,14.25 C9.60249371,14.2516745 10.038203,13.8508219 10.08,13.33 L10.92,3.25 L12,3.25 L12,2.25 Z M9.08,13.25 L2.92,13.25 L2.09,3.25 L9.91,3.25 L9.08,13.25 Z M5.21,2 C5.27196803,1.61176361 5.60684923,1.3260952 6,1.3260952 C6.39315077,1.3260952 6.72803197,1.61176361 6.79,2 L6.79,2.3 L5.17,2.3 L5.21,2 Z" id="Shape"></path>
+                        <rect id="Rectangle-path" x="4" y="5.25" width="1" height="6"></rect>
+                        <rect id="Rectangle-path" x="7" y="5.25" width="1" height="6"></rect>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <div class="project-menu__right project-menu__right_no-border">
+            <div class="project-menu__text project-menu__text_red">{{ statusDeleteConfirm == 0 ? 'Архивировать' : 'Вы уверены?' }}</div>
+            <div class="project-menu__arrow"></div>
+        </div>
+    </div>
+
+    <div class="project-menu__item" (click)="onRestore()" *ngIf="model.isArchive">
+        <div class="project-menu__icon">
+            <svg width="12px" height="15px" viewBox="0 0 12 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-987.000000, -170.000000)">
+                    <g id="Trash" transform="translate(987.000000, 170.000000)" fill="#B3BFC9" fill-rule="nonzero">
+                        <path d="M12,2.25 L7.83,2.25 L7.83,1.84 C7.7330777,0.92434994 6.96076542,0.229472953 6.04,0.229472953 C5.11923458,0.229472953 4.3469223,0.92434994 4.25,1.84 L4.25,2.25 L0,2.25 L0,3.25 L1.08,3.25 L1.92,13.33 C1.96179703,13.8508219 2.39750629,14.2516745 2.92,14.25 L9.08,14.25 C9.60249371,14.2516745 10.038203,13.8508219 10.08,13.33 L10.92,3.25 L12,3.25 L12,2.25 Z M9.08,13.25 L2.92,13.25 L2.09,3.25 L9.91,3.25 L9.08,13.25 Z M5.21,2 C5.27196803,1.61176361 5.60684923,1.3260952 6,1.3260952 C6.39315077,1.3260952 6.72803197,1.61176361 6.79,2 L6.79,2.3 L5.17,2.3 L5.21,2 Z" id="Shape"></path>
+                        <rect id="Rectangle-path" x="4" y="5.25" width="1" height="6"></rect>
+                        <rect id="Rectangle-path" x="7" y="5.25" width="1" height="6"></rect>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        <div class="project-menu__right project-menu__right_no-border">
+            <div class="project-menu__text project-menu__text_red">Восстановить из архива</div>
+            <div class="project-menu__arrow"></div>
+        </div>
+    </div>
+</div>

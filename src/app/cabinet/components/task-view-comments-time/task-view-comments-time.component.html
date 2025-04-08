@@ -1,0 +1,11 @@
+<form class="task-view-comments-time__form" (submit)="onSubmit()">
+    <input class="task-view-comments-time__input"
+           autoFocus
+           (input)="onSetHour($event.target.value)"
+           type="number" placeholder="час">
+    <input class="task-view-comments-time__input"
+           (input)="onSetMinute($event.target.value)"
+           max="60"
+           type="number" placeholder="мин">
+    <button type="submit" class="task-view-comments-time__send"><i class="icon-send"></i></button>
+</form>

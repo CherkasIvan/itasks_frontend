@@ -1,0 +1,11 @@
+<app-board-column *ngFor="let item of cabinetComponent.statusList$ | async"
+                  [model]="item"
+                  [statusId]="item.id"
+                  [attr.statusId]="item.id"
+                  [ngClass]="{'board__column_hide': !isShowBacklog && item.isBackLog}"
+                  class="board__column">
+</app-board-column>
+
+<div class="board__add-status" *ngIf="isAdmin">
+  <div class="board__create-btn" (click)="onCreateNewStatus()"><i class="icon-plus"></i></div>
+</div>

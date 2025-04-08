@@ -1,0 +1,4 @@
+<ng-content select="[header]"></ng-content>
+<div *ngIf="isOpen" (clickOutside)="close()" [delayClickOutsideInit]="true">
+  <ng-content select="[items]"></ng-content>
+</div>

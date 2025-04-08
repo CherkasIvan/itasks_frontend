@@ -1,0 +1,118 @@
+<div class="board-card__header"
+     *ngIf="model.id === 'newTask'"
+>
+    <div class="board-card__border"></div>
+    <textarea autosize
+              autoFocus
+              rows="1"
+              class="board-card__title board-card__title_editable"
+              name="name"
+              [disabled]="isSending"
+              (keydown.enter)="onSave(model, $event)"
+              (blur)="onBlur(model)"
+              [(ngModel)]="model.name">
+    </textarea>
+</div>
+
+<ng-container *ngIf="model.id !== 'newTask'">
+
+    <div class="board-card__header">
+      <span class="board-card__complete" *ngIf="model.isComplete">
+        <i class="icon-ok"></i>
+      </span>
+
+        <div class="board-card__title">{{ model.name }}</div>
+        <div class="board-card__avatar" (click)="onFilterByUser(model.responsible?.user, $event)">
+            <ux-avatar [user]="model.responsible?.user" style="width: 36px; height: 36px"></ux-avatar>
+        </div>
+    </div>
+
+    <!--<div class="board-card__image" style="background-image: url('http://inspirationfeed.com/wp-content/uploads/2010/06/2-wallpaper_cgi_landscape_1024x1024-500x500.jpg')"></div>-->
+
+    <div class="board-card__text" *ngIf="model.body">{{ model.body }}</div>
+
+    <div class="board-card__footer">
+        <div class="board-card__left">
+            <!--<div class="board-card__info">-->
+                <!--<svg xmlns="http://www.w3.org/2000/svg" width="13" height="11" viewBox="0 0 13 11">-->
+                    <!--<path fill="none" fill-rule="evenodd" stroke="#B5BFCB" stroke-linecap="round"-->
+                          <!--stroke-linejoin="round"-->
+                          <!--d="M5.804 8.19L3.357 11V8.19H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v5.19a1 1 0 0 1-1 1H5.804z"/>-->
+                <!--</svg>-->
+                <!--<span>2</span>-->
+            <!--</div>-->
+
+            <!--<div class="board-card__info">-->
+                <!--<svg xmlns="http://www.w3.org/2000/svg" width="14" height="8" viewBox="0 0 14 8">-->
+                    <!--<g fill="none" fill-rule="evenodd">-->
+                        <!--<path stroke="#B5BFCB" d="M4 1h10M4 4h10"/>-->
+                        <!--<rect width="2" height="2" fill="#B5BFCB" rx="1"/>-->
+                        <!--<rect width="2" height="2" y="3" fill="#B5BFCB" rx="1"/>-->
+                        <!--<path stroke="#B5BFCB" d="M4 7h10"/>-->
+                        <!--<rect width="2" height="2" y="6" fill="#B5BFCB" rx="1"/>-->
+                    <!--</g>-->
+                <!--</svg>-->
+                <!--<span>8/10</span>-->
+            <!--</div>-->
+
+            <div class="board-card__info"
+                 *ngIf="model.deadlineAt"
+                 [ngClass]="model.getDeadlineCssClass()">
+                <i class=icon-calendar></i>
+                <span>{{model.deadlineAt | date:'d MMM'}}</span>
+            </div>
+
+            <div class="board-card__info" *ngIf="model.spentTime">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+                    <path fill="#B5BFCB" fill-rule="nonzero"
+                          d="M6.5.06C2.916.06 0 2.902 0 6.394c0 3.492 2.916 6.333 6.5 6.333S13 9.886 13 6.394 10.084.06 6.5.06zm0 1c3.03 0 5.474 2.382 5.474 5.334 0 2.951-2.445 5.333-5.474 5.333-3.03 0-5.474-2.382-5.474-5.333 0-2.952 2.445-5.334 5.474-5.334zm0 .834a.507.507 0 0 0-.513.5v4c0 .185.103.345.256.432l3.261 1.833a.52.52 0 0 0 .7-.182.492.492 0 0 0-.187-.682L7.013 6.107V2.394c0-.276-.23-.5-.513-.5z"/>
+                </svg>
+
+                <span>{{model.spentTime}} ч.</span>
+            </div>
+
+            <!--<div class="board-card__info">-->
+                <!--<svg xmlns="http://www.w3.org/2000/svg" width="13" height="12" viewBox="0 0 13 12">-->
+                    <!--<path fill="#29BEB0" fill-rule="nonzero"-->
+                          <!--d="M4.468 5.835c-.212 1.56-.12 3.571.144 4.708 1.288.15 4.892.173 5.683.058.03-.004.058-.008.1-.012.146-.014.188-.02.24-.038.171-.057.274-.247.246-.854a.438.438 0 0 1 .197-.383c.413-.278.474-.571.307-1.124a.443.443 0 0 1 .354-.559c.155-.028.323-.726.169-.854a.432.432 0 0 1-.017-.657c.082-.076.19-.351.19-.563.001-.395-.115-.539-.512-.603a7.78 7.78 0 0 0-.925-.086 15.878 15.878 0 0 0-2.179.074l-.143.015a.464.464 0 0 1-.516-.389c-.056-.274.006-.788.246-1.68.225-.835-.37-1.66-1.084-1.97-.102-.044-.16-.04-.22.033.01.207.013.416.01.614-.001.166-.008.315-.021.445-.079.806-.236 1.268-.714 2.158-.171.315-.43.637-.754.962a8.354 8.354 0 0 1-.801.705zm-.206-.996c.118-.104.235-.212.345-.323.269-.27.477-.529.603-.76.425-.792.546-1.147.613-1.83.01-.102.016-.229.017-.373a10.762 10.762 0 0 0-.018-.766.43.43 0 0 1 .064-.254 1.13 1.13 0 0 1 .239-.266c.323-.268.753-.36 1.22-.157 1.08.468 1.952 1.68 1.596 3.002-.103.382-.17.685-.205.917l.057-.004c.633-.047 1.28-.067 1.89-.042.377.015.726.047 1.039.098.855.139 1.279.664 1.278 1.477 0 .298-.092.628-.236.888.263.573.068 1.434-.413 1.84.118.644-.028 1.173-.549 1.606-.013.822-.315 1.311-.865 1.496-.085.028-.17.047-.262.061a2.737 2.737 0 0 1-.243.028c-.841.123-4.226.108-5.755-.038a.456.456 0 0 1-.188.135c-1.254.484-1.687.522-3.696.282a.455.455 0 0 1-.383-.31C-.167 9.723-.094 7.715.372 5.022a.46.46 0 0 1 .573-.355c1.039.27 1.719.294 3.103.146a.472.472 0 0 1 .214.026zm-3.062.8c-.35 2.193-.398 3.888.008 5.374 1.377.157 1.796.146 2.549-.116-.32-1.236-.433-3.424-.204-5.147-.932.074-1.588.048-2.353-.111z"/>-->
+                <!--</svg>-->
+                <!--<span>4</span>-->
+            <!--</div>-->
+
+            <div class="board-card__info" *ngIf="model.files.length">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="12" viewBox="0 0 11 12">
+                    <path fill="#B5BFCB" fill-rule="nonzero" stroke="#B5BFCB" stroke-width=".3"
+                          d="M1.258 10.718c-1.385-1.387-1.275-3.154.297-4.727L6.627.936A2.54 2.54 0 0 1 7.913.27C8.389.185 9.097.225 9.766.895l.002.001c.687.688.748 1.37.678 1.82-.101.654-.513 1.126-.686 1.299l-5.1 5.084c-.175.175-.586.587-1.132.587-.33 0-.645-.148-.936-.439l-.002-.002c-.258-.258-.75-.966.252-1.97l5.067-5.072.419.418L3.26 7.693c-.686.688-.367 1.02-.254 1.132l.004.004c.176.177.35.266.518.266.3 0 .58-.28.714-.414l5.1-5.085c.132-.13.446-.489.52-.97.072-.459-.1-.9-.512-1.312l-.001-.001C8.955.92 8.507.765 8.016.853a1.948 1.948 0 0 0-.971.501L1.973 6.41c-.781.782-1.86 2.328-.297 3.891 1.454 1.454 2.897.621 3.852-.333l4.183-4.21.42.417-4.185 4.21c-1.595 1.596-3.304 1.717-4.688.334z"/>
+                </svg>
+                <span>{{model.files.length}}</span>
+            </div>
+
+            <ux-tag class="board-card__tag"
+                    *ngFor="let tag of model.tagList"
+                    (click)="onFilterByTag(tag, $event)"
+                    [model]="tag"></ux-tag>
+        </div>
+        <div class="board-card__right">
+            <div class="icon board-card__favorite" *ngIf="model.isFavorite">
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13">
+                    <path fill="#29BEB0"
+                          fill-rule="nonzero"
+                          d="M6.058 10.506c.256-.135.628-.135.885 0l3.559 1.87-.68-3.962c-.049-.285.065-.639.274-.842l2.878-2.806-3.978-.578a1.018 1.018 0 0 1-.716-.52L6.5.063 4.722 3.668c-.128.26-.428.478-.716.52l-3.978.578 2.879 2.806c.207.203.322.556.273.842l-.68 3.963 3.559-1.871z"/>
+                </svg>
+            </div>
+            <!--<div class="icon board-card__menu">-->
+                <!--<svg xmlns="http://www.w3.org/2000/svg" width="14" height="3" viewBox="0 0 14 3">-->
+                    <!--<path fill="#9C9C9C"-->
+                          <!--fill-rule="evenodd"-->
+                          <!--d="M1.556 3C.696 3 0 2.328 0 1.5S.696 0 1.556 0C2.415 0 3.11.672 3.11 1.5S2.415 3 1.556 3zM7 3c-.86 0-1.556-.672-1.556-1.5S6.141 0 7 0c.86 0 1.556.672 1.556 1.5S7.859 3 7 3zm5.444 0c-.859 0-1.555-.672-1.555-1.5S11.585 0 12.444 0C13.304 0 14 .672 14 1.5S13.304 3 12.444 3z"/>-->
+                <!--</svg>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    <div class="board-card__task-plus">
+        <ux-task-plus
+                (click)="$event.preventDefault();$event.stopPropagation();boardColumnComponent.onShowTaskForm(index + 1, model.id)">
+        </ux-task-plus>
+    </div>
+</ng-container>

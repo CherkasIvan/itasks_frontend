@@ -1,0 +1,104 @@
+@import "../../../../less/mixins";
+
+:host {
+  position: absolute;
+  left: 39px;
+  top: 10px;
+  z-index: 3;
+  padding-left: 13px;
+
+  .task-view-archive-popup {
+    &__wrapper {
+      background: #fff;
+      box-shadow: 0 11px 44px 0 rgba(133, 143, 151, 0.54);
+      border-radius: 4px;
+      width: 260px;
+    }
+
+    &__video{
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    &__info {
+      padding: 10px 13px;
+    }
+
+    &__header {
+      display: flex;
+      padding: 13px 0 0 16px;
+      align-items: center;
+    }
+
+    &__title {
+      width: 195px;
+      font-size: 16px;
+      color: #25282c;
+      .bold();
+    }
+
+    &__icon {
+
+    }
+
+    &__label {
+      font-size: 13px;
+      color: #a1acb7;
+    }
+
+    &__user {
+      border-top: 1px solid #eceef2;
+      border-bottom: 1px solid #eceef2;
+      display: flex;
+      padding: 12px 16px;
+    }
+
+    &__avatar {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      margin-right: 10px;
+    }
+
+    &__user-name {
+      .bold();
+      font-size: 14px;
+      color: #25282c;
+    }
+
+    &__right {
+      margin-left: auto;
+      position: relative;
+    }
+
+    &__footer {
+      align-items: center;
+      display: flex;
+      padding: 16px 12px;
+    }
+
+    &__help-icon {
+      cursor: pointer;
+      display: flex;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      border: solid 1px #e0e4e9;
+      flex-shrink: 0;
+    }
+
+    &__help {
+      &:hover {
+        .hint {
+          display: block;
+        }
+      }
+    }
+
+    &__btn-revert {
+      margin-right: 5px;
+    }
+  }
+}

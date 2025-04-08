@@ -1,0 +1,58 @@
+@import "~less/variables";
+
+.borderBottom(@borderBottom) {
+  border-bottom-color: @borderBottom;
+}
+
+:host {
+  display: inline-block;
+
+  &.status {
+    &_fs12 {
+      font-size: 12px;
+    }
+  }
+  .status {
+    &__text {
+      color: #25282c;
+      border-bottom: 2px solid transparent;
+
+      &_bg-1 {
+        .borderBottom(@status-theme-1);
+      }
+      &_bg-2 {
+        .borderBottom(@status-theme-2);
+      }
+      &_bg-3 {
+        .borderBottom(@status-theme-3);
+      }
+      &_bg-4 {
+        .borderBottom(@status-theme-4);
+      }
+      &_bg-5 {
+        .borderBottom(@status-theme-5);
+      }
+      &_bg-6 {
+        .borderBottom(@status-theme-6);
+      }
+      &_bg-7 {
+        .borderBottom(@status-theme-7);
+      }
+      &_bg-8 {
+        .borderBottom(@status-theme-8);
+      }
+      &_bg-9 {
+        .borderBottom(@status-theme-9);
+      }
+      &_bg-10 {
+        .borderBottom(@status-theme-10);
+      }
+      &_bg-11 {
+        .borderBottom(@status-theme-11);
+      }
+      &_bg-12 {
+        .borderBottom(@status-theme-12);
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+<div class="filter-controls__right">
+  <a class="filter-controls__active-filter"
+     *ngIf="isFilteringEnabled"
+     (click)="onClearFilter()">
+    <span>Работает фильтр</span>
+    <i class="icon-close"></i>
+  </a>
+  <span class="filter-controls__toggle-filter" (click)="onToggleFilterPopup()">
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13">
+    <g fill="#B3BFC9" fill-rule="evenodd"><rect width="14" height="1" y="1" rx=".5"/><rect width="14" height="1" y="6" rx=".5"/><circle cx="3.5" cy="1.5" r="1.5"/><rect width="14" height="1" y="11" rx=".5"/><circle cx="3.5" cy="11.5" r="1.5"/><circle cx="9.5" cy="6.5" r="1.5"/></g>
+</svg>
+</span>
+
+  <filter-popup class="filter-controls__filter-popup"
+                *ngIf="isShowFilterPopup"
+                [delayClickOutsideInit]="true"
+                (onClose)="onCloseFilterPopup()"
+                (clickOutside)="onCloseFilterPopup()">
+  </filter-popup>
+</div>

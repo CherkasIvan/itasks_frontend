@@ -1,0 +1,32 @@
+:host {
+  display: flex;
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: relative;
+
+  .board {
+    &__create-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 15px;
+      color: #d3d9de;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1px solid #d3d9de;
+      cursor: pointer;
+      i {
+        width: 14px;
+        height: 19px;
+      }
+
+      &:hover {
+        color: #3cd2c8;
+        border-color: #3cd2c8;
+      }
+    }
+  }
+
+}

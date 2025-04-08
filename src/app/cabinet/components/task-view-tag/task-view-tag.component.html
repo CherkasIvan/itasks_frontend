@@ -1,0 +1,14 @@
+<ux-tag class="task-view-tag__item" *ngFor="let tag of tagList" [model]="tag"></ux-tag>
+<div class="task-view-tag__add-tag-wrapper">
+    <span class="task-view-tag__add" (click)="onOpen()">
+        <i class="icon-plus"></i>
+    </span>
+</div>
+<ux-popup-tag class="task-view-tag__add-tag-popup"
+              [value]="tags"
+              (clickOutside)="onClose()"
+              [delayClickOutsideInit]="true"
+              *ngIf="isOpen"
+              [multiple]="true"
+              (changeItems)="onSelect($event)">
+</ux-popup-tag>

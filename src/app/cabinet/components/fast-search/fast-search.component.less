@@ -1,0 +1,55 @@
+@import "~less/variables";
+
+.placeholder() {
+  color: #c7cdd5;
+  font-family: ProximaNovaRegular;
+}
+
+:host {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: @screen-sm-max) {
+    display: none;
+  }
+
+  .fast-search {
+
+    &__input-wrapper {
+      position: relative;
+    }
+
+    &__input-icon {
+      position: absolute;
+      top: 10px;
+      left: 17px;
+    }
+
+    &__input {
+      width: 210px;
+      height: 36px;
+      border-radius: 18px;
+      background-color: #ffffff;
+      border: solid 1px #dfe3e9;
+      padding-left: 44px;
+      padding-right: 10px;
+      font-size: 14px;
+
+      &::-webkit-input-placeholder {
+        .placeholder();
+      }
+
+      &:-moz-placeholder {
+        .placeholder();
+      }
+
+      &::-moz-placeholder {
+        .placeholder();
+      }
+
+      &:-ms-input-placeholder {
+        .placeholder();
+      }
+    }
+  }
+}

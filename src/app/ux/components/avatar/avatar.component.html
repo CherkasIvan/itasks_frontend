@@ -1,0 +1,14 @@
+<div class="avatar__wrapper" [title]="'Заходил(а) ' + (user?.activityAt | date: 'yyyy-MM-dd HH:mm')">
+    <span class="avatar__image"
+          *ngIf="image"
+          [style.backgroundImage]="'url('+ image +')'">
+    </span>
+
+    <span class="avatar__text" *ngIf="shortUserName">{{shortUserName}}</span>
+    <span class="avatar__text" *ngIf="!shortUserName"><i class="icon-man"></i></span>
+    <span class="avatar__online" *ngIf="isOnline"></span>
+    <span class="avatar__delete"
+          *ngIf="showDeleteBtn"
+          (click)="remove.emit(user)"><i class="icon-close"></i>
+    </span>
+</div>

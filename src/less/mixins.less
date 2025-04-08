@@ -1,0 +1,60 @@
+@import './variables';
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bold {
+  font-family: ProximaNovaBold;
+}
+
+.light {
+  font-family: ProximaNovaLight;
+}
+
+.regular {
+  font-family: ProximaNovaRegular;
+}
+
+.inputPlaceholderColor(@color) {
+  &::-webkit-input-placeholder {
+    color: @color;
+  }
+
+  &:-moz-placeholder {
+    color: @color;
+  }
+
+  &::-moz-placeholder {
+    color: @color;
+  }
+
+  &:-ms-input-placeholder {
+    color: @color;
+  }
+}
+
+.disableSelect() {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.deadline {
+  &__color {
+    &_overdue {
+      color: @deadline-overdue !important;
+      i{
+        color: @deadline-overdue !important;
+      }
+    }
+    &_soon {
+      color: @deadline-soon !important;
+      i{
+        color: @deadline-soon !important;
+      }
+    }
+  }
+}

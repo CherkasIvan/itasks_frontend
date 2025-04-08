@@ -1,0 +1,128 @@
+<div class="task-view__panel">
+  <ux-avatar-select [user]="task.responsible?.user"
+                    [popupStyle]="{top: 0, 'left.px': 45}"
+                    [value]="task.responsibleId"
+                    (remove)="onChangeResponsible(null)"
+                    (select)="onChangeResponsible($event)"
+                    class="task-view__avatar">
+  </ux-avatar-select>
+  <span class="task-view__control"
+        [class.task-view__control_active]="task?.isComplete"
+        (click)="onComplete()">
+        <i class="icon-ok"></i>
+    </span>
+  <span class="task-view__control"
+        (click)="onOpenCalendarPopup()"
+        [ngClass]="{'task-view__control_active': isOpenCalendarPopup || task.deadlineAt}">
+        <i class="icon-calendar" [ngClass]="task.getDeadlineCssClass()"></i>
+    </span>
+  <!--<span class="task-view__control">-->
+  <!--<i class="icon-like task-view__like" count="10"></i>-->
+  <!--</span>-->
+  <!--<span class="task-view__control">-->
+  <!--<i class="icon-check-list"></i>-->
+  <!--</span>-->
+  <span class="task-view__control task-view__control_file">
+        <input #inputUploadFiles
+               type="file"
+               [multiple]="true"
+               (change)="onFileUpload($event.target.files)">
+        <i class="icon-add"></i>
+    </span>
+  <span class="task-view__control"
+        [class.task-view__control_active]="task?.isFavorite"
+        (click)="onFavorite()">
+        <i class="icon-star"></i>
+    </span>
+
+  <app-task-view-archive-popup *ngIf="isOpenArchivePopup"
+                               (clickOutside)="onCloseArchivePopup()"
+                               [delayClickOutsideInit]="true"
+                               [task]="task" class="task-view__archive-popup">
+  </app-task-view-archive-popup>
+</div>
+<div class="task-view__content">
+  <div class="task-view__scroll" #scroll (scroll)="onScroll()">
+    <div class="task-view__header">
+      <div class="task-view__status">
+        <ux-status class="task-view__status-name" [status]="task.status" (click)="onOpenStatusPopup()"></ux-status>
+        <ux-popup-status class="task-view__status-popup"
+                         *ngIf="isOpenStatusPopup"
+                         [selected]="task.statusId"
+                         [delayClickOutsideInit]="true"
+                         (clickOutside)="onCloseStatusPopup()"
+                         (selectItem)="onChangeStatus($event)">
+        </ux-popup-status>
+      </div>
+      <div class="task-view__right">
+        <i class="icon-close task-view__close" (click)="onClose()"></i>
+      </div>
+    </div>
+
+    <textarea autosize
+              rows="1"
+              class="task-view__title"
+              placeholder="Название задачи"
+              [(ngModel)]="task.name"
+              (keydown.enter)="onSaveName()"
+              (blur)="onSaveName()">
+    </textarea>
+
+
+    <div class="task-view__deadline"
+         *ngIf="task.deadlineAt"
+         (click)="onOpenCalendarPopup()"
+         [ngClass]="task.getDeadlineCssClass()">
+            <span class="task-view__deadline-label">Срок выполнения: <span
+                class="task-view__deadline-value">{{task.deadlineAt | date:'d MMM'}}</span></span>
+    </div>
+
+    <ux-calendar class="task-view__calendar"
+                 *ngIf="isOpenCalendarPopup"
+                 [delayClickOutsideInit]="true"
+                 [selectedDate]="task.deadlineAt"
+                 (clearDate)="onClearDeadline()"
+                 (changeDate)="onChangeDeadline($event)"
+                 (clickOutside)="onCloseCalendarPopup()">
+    </ux-calendar>
+
+    <div class="task-view__task" *ngIf="isOpenEditTaskForm">
+         <textarea autosize
+                   (keydown.esc)="onSaveContent()"
+                   (keyup.enter)="$event.stopPropagation();$event.preventDefault()"
+                   (keydown.enter)="$event.stopPropagation();$event.preventDefault();onSaveContent()"
+                   (keydown.shift.enter)="$event.stopPropagation()"
+                   placeholder="Добавьте описание…"
+                   [(ngModel)]="task.body">
+        </textarea>
+      <div class="task-view__help"><span>Shift+Enter</span> переход на новую строку -
+        <span>Форматирование markdown</span></div>
+    </div>
+    <div class="task-view__task" *ngIf="!isOpenEditTaskForm && task.body">
+      <markdown [data]="task.body" ngPreserveWhitespaces (dblclick)="onOpenTaskForm()"></markdown>
+    </div>
+
+    <div class="task-view__task task-view__task_placeholder" *ngIf="!isOpenEditTaskForm && !task.body"
+         (dblclick)="onOpenTaskForm()">
+      Нажмите два раза для описания задачи
+    </div>
+
+    <app-task-view-tag [tags]="task.tags" [tagList]="task.tagList" (onChangeTags)="onChangeTags($event)"
+                       class="task-view__tag"></app-task-view-tag>
+    <!--<app-task-view-check-list class="task-view__check-list"></app-task-view-check-list>-->
+    <app-task-view-files *ngIf="task.files.length"
+                         [files]="task.files"
+                         [loadingFiles]="files"
+                         class="task-view__files">
+    </app-task-view-files>
+
+    <app-task-view-comments class="task-view__comments" [taskId]="task.id"
+                            [newMessageSubject]="newMessageSubject$"></app-task-view-comments>
+  </div>
+  <div class="task-view__footer" *ngIf="task.id">
+    <div class="task-view__footer-container">
+      <app-task-view-comments-form class="task-view__comments-form" [taskId]="task.id"></app-task-view-comments-form>
+      <app-task-view-followers class="task-view__followers"></app-task-view-followers>
+    </div>
+  </div>
+</div>

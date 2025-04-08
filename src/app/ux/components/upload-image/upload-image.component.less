@@ -1,0 +1,64 @@
+:host {
+  display: flex;
+  position: relative;
+
+  .upload-image {
+    &__delete {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: -5px;
+      top: -5px;
+      width: 13px;
+      height: 13px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      cursor: pointer;
+      color: #fff;
+      font-size: 9px;
+    }
+
+    &__progress-wrapper {
+      width: 50px;
+      height: 6px;
+      border-radius: 8px;
+      background-color: #e4ebef;
+
+    }
+
+    &__progress {
+      height: 6px;
+      border-radius: 8px;
+      background-color: #29beb0;
+    }
+
+    &__error-icon {
+      display: none;
+      font-size: 21px;
+      color: #ffffff;
+    }
+
+    &__upload {
+      display: flex;
+      position: relative;
+      width: 50px;
+      height: 50px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      border: dashed 1px #e4ebef;
+      padding: 3px;
+      &_error {
+        background: #e1ecee;
+
+        .upload-image__progress-wrapper {
+          display: none;
+        }
+        .upload-image__error-icon {
+          display: block;
+        }
+      }
+    }
+  }
+}

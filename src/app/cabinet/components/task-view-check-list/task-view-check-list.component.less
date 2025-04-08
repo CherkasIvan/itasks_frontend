@@ -1,0 +1,127 @@
+@import "../../../../less/mixins";
+
+:host {
+  .task-view-check-list {
+    &__header {
+      display: flex;
+      position: relative;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    &__title {
+      font-size: 16px;
+      color: #25282c;
+      .bold();
+    }
+
+    &__context-icon {
+      color: #93a2b3;
+      font-size: 5px;
+      cursor: pointer;
+      line-height: 13px;
+      padding: 0 7px;
+
+      &:hover{
+        color: #25282c;
+      }
+    }
+
+    &__item {
+      display: flex;
+      position: relative;
+      min-height: 32px;
+      align-items: center;
+      padding: 0 6px;
+      margin-bottom: 1px;
+      border-radius: 4px;
+
+      &:hover {
+        background-color: #eff5f6;
+
+        .task-view-check-list__icon {
+          visibility: visible;
+        }
+      }
+    }
+
+    &__add-btn {
+      display: flex;
+      padding: 0 6px;
+      align-items: center;
+      min-height: 32px;
+      cursor: pointer;
+    }
+
+    &__icon-add {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      min-width: 20px;
+      min-height: 20px;
+      font-size: 8px;
+      color: #e0e4e9;
+      border: solid 1px #e0e4e9;
+
+      .icon-plus {
+        margin-top: 2px;
+      }
+    }
+
+    &__add-label {
+      margin-left: 8px;
+      color: #e0e4e9;
+    }
+
+    &__right {
+      z-index: 1;
+      margin-left: auto;
+    }
+
+    &__icon {
+      font-size: 12px;
+      color: #b3bfc9;
+      visibility: hidden;
+      cursor: pointer;
+      padding: 8px 4px;
+
+      &_fs13 {
+        font-size: 13px;
+      }
+    }
+
+    &__status {
+      //z-index: 1;
+      //min-width: 20px;
+      //max-width: 20px;
+      //min-height: 20px;
+      //max-height: 20px;
+      //border-radius: 50%;
+      //border: 1px solid #e0e4e9;
+    }
+
+    &__status-label {
+      z-index: 2;
+    }
+
+    &__input {
+      z-index: 0;
+      border: 1px solid transparent;
+      background: transparent;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      width: 100%;
+      padding: 0 56px 2px 32px;
+      border-radius: 4px;
+
+      &:focus {
+        background-color: #fff;
+        border-color: #29beb0;
+      }
+    }
+  }
+}

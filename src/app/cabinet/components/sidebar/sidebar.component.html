@@ -1,0 +1,103 @@
+<div class="sidebar__scroll">
+    <div class="sidebar__header">
+        <div class="sidebar__logo">itasks<span>.</span>pro</div>
+        <div class="sidebar__left">
+            <div class="sidebar__hide" (click)="onCloseSidebar()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 11 11">
+                    <path fill="#fff" fill-rule="evenodd"
+                          d="M6.336 5.5l3.76 3.76a.598.598 0 0 1 0 .836.596.596 0 0 1-.837 0L5.5 6.335l-3.76 3.76a.598.598 0 0 1-.836 0 .596.596 0 0 1 0-.837L4.665 5.5.904 1.74a.598.598 0 0 1 0-.836c.23-.231.61-.226.837 0L5.5 4.665 9.26.904a.598.598 0 0 1 .836 0c.231.23.226.61 0 .837L6.335 5.5z"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar__list-header" (click)="onToggleFavorite()">
+        <div class="sidebar__label">Избранное</div>
+        <div class="sidebar__list-toggle">
+            <i class="icon-arrow-down"></i>
+        </div>
+    </div>
+
+    <div class="sidebar__list" *ngIf="isShowSidebarFavorite">
+        <div class="sidebar__switch">
+            <a class="sidebar__switch-link sidebar__switch-link_active">task</a>
+            <!--<a class="sidebar__switch-link">filter</a>-->
+            <div class="sidebar__switch-active"></div>
+        </div>
+
+      <div *ngIf="favoriteTask.length === 0" class="sidebar__empty">Тут будут избранные задачи</div>
+
+        <a class="sidebar__item"
+           *ngFor="let task of favoriteTask"
+           [ngClass]="{'sidebar__item_active': cabinetComponent.taskOpenId == task.id}"
+            (click)="onOpenTask(task)">
+            <div class="sidebar__item-text">{{ task.name }}</div>
+        </a>
+    </div>
+
+    <div class="sidebar__list-header" (click)="onToggleChat()">
+        <div class="sidebar__label">Чат</div>
+        <div class="sidebar__list-toggle">
+            <i class="icon-arrow-down"></i>
+        </div>
+    </div>
+
+    <div class="sidebar__list" *ngIf="isShowSidebarChat">
+      <div *ngIf="notificationsTask.length === 0" class="sidebar__empty">Тут будут задачи для обсуждения</div>
+
+      <a class="sidebar__item"
+           *ngFor="let task of notificationsTask"
+           (click)="onOpenTask(task)"
+           [ngClass]="{'sidebar__item_active': cabinetComponent.taskOpenId == task.id}">
+            <div class="sidebar__item-text">{{task.name}}</div>
+            <div class="sidebar__item-right">
+                <div class="sidebar__count-total-message" *ngIf="!task.countNotifications">{{task.countMessages > 100 ? '+99' : task.countMessages}}</div>
+                <div class="sidebar__count-new-message" *ngIf="task.countNotifications">{{task.countNotifications > 100 ? '+99' : task.countNotifications}}</div>
+            </div>
+        </a>
+    </div>
+
+    <div class="sidebar__list-header">
+        <div class="sidebar__label">Проекты</div>
+        <div class="sidebar__plus" (click)="onOpenCreateForm($event)">
+            <svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-385.000000, -707.000000)">
+                    <g id="Group-4-Copy-2" transform="translate(386.000000, 708.000000)">
+                        <path d="M10.1383399,9.08695652 L13.515648,9.08695652 C13.8071606,9.08695652 14.0434783,9.33080765 14.0434783,9.61264822 C14.0434783,9.90297973 13.8004241,10.1383399 13.515648,10.1383399 L10.1383399,10.1383399 L10.1383399,13.515648 C10.1383399,13.8071606 9.89448879,14.0434783 9.61264822,14.0434783 C9.32231671,14.0434783 9.08695652,13.8004241 9.08695652,13.515648 L9.08695652,10.1383399 L5.48435205,10.1383399 C5.19283942,10.1383399 4.95652174,9.89448879 4.95652174,9.61264822 C4.95652174,9.32231671 5.19957588,9.08695652 5.48435205,9.08695652 L9.08695652,9.08695652 L9.08695652,5.48435205 C9.08695652,5.19283942 9.33080765,4.95652174 9.61264822,4.95652174 C9.90297973,4.95652174 10.1383399,5.19957588 10.1383399,5.48435205 L10.1383399,9.08695652 Z" id="Plus-Icon-Copy-4" fill="#65748B"></path>
+                        <circle id="Oval-3-Copy" stroke="#65748B" cx="9.5" cy="9.5" r="9.5"></circle>
+                    </g>
+                </g>
+            </svg>
+        </div>
+    </div>
+
+    <div class="sidebar__list">
+        <a class="sidebar__item sidebar__item_pr-3"
+           (click)="onChangeProject(project.id)"
+           [style.border-color]="project.color"
+           [ngClass]="{'sidebar__item_active': projectSelectedIdUpdateItem == project.id || cabinetComponent.projectSelectedId == project.id}"
+           *ngFor="let project of cabinetComponent.projectList$ | async">
+            <div class="sidebar__item-icon">
+                <svg width="14px" height="19px" viewBox="0 0 14 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-329.000000, -746.000000)" opacity="0.899999976">
+                        <g id="Group-Copy-3" transform="translate(337.500000, 755.500000) rotate(26.000000) translate(-337.500000, -755.500000) translate(331.000000, 745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                            <path d="M6.84086658,17.0150202 C6.90293554,17.2650202 6.84086658,17.5566869 6.65465968,17.7858536 L6.05465968,18.5566869 L5.47534933,17.8066869 C5.30983209,17.5775202 5.24776313,17.3066869 5.28914244,17.0358536 C4.42017692,17.3900202 4.1512114,18.4941869 4.7512114,19.2233536 L6.03397002,20.7858536 L7.35810795,19.1816869 C7.95810795,18.4733536 7.68914244,17.3900202 6.84086658,17.0150202 Z" id="Shape" transform="translate(6.055170, 18.900437) rotate(1.000000) translate(-6.055170, -18.900437) "></path>
+                            <path d="M9.22017692,10.3066869 L9.5512114,7.18168692 C9.67534933,5.95252025 9.34431485,4.72335358 8.59948727,3.72335358 L6.82017692,1.39002025 C6.44776313,0.89002025 5.68224589,0.89002025 5.30983209,1.39002025 L3.53052175,3.72335358 C2.78569416,4.70252025 2.43397002,5.93168692 2.57879761,7.18168692 L2.90983209,10.3066869 C1.25465968,11.3900202 0.158107955,13.2441869 0.158107955,15.3691869 L0.158107955,15.9108536 C0.158107955,16.1816869 0.406383817,16.3900202 0.675349334,16.3275202 L4.23397002,15.6400202 L4.23397002,16.2233536 C4.23397002,16.4108536 4.37879761,16.5358536 4.54431485,16.5358536 L7.60638382,16.5358536 C7.77190106,16.5358536 7.91672864,16.3900202 7.91672864,16.2233536 L7.91672864,15.6400202 L11.4753493,16.3275202 C11.7443149,16.3691869 11.9925907,16.1816869 11.9925907,15.9108536 L11.9925907,15.3691869 C11.9719011,13.2441869 10.8753493,11.3691869 9.22017692,10.3066869 Z M6.05465968,7.36918692 C5.26845278,7.36918692 4.60638382,6.72335358 4.60638382,5.91085358 C4.60638382,5.11918692 5.24776313,4.45252025 6.05465968,4.45252025 C6.84086658,4.45252025 7.50293554,5.09835358 7.50293554,5.91085358 C7.50293554,6.72335358 6.84086658,7.36918692 6.05465968,7.36918692 Z" id="Shape" transform="translate(6.075349, 8.775437) rotate(1.000000) translate(-6.075349, -8.775437) "></path>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            <div class="sidebar__item-text">{{ project.name }}</div>
+            <div class="sidebar__item-right sidebar__item-right_none sidebar__item-right_big sidebar__item-right_center"
+                 *ngIf="project.canUpdate"
+                 (click)="onOpenProjectMenu($event, project.id)">
+                <svg width="14px" height="3px" viewBox="0 0 14 3" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Assets" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(-297.000000, -55.000000)">
+                        <path d="M298.555556,58 C297.696446,58 297,57.3284271 297,56.5 C297,55.6715729 297.696446,55 298.555556,55 C299.414665,55 300.111111,55.6715729 300.111111,56.5 C300.111111,57.3284271 299.414665,58 298.555556,58 Z M304,58 C303.14089,58 302.444444,57.3284271 302.444444,56.5 C302.444444,55.6715729 303.14089,55 304,55 C304.85911,55 305.555556,55.6715729 305.555556,56.5 C305.555556,57.3284271 304.85911,58 304,58 Z M309.444444,58 C308.585335,58 307.888889,57.3284271 307.888889,56.5 C307.888889,55.6715729 308.585335,55 309.444444,55 C310.303554,55 311,55.6715729 311,56.5 C311,57.3284271 310.303554,58 309.444444,58 Z" id="More-Icon" fill="#fff"></path>
+                    </g>
+                </svg>
+            </div>
+        </a>
+    </div>
+</div>

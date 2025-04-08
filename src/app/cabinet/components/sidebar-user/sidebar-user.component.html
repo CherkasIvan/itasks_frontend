@@ -1,0 +1,12 @@
+<div class="sidebar-user__scroll">
+    <ux-avatar class="sidebar-user__avatar"
+               *ngFor="let invite of cabinetComponent.inviteList$ | async"
+               [active]="getInActive(invite.user)"
+               [user]="invite.user"
+               (click)="onFilterByUser(invite.user)">
+    </ux-avatar>
+
+    <div class="sidebar-user__btn" *ngIf="isAdmin" (click)="onOpenSettings()">
+          <i class="icon-plus"></i>
+    </div>
+</div>

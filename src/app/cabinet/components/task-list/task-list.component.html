@@ -1,0 +1,44 @@
+<div class="task-list__header">
+  <div class="task-list__left task-list__left_center">
+    <div class="task-list__plus-btn"
+         [class.task-list__plus-btn_open]="isOpenCreateForm"
+         (click)="onToggleCreateForm()">
+      <i class="icon-plus"></i>
+    </div>
+  </div>
+  <div class="task-list__right">
+    <div class="task-list__toggle-back-log"
+         [class.task-list__toggle-back-log_active]="isShowBacklog"
+         (click)="onToggleBacklog()">{{backLogStatus?.name}}
+    </div>
+    <app-filter-controls></app-filter-controls>
+  </div>
+</div>
+<div class="task-list__tasks">
+  <div class="task-list__task task-list__task_active" *ngIf="isOpenCreateForm">
+    <div class="task-list__item">
+      <div class="task-list__name">
+        <input type="text"
+               autofocus
+               [autofocus]="true"
+               placeholder="Введите название задачи"
+               [(ngModel)]="model.name"
+               (keydown.enter)="onCreate()">
+      </div>
+    </div>
+  </div>
+  <div class="task-list__task" *ngFor="let model of itemsShow"
+       [routerLink]="[]"
+       [queryParams]="{id: model.id}"
+       [class.task-list__task_active]="model.id == openTaskId"
+       queryParamsHandling="merge">
+    <div class="task-list__item">
+      <div class="task-list__name" [class.task-list__name_archive]="model.isArchive">{{model.name}}</div>
+      <div class="task-list__right">
+        <ux-tag class="task-list__tag" *ngFor="let tag of (model.tagList ? model.tagList.slice(0,2): [])" [model]="tag" (click)="onFilterByTag(tag, $event)"></ux-tag>
+        <ux-status class="status_fs12 task-list__status" [status]="model.status" (click)="onFilterByStatus(model.status, $event)"></ux-status>
+        <ux-avatar [user]="model.responsible?.user" (click)="onFilterByUser(model.responsible?.user, $event)" style="width: 29px; height: 29px"></ux-avatar>
+      </div>
+    </div>
+  </div>
+</div>
