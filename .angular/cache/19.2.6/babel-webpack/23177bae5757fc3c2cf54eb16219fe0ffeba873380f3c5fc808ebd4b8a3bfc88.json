@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { BaseModel } from './base.model';\nexport class StatusSortModel extends BaseModel {\n  constructor() {\n    super(...arguments);\n    this.id = [];\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

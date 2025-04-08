@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { SocketIoModule } from './src/socket-io.module';\nexport { WrappedSocket as Socket } from './src/socket-io.service';\n//# sourceMappingURL=index.js.map","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

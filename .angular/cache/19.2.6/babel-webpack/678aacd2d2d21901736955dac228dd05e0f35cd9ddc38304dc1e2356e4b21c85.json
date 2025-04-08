@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function getUserId() {\n  const authData = localStorage.getItem('auth');\n  if (authData) {\n    return JSON.parse(authData).user.id;\n  } else {\n    return null;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}
