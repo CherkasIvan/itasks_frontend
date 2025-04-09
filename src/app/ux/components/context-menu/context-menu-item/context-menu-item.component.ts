@@ -1,9 +1,20 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { NgClass } from "@angular/common";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
 
 @Component({
-  selector: 'ux-context-menu-item',
-  templateUrl: './context-menu-item.component.html',
-  styleUrls: ['./context-menu-item.component.less']
+  selector: "ux-context-menu-item",
+  templateUrl: "./context-menu-item.component.html",
+  styleUrls: ["./context-menu-item.component.less"],
+  imports: [NgClass],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContextMenuItemComponent implements OnInit {
   @Input() isSelectFile = false;
@@ -13,10 +24,7 @@ export class ContextMenuItemComponent implements OnInit {
   @Input() name: string;
   @Output() onSelectFile = new EventEmitter<string>();
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

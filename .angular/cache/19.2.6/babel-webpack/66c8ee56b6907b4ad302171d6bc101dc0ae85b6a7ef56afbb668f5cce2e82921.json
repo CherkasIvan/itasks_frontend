@@ -1,0 +1,1 @@
+{"ast":null,"code":"export function getToken() {\n  const authData = localStorage.getItem('auth');\n  if (authData) {\n    return JSON.parse(authData).token;\n  } else {\n    return null;\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

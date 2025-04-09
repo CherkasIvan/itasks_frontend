@@ -1,23 +1,34 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import * as _ from 'lodash';
-import * as fromRoot from '@core/redux';
-import {select, Store} from '@ngrx/store';
-import {Subscription} from 'rxjs/Subscription';
-import {TagModel} from '@core/models/tag.model';
-import {UserModel} from '@core/models/user.model';
-import {ActivatedRoute, Router} from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import * as _ from "lodash";
+import * as fromRoot from "@core/redux";
+import { select, Store } from "@ngrx/store";
+import { Subscription } from "rxjs";
+import { TagModel } from "@core/models/tag.model";
+import { ActivatedRoute, Router } from "@angular/router";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'ux-popup-tag',
-  templateUrl: './popup-tag.component.html',
-  styleUrls: ['./popup-tag.component.less']
+  selector: "ux-popup-tag",
+  templateUrl: "./popup-tag.component.html",
+  styleUrls: ["./popup-tag.component.less"],
+  imports: [FormsModule],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupTagComponent implements OnInit, OnDestroy {
   @Input() multiple = false;
   @Output() selectItem = new EventEmitter<TagModel>();
   @Output() changeItems = new EventEmitter<string[]>();
 
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
 
   private _value: any;
 
@@ -35,12 +46,16 @@ export class PopupTagComponent implements OnInit, OnDestroy {
   selectIndex = -1;
   isAdmin = false;
 
-  constructor(private store: Store<fromRoot.State>,
-              private router: Router,
-              private route: ActivatedRoute) {
-    this.subscription$.add(store
-      .pipe(select(fromRoot.getTagEntities))
-      .subscribe((items) => this.items = items));
+  constructor(
+    private store: Store<fromRoot.State>,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.subscription$.add(
+      store
+        .pipe(select(fromRoot.getTagEntities))
+        .subscribe((items) => (this.items = items))
+    );
   }
 
   ngOnDestroy() {
@@ -48,13 +63,13 @@ export class PopupTagComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.subscription$
-      .add(this
-        .store
+    this.subscription$.add(
+      this.store
         .pipe(select(fromRoot.getUserCanAdmin))
         .subscribe((isAdmin: boolean) => {
           this.isAdmin = isAdmin || false;
-        }));
+        })
+    );
   }
 
   hasSelected(id: string) {
@@ -103,9 +118,9 @@ export class PopupTagComponent implements OnInit, OnDestroy {
   }
 
   onOpenSettings() {
-    this.router.navigate([{outlets: {popup: ['settings', 'tag']}}], {
+    this.router.navigate([{ outlets: { popup: ["settings", "tag"] } }], {
       relativeTo: this.route.parent,
-      queryParamsHandling: 'merge'
+      queryParamsHandling: "merge",
     });
   }
 }

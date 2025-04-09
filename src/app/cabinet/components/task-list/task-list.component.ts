@@ -1,22 +1,33 @@
-import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
-import {TaskModel} from '@core/models/task.model';
-import {StoreTaskService} from '@core/services/store-task.service';
-import {Subscription} from 'rxjs/Subscription';
-import * as TaskActions from '@core/redux/task/task.actions';
-import * as fromRoot from '@core/redux/index';
-import {select, Store} from '@ngrx/store';
-import {StatusModel} from '@core/models/status.model';
-import {ActivatedRoute, Router} from '@angular/router';
-import {UserModel} from '@core/models/user.model';
-import {TagModel} from '@core/models/tag.model';
-import {combineLatest} from 'rxjs/internal/observable/combineLatest';
-import {Observable} from 'rxjs';
-import {filter} from 'rxjs/operators';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { TaskModel } from "@core/models/task.model";
+import { StoreTaskService } from "@core/services/store-task.service";
+import { Subscription } from "rxjs";
+import * as TaskActions from "@core/redux/task/task.actions";
+import * as fromRoot from "@core/redux/index";
+import { select, Store } from "@ngrx/store";
+import { StatusModel } from "@core/models/status.model";
+import { ActivatedRoute, Router } from "@angular/router";
+import { UserModel } from "@core/models/user.model";
+import { TagModel } from "@core/models/tag.model";
+import { combineLatest } from "rxjs/internal/observable/combineLatest";
+import { Observable } from "rxjs";
+import { filter } from "rxjs/operators";
+import { FilterControlsComponent } from "../filter-controls/filter-controls.component";
 
 @Component({
-  selector: 'app-task-list',
-  templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.less']
+  selector: "app-task-list",
+  templateUrl: "./task-list.component.html",
+  styleUrls: ["./task-list.component.less"],
+  imports: [FilterControlsComponent],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   @Output() particleLoad: EventEmitter<void> = new EventEmitter<void>();
@@ -35,55 +46,58 @@ export class TaskListComponent implements OnInit, OnDestroy {
   backlogStatus$: Observable<StatusModel>;
   taskList$: Observable<TaskModel[]>;
 
-  constructor(private taskService: StoreTaskService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private store: Store<fromRoot.State>) {
-    this.backlogStatus$ = this.store.pipe(select(fromRoot.getStatusBackLog), filter(_ => !!_));
+  constructor(
+    private taskService: StoreTaskService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store<fromRoot.State>
+  ) {
+    this.backlogStatus$ = this.store.pipe(
+      select(fromRoot.getStatusBackLog),
+      filter((_) => !!_)
+    );
     this.taskList$ = this.taskService.getTaskList();
   }
 
   ngOnInit() {
     this._subscribeTaskList();
 
-    this._subscriptions$.add(this
-      .route
-      .queryParams
-      .subscribe((params) => {
-        if (params['responsibleId'] && Array.isArray(params['responsibleId'])) {
-          this.model.responsibleId = params['responsibleId'][0];
-        } else if (params['responsibleId']) {
-          this.model.responsibleId = params['responsibleId'];
+    this._subscriptions$.add(
+      this.route.queryParams.subscribe((params) => {
+        if (params["responsibleId"] && Array.isArray(params["responsibleId"])) {
+          this.model.responsibleId = params["responsibleId"][0];
+        } else if (params["responsibleId"]) {
+          this.model.responsibleId = params["responsibleId"];
         } else {
           this.model.responsibleId = null;
         }
 
-        if (params['statusId'] && Array.isArray(params['statusId'])) {
-          this.model.statusId = params['statusId'][0];
-        } else if (params['statusId']) {
-          this.model.statusId = params['statusId'];
+        if (params["statusId"] && Array.isArray(params["statusId"])) {
+          this.model.statusId = params["statusId"][0];
+        } else if (params["statusId"]) {
+          this.model.statusId = params["statusId"];
         } else {
           this.model.statusId = null;
         }
-      }));
+      })
+    );
 
-    this._subscriptions$.add(this
-      .route
-      .queryParams
-      .subscribe((params) => {
-        this.openTaskId = params['id'] || null;
-      }));
+    this._subscriptions$.add(
+      this.route.queryParams.subscribe((params) => {
+        this.openTaskId = params["id"] || null;
+      })
+    );
 
+    this._subscriptions$.add(
+      this.store
+        .pipe(select(fromRoot.getStatusEntities))
+        .subscribe((items) => (this.statuses = items))
+    );
 
-    this._subscriptions$.add(this
-      .store
-      .pipe(select(fromRoot.getStatusEntities))
-      .subscribe(items => this.statuses = items));
-
-    this._subscriptions$.add(this
-      .store
-      .pipe(select(fromRoot.getTaskLoading))
-      .subscribe(loading => this.isLoading = loading)
+    this._subscriptions$.add(
+      this.store
+        .pipe(select(fromRoot.getTaskLoading))
+        .subscribe((loading) => (this.isLoading = loading))
     );
   }
 
@@ -94,7 +108,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
         this.isShowBacklog = true;
       }
       this.store.dispatch(new TaskActions.CreateAction(this.model));
-      this.model.name = '';
+      this.model.name = "";
     }
   }
 
@@ -113,8 +127,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
     if (user) {
       this.router.navigate([], {
         relativeTo: this.route,
-        queryParams: {responsibleId: user.id},
-        queryParamsHandling: 'merge'
+        queryParams: { responsibleId: user.id },
+        queryParamsHandling: "merge",
       });
     }
   }
@@ -124,8 +138,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: {tagId: tag.id},
-      queryParamsHandling: 'merge'
+      queryParams: { tagId: tag.id },
+      queryParamsHandling: "merge",
     });
   }
 
@@ -133,8 +147,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
     event.stopPropagation();
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: {statusId: status.id},
-      queryParamsHandling: 'merge'
+      queryParams: { statusId: status.id },
+      queryParamsHandling: "merge",
     });
   }
 
@@ -142,7 +156,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.isShowBacklog = !this.isShowBacklog;
     this._filterTasks();
   }
-
 
   ngOnDestroy() {
     this._subscriptions$.unsubscribe();
@@ -152,18 +165,21 @@ export class TaskListComponent implements OnInit, OnDestroy {
     if (this.isShowBacklog) {
       this.itemsShow = this.items.slice(0);
     } else {
-      this.itemsShow = this.items.filter(_ => _.statusId !== this.backLogStatus.id);
+      this.itemsShow = this.items.filter(
+        (_) => _.statusId !== this.backLogStatus.id
+      );
     }
   }
 
   private _subscribeTaskList() {
-    this._subscriptions$
-      .add(combineLatest(this.backlogStatus$, this.taskList$)
-        .subscribe(results => {
+    this._subscriptions$.add(
+      combineLatest(this.backlogStatus$, this.taskList$).subscribe(
+        (results) => {
           this.backLogStatus = results[0];
           this.items = results[1];
           this._filterTasks();
-        })
-      );
+        }
+      )
+    );
   }
 }

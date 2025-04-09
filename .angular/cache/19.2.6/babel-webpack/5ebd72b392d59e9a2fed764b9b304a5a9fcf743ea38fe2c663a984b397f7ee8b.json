@@ -1,0 +1,1 @@
+{"ast":null,"code":"class StringHelper {\n  static randomString() {\n    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);\n  }\n}\nexport { StringHelper as default };","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

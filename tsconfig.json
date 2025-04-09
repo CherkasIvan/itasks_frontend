@@ -4,18 +4,10 @@
     "baseUrl": "src",
     "importHelpers": true,
     "paths": {
-      "@core/*": [
-        "app/core/*"
-      ],
-      "@ux/*": [
-        "app/ux/*"
-      ],
-      "@cabinet/*": [
-        "app/cabinet/*"
-      ],
-      "@dashboard/*": [
-        "app/dashboard/*"
-      ]
+      "@core/*": ["app/core/*"],
+      "@ux/*": ["app/ux/*"],
+      "@cabinet/*": ["app/cabinet/*"],
+      "@dashboard/*": ["app/dashboard/*"]
     },
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
@@ -23,15 +15,10 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
-    "module": "es2015"
+    "target": "es2020",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "module": "es2020"
   },
   "angularCompilerOptions": {
     "preserveWhitespaces": false

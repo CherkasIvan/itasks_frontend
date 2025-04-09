@@ -1,23 +1,34 @@
-import {AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit} from '@angular/core';
-import {StatusModel} from '@core/models/status.model';
-import {select, Store} from '@ngrx/store';
-import {TaskModel} from '@core/models/task.model';
-import {Observable} from 'rxjs/Observable';
-import {Subscription} from 'rxjs/Subscription';
-import * as fromRoot from '@core/redux';
-import * as StatusAction from '@core/redux/status/status.actions';
-import * as LayoutActions from '@core/redux/layout/layout.actions';
-import * as TaskActions from '@core/redux/task/task.actions';
-import {ActivatedRoute, Router} from '@angular/router';
-import * as ProjectActions from '@core/redux/project/project.actions';
-import {StoreTaskService} from '@core/services/store-task.service';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { StatusModel } from "@core/models/status.model";
+import { select, Store } from "@ngrx/store";
+import { TaskModel } from "@core/models/task.model";
+import { filter, Observable, Subscription } from "rxjs";
+import * as fromRoot from "@core/redux";
+import * as StatusAction from "@core/redux/status/status.actions";
+import * as LayoutActions from "@core/redux/layout/layout.actions";
+import * as TaskActions from "@core/redux/task/task.actions";
+import { ActivatedRoute, Router } from "@angular/router";
+import { StoreTaskService } from "@core/services/store-task.service";
+import { FormsModule } from "@angular/forms";
+import { NgStyle } from "@angular/common";
 
 declare var jQuery: any;
 
 @Component({
-  selector: 'app-board-column',
-  templateUrl: './board-column.component.html',
-  styleUrls: ['./board-column.component.less'],
+  selector: "app-board-column",
+  templateUrl: "./board-column.component.html",
+  styleUrls: ["./board-column.component.less"],
+  standalone: true,
+  imports: [FormsModule, NgStyle],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardColumnComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() model: StatusModel;
@@ -30,70 +41,86 @@ export class BoardColumnComponent implements OnInit, AfterViewInit, OnDestroy {
   taskLoading$: Observable<any>;
   statusLoading$: Observable<any>;
   taskLoadingOrder$: Observable<any>;
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
   isAdmin = false;
 
-  constructor(private store: Store<fromRoot.State>,
-              private taskService: StoreTaskService,
-              private elementRef: ElementRef,
-              private route: ActivatedRoute,
-              public router: Router) {
-  }
+  constructor(
+    private store: Store<fromRoot.State>,
+    private taskService: StoreTaskService,
+    private elementRef: ElementRef,
+    private route: ActivatedRoute,
+    public router: Router
+  ) {}
 
   ngOnInit() {
     this.statusLoading$ = this.store.pipe(select(fromRoot.getStatusLoading));
     this.taskLoading$ = this.store.pipe(select(fromRoot.getTaskLoading));
-    this.taskLoadingOrder$ = this.store.pipe(select(fromRoot.getTaskLoadingOrder));
-    this.subscription$.add(this.taskLoading$
-      .filter((loading) => loading === false)
-      .subscribe(() => jQuery('.board-column__task-plus').css({display: 'flex'})));
+    this.taskLoadingOrder$ = this.store.pipe(
+      select(fromRoot.getTaskLoadingOrder)
+    );
 
-    this.subscription$.add(this.statusLoading$.subscribe((loading) => this.isLoading = loading));
-    this.subscription$.add(this
-      .taskService
-      .getTaskListByStatusId(this.statusId)
-      .subscribe((items) => {
-        if (this.allowUpdate) {
-          this.items = items;
-        }
-      }));
+    this.subscription$.add(
+      this.taskLoading$
+        .pipe(filter((loading) => loading === false)) // Используйте pipe и filter
+        .subscribe(() =>
+          jQuery(".board-column__task-plus").css({ display: "flex" })
+        )
+    );
 
-    this.subscription$
-      .add(this
-        .store
+    this.subscription$.add(
+      this.statusLoading$.subscribe((loading) => (this.isLoading = loading))
+    );
+    this.subscription$.add(
+      this.taskService
+        .getTaskListByStatusId(this.statusId)
+        .subscribe((items) => {
+          if (this.allowUpdate) {
+            this.items = items;
+          }
+        })
+    );
+
+    this.subscription$.add(
+      this.store
         .pipe(select(fromRoot.getUserCanAdmin))
         .subscribe((isAdmin: boolean) => {
           this.isAdmin = isAdmin || false;
-        }));
+        })
+    );
 
     this._copyModel();
   }
 
   ngAfterViewInit() {
-    jQuery(this.elementRef.nativeElement.querySelector('.board-column__cards')).sortable({
-      connectWith: '.board-column__cards',
-      items: '.board-column__card',
-      placeholder: 'card-placeholder',
-      dropOnEmpty: true,
-      forcePlaceholderSize: true,
-      tolerance: 'pointer',
-      start: (event, ui) => {
-        jQuery('.board-column__task-plus').css({display: 'none'});
-      },
-      stop: (event, ui) => {
-        setTimeout(() => jQuery('.board-column__task-plus').css({display: 'flex'}), 300);
-      },
-      update: (event, ui) => {
-        const model = new TaskModel();
-        model.setAttributes({
-          id: ui.item.attr('taskid'),
-          beforeId: ui.item.next().attr('taskid'),
-          afterId: ui.item.prev().attr('taskid'),
-          statusId: ui.item.parents('.board__column').attr('statusid')
-        });
-        this.store.dispatch(new TaskActions.OrderAction(model));
-      }
-    }).disableSelection();
+    jQuery(this.elementRef.nativeElement.querySelector(".board-column__cards"))
+      .sortable({
+        connectWith: ".board-column__cards",
+        items: ".board-column__card",
+        placeholder: "card-placeholder",
+        dropOnEmpty: true,
+        forcePlaceholderSize: true,
+        tolerance: "pointer",
+        start: (event, ui) => {
+          jQuery(".board-column__task-plus").css({ display: "none" });
+        },
+        stop: (event, ui) => {
+          setTimeout(
+            () => jQuery(".board-column__task-plus").css({ display: "flex" }),
+            300
+          );
+        },
+        update: (event, ui) => {
+          const model = new TaskModel();
+          model.setAttributes({
+            id: ui.item.attr("taskid"),
+            beforeId: ui.item.next().attr("taskid"),
+            afterId: ui.item.prev().attr("taskid"),
+            statusId: ui.item.parents(".board__column").attr("statusid"),
+          });
+          this.store.dispatch(new TaskActions.OrderAction(model));
+        },
+      })
+      .disableSelection();
   }
 
   ngOnDestroy() {
@@ -108,13 +135,13 @@ export class BoardColumnComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onEnterInputStatusName() {
-    if (this.modelCopy.name !== '') {
+    if (this.modelCopy.name !== "") {
       this.onSaveStatus();
     }
   }
 
   onBlurInputStatusName() {
-    if (this.modelCopy.name === '') {
+    if (this.modelCopy.name === "") {
       this._copyModel();
     } else {
       this.onSaveStatus();
@@ -127,8 +154,8 @@ export class BoardColumnComponent implements OnInit, AfterViewInit, OnDestroy {
     // $event.stopPropagation();
     const model = new TaskModel();
     model.setAttributes({
-      id: 'newTask',
-      name: '',
+      id: "newTask",
+      name: "",
       insertIndex: index,
       statusId: this.statusId,
       afterId: afterId,
@@ -150,10 +177,10 @@ export class BoardColumnComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openTask(id: string) {
-    if (id !== 'newTask') {
-      this.router.navigate([{outlets: {task: ['view', id]}}], {
+    if (id !== "newTask") {
+      this.router.navigate([{ outlets: { task: ["view", id] } }], {
         relativeTo: this.route.parent,
-        queryParamsHandling: 'merge'
+        queryParamsHandling: "merge",
       });
     }
   }

@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const environment = {\n  name: 'production',\n  production: true,\n  apiUrl: 'https://itask.neatsoft.io/api/',\n  socket: {\n    url: 'https://itask.neatsoft.io/socket.io:3002',\n    options: {}\n  }\n};","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

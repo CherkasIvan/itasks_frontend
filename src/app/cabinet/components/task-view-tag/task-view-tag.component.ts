@@ -1,13 +1,22 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {TagModel} from '@core/models/tag.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { TagModel } from "@core/models/tag.model";
 
 @Component({
-  selector: 'app-task-view-tag',
-  templateUrl: './task-view-tag.component.html',
-  styleUrls: ['./task-view-tag.component.less']
+  selector: "app-task-view-tag",
+  templateUrl: "./task-view-tag.component.html",
+  styleUrls: ["./task-view-tag.component.less"],
+  imports: [],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskViewTagComponent implements OnInit {
-
   private _tagList: TagModel[] = [];
   private _tags: string[] = [];
   @Output() onChangeTags: EventEmitter<string[]> = new EventEmitter();
@@ -32,11 +41,9 @@ export class TaskViewTagComponent implements OnInit {
 
   isOpen = false;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSelect(event) {
     this.onChangeTags.emit(event);
@@ -49,5 +56,4 @@ export class TaskViewTagComponent implements OnInit {
   onClose() {
     this.isOpen = false;
   }
-
 }

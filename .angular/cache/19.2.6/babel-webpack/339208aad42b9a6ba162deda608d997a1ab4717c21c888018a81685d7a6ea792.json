@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { BaseModel } from './base.model';\nexport class MessageModel extends BaseModel {\n  constructor() {\n    super(...arguments);\n    this.likes = [];\n    this.files = [];\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

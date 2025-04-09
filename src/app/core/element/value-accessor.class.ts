@@ -1,8 +1,8 @@
-import {ControlValueAccessor} from '@angular/forms';
-import {noop} from 'rxjs/util/noop';
+import { ControlValueAccessor } from "@angular/forms";
+import { noop } from "rxjs";
 
 export class ValueAccessorBase<T> implements ControlValueAccessor {
-  private innerValue: any = '';
+  private innerValue: any = "";
   private onTouchedCallback: () => void = noop;
   private onChangeCallback: (_: any) => void = noop;
 

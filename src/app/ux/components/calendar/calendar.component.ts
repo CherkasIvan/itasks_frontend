@@ -1,6 +1,15 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import * as moment from 'moment';
-import * as _ from 'lodash';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from "@angular/core";
+import * as moment from "moment";
+import * as _ from "lodash";
 
 export interface CalendarDate {
   mDate: moment.Moment;
@@ -8,21 +17,22 @@ export interface CalendarDate {
 }
 
 @Component({
-  selector: 'ux-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.less']
+  selector: "ux-calendar",
+  templateUrl: "./calendar.component.html",
+  styleUrls: ["./calendar.component.less"],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit, OnChanges {
   currentDate = moment();
-  dayNames = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  dayNames = ["S", "M", "T", "W", "T", "F", "S"];
   weeks: CalendarDate[][] = [];
 
   @Input() selectedDate;
   @Output() changeDate = new EventEmitter<CalendarDate>();
   @Output() clearDate = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
   ngOnInit(): void {
     this.generateCalendar();
@@ -44,15 +54,15 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   // date checkers
   isToday(date: moment.Moment): boolean {
-    return moment().isSame(moment(date), 'day');
+    return moment().isSame(moment(date), "day");
   }
 
   isSelected(date: moment.Moment): boolean {
-    return moment(date).isSame(this.selectedDate, 'day');
+    return moment(date).isSame(this.selectedDate, "day");
   }
 
   isSelectedMonth(date: moment.Moment): boolean {
-    return moment(date).isSame(this.currentDate, 'month');
+    return moment(date).isSame(this.currentDate, "month");
   }
 
   selectDate(date: CalendarDate): void {
@@ -62,32 +72,32 @@ export class CalendarComponent implements OnInit, OnChanges {
 
   // actions from calendar
   prevMonth(): void {
-    this.currentDate = moment(this.currentDate).subtract(1, 'months');
+    this.currentDate = moment(this.currentDate).subtract(1, "months");
     this.generateCalendar();
   }
 
   nextMonth(): void {
-    this.currentDate = moment(this.currentDate).add(1, 'months');
+    this.currentDate = moment(this.currentDate).add(1, "months");
     this.generateCalendar();
   }
 
   firstMonth(): void {
-    this.currentDate = moment(this.currentDate).startOf('year');
+    this.currentDate = moment(this.currentDate).startOf("year");
     this.generateCalendar();
   }
 
   lastMonth(): void {
-    this.currentDate = moment(this.currentDate).endOf('year');
+    this.currentDate = moment(this.currentDate).endOf("year");
     this.generateCalendar();
   }
 
   prevYear(): void {
-    this.currentDate = moment(this.currentDate).subtract(1, 'year');
+    this.currentDate = moment(this.currentDate).subtract(1, "year");
     this.generateCalendar();
   }
 
   nextYear(): void {
-    this.currentDate = moment(this.currentDate).add(1, 'year');
+    this.currentDate = moment(this.currentDate).add(1, "year");
     this.generateCalendar();
   }
 
@@ -102,16 +112,17 @@ export class CalendarComponent implements OnInit, OnChanges {
   }
 
   fillDates(currentMoment: moment.Moment): CalendarDate[] {
-    const firstOfMonth = moment(currentMoment).startOf('month').day();
-    const firstDayOfGrid = moment(currentMoment).startOf('month').subtract(firstOfMonth, 'days');
+    const firstOfMonth = moment(currentMoment).startOf("month").day();
+    const firstDayOfGrid = moment(currentMoment)
+      .startOf("month")
+      .subtract(firstOfMonth, "days");
     const start = firstDayOfGrid.date();
-    return _.range(start, start + 42)
-      .map((date: number): CalendarDate => {
-        const d = moment(firstDayOfGrid).date(date);
-        return {
-          today: this.isToday(d),
-          mDate: d,
-        };
-      });
+    return _.range(start, start + 42).map((date: number): CalendarDate => {
+      const d = moment(firstDayOfGrid).date(date);
+      return {
+        today: this.isToday(d),
+        mDate: d,
+      };
+    });
   }
 }
