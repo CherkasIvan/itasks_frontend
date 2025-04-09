@@ -1,16 +1,17 @@
-import {Component, OnDestroy} from '@angular/core';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
-import {FilterStoreService} from '@core/services/store/filter.store.service';
-import {CabinetComponent} from '../../cabinet.component';
+import { ChangeDetectionStrategy, Component, OnDestroy } from "@angular/core";
+import { ActivatedRoute, Params, Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { FilterStoreService } from "@core/services/store/filter.store.service";
+import { CabinetComponent } from "../../cabinet.component";
 
 @Component({
-  selector: 'app-filter-controls',
-  templateUrl: './filter-controls.component.html',
-  styleUrls: ['./filter-controls.component.less']
+  selector: "app-filter-controls",
+  templateUrl: "./filter-controls.component.html",
+  styleUrls: ["./filter-controls.component.less"],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterControlsComponent implements OnDestroy {
-
   /** Включена ли фильтрация */
   isFilteringEnabled = false;
 
@@ -19,7 +20,6 @@ export class FilterControlsComponent implements OnDestroy {
    * @type {boolean}
    */
   isShowFilterPopup = false;
-
 
   /** Подписки */
   subscription$: Subscription = new Subscription();
@@ -32,24 +32,23 @@ export class FilterControlsComponent implements OnDestroy {
    * @param {Router} router
    * @param {ActivatedRoute} route
    */
-  constructor(public cabinetComponent: CabinetComponent,
-              private filterStoreService: FilterStoreService,
-              private router: Router,
-              private route: ActivatedRoute) {
+  constructor(
+    public cabinetComponent: CabinetComponent,
+    private filterStoreService: FilterStoreService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
     // Подписываемся на роутинг
-    this
-      .subscription$
-      .add(route
-        .queryParams
-        .subscribe((params: Params) => {
-          this.isFilteringEnabled =
-            !!params['responsibleId']
-            || !!params['authorId']
-            || !!params['tagId']
-            || !!params['statusId']
-            || !!params['text']
-          ;
-        }));
+    this.subscription$.add(
+      route.queryParams.subscribe((params: Params) => {
+        this.isFilteringEnabled =
+          !!params["responsibleId"] ||
+          !!params["authorId"] ||
+          !!params["tagId"] ||
+          !!params["statusId"] ||
+          !!params["text"];
+      })
+    );
   }
 
   /**
@@ -80,7 +79,7 @@ export class FilterControlsComponent implements OnDestroy {
     this.filterStoreService.selectFilter(null);
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: {}
+      queryParams: {},
     });
   }
 }

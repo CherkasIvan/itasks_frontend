@@ -1,13 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
-import {debounceTime, distinctUntilChanged, map, pluck} from 'rxjs/operators';
-import {Subject} from 'rxjs/Subject';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subject, Subscription } from "rxjs";
+import { debounceTime, distinctUntilChanged, map, pluck } from "rxjs/operators";
 
 @Component({
-  selector: 'app-fast-search',
-  templateUrl: './fast-search.component.html',
-  styleUrls: ['./fast-search.component.less']
+  selector: "app-fast-search",
+  templateUrl: "./fast-search.component.html",
+  styleUrls: ["./fast-search.component.less"],
+  standalone: true,
+  imports: [FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FastSearchComponent implements OnInit, OnDestroy {
   private _subscriptions$: Subscription = new Subscription();
@@ -17,8 +25,7 @@ export class FastSearchComponent implements OnInit, OnDestroy {
   text: string;
   isUnsubscribeChangeRoute = false;
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this._subscribeRoute();
@@ -31,44 +38,43 @@ export class FastSearchComponent implements OnInit, OnDestroy {
   }
 
   private _subscribeKeyUp() {
-    this._subscriptions$.add(this.keyUp$
-      .pipe(
-        map(event => event.target.value),
-        debounceTime(200),
-        distinctUntilChanged()
-      ).subscribe(data => {
-        if (!this.isUnsubscribeChangeRoute) {
-          this._subscriptionRoute$.unsubscribe();
-          this.isUnsubscribeChangeRoute = true;
-        }
+    this._subscriptions$.add(
+      this.keyUp$
+        .pipe(
+          map((event) => event.target.value),
+          debounceTime(200),
+          distinctUntilChanged()
+        )
+        .subscribe((data) => {
+          if (!this.isUnsubscribeChangeRoute) {
+            this._subscriptionRoute$.unsubscribe();
+            this.isUnsubscribeChangeRoute = true;
+          }
 
-        this.router.navigate([], {
-          queryParams: {
-            text: data
-          },
-          queryParamsHandling: 'merge'
-        });
-      }));
+          this.router.navigate([], {
+            queryParams: {
+              text: data,
+            },
+            queryParamsHandling: "merge",
+          });
+        })
+    );
 
-    this._subscriptions$.add(this.keyUp$
-      .pipe(
-        debounceTime(3000),
-        distinctUntilChanged()
-      ).subscribe(() => {
-        if (this.isUnsubscribeChangeRoute) {
-          this._subscribeRoute();
-        }
-      }));
+    this._subscriptions$.add(
+      this.keyUp$
+        .pipe(debounceTime(3000), distinctUntilChanged())
+        .subscribe(() => {
+          if (this.isUnsubscribeChangeRoute) {
+            this._subscribeRoute();
+          }
+        })
+    );
   }
 
   private _subscribeRoute() {
     this.isUnsubscribeChangeRoute = false;
-    this._subscriptionRoute$ = this
-      .route
-      .queryParams
-      .pipe(
-        pluck('text')
-      )
+    this._subscriptionRoute$ = this.route.queryParams
+      .pipe(pluck("text"))
       .subscribe((text: string) => {
         this.text = text;
       });

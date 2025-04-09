@@ -1,14 +1,25 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import * as _ from 'lodash';
-import {TaskViewComponent} from '../task-view/task-view.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from "@angular/core";
+import * as _ from "lodash";
+import { TaskViewComponent } from "../task-view/task-view.component";
 
 @Component({
-  selector: 'app-task-view-files',
-  templateUrl: './task-view-files.component.html',
-  styleUrls: ['./task-view-files.component.less']
+  selector: "app-task-view-files",
+  templateUrl: "./task-view-files.component.html",
+  styleUrls: ["./task-view-files.component.less"],
+  imports: [],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskViewFilesComponent implements OnInit {
-  @ViewChild('inputUploadFiles') inputUploadFiles: any;
+  @ViewChild("inputUploadFiles") inputUploadFiles: any;
 
   @Input()
   set files(files) {
@@ -24,15 +35,12 @@ export class TaskViewFilesComponent implements OnInit {
   filesList = [];
   loadingFilesList = [];
 
-  constructor(public taskView: TaskViewComponent) {
+  constructor(public taskView: TaskViewComponent) {}
 
-  }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onStopUploadAndDeleteFile(file: any) {
-    const index = _.findIndex(this.loadingFilesList, {name: file.name});
+    const index = _.findIndex(this.loadingFilesList, { name: file.name });
     this.loadingFilesList[index].subscription.unsubscribe();
     this.loadingFilesList.splice(index, 1);
   }

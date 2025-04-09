@@ -1,14 +1,24 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {TagModel} from '@core/models/tag.model';
-import * as TagActions from '@core/redux/tag/tag.actions';
-import * as fromRoot from '@core/redux';
-import {TagComponent} from '@ux/components/tag/tag.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { Store } from "@ngrx/store";
+import { TagModel } from "@core/models/tag.model";
+import * as TagActions from "@core/redux/tag/tag.actions";
+import * as fromRoot from "@core/redux";
+import { TagComponent } from "@ux/components/tag/tag.component";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'app-setting-tag-item',
-  templateUrl: './setting-tag-item.component.html',
-  styleUrls: ['./setting-tag-item.component.less']
+  selector: "app-setting-tag-item",
+  templateUrl: "./setting-tag-item.component.html",
+  styleUrls: ["./setting-tag-item.component.less"],
+  standalone: true,
+  imports: [TagComponent, FormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingTagItemComponent implements OnInit {
   @Input() isNew = false;
@@ -17,19 +27,46 @@ export class SettingTagItemComponent implements OnInit {
   tagCopy: TagModel;
   @ViewChild(TagComponent) tagComponent: TagComponent;
   cssClasses = [
-    {'color': '#42e3f0', 'cssClassApi': 'tag_bg-1', 'cssClass': 'setting-tag-item__color_bg-1'},
-    {'color': '#5fb0ff', 'cssClassApi': 'tag_bg-3', 'cssClass': 'setting-tag-item__color_bg-3'},
-    {'color': '#995ec9', 'cssClassApi': 'tag_bg-4', 'cssClass': 'setting-tag-item__color_bg-4'},
-    {'color': '#ff7ea4', 'cssClassApi': 'tag_bg-5', 'cssClass': 'setting-tag-item__color_bg-5'},
-    {'color': '#ffdea2', 'cssClassApi': 'tag_bg-6', 'cssClass': 'setting-tag-item__color_bg-6'},
-    {'color': '#a4e279', 'cssClassApi': 'tag_bg-7', 'cssClass': 'setting-tag-item__color_bg-7'},
-    {'color': '#dfe3a3', 'cssClassApi': 'tag_bg-8', 'cssClass': 'setting-tag-item__color_bg-8'},
+    {
+      color: "#42e3f0",
+      cssClassApi: "tag_bg-1",
+      cssClass: "setting-tag-item__color_bg-1",
+    },
+    {
+      color: "#5fb0ff",
+      cssClassApi: "tag_bg-3",
+      cssClass: "setting-tag-item__color_bg-3",
+    },
+    {
+      color: "#995ec9",
+      cssClassApi: "tag_bg-4",
+      cssClass: "setting-tag-item__color_bg-4",
+    },
+    {
+      color: "#ff7ea4",
+      cssClassApi: "tag_bg-5",
+      cssClass: "setting-tag-item__color_bg-5",
+    },
+    {
+      color: "#ffdea2",
+      cssClassApi: "tag_bg-6",
+      cssClass: "setting-tag-item__color_bg-6",
+    },
+    {
+      color: "#a4e279",
+      cssClassApi: "tag_bg-7",
+      cssClass: "setting-tag-item__color_bg-7",
+    },
+    {
+      color: "#dfe3a3",
+      cssClassApi: "tag_bg-8",
+      cssClass: "setting-tag-item__color_bg-8",
+    },
   ];
 
   isEditMode = false;
 
-  constructor(private store: Store<fromRoot.State>) {
-  }
+  constructor(private store: Store<fromRoot.State>) {}
 
   ngOnInit() {
     if (this.isNew) {
@@ -78,7 +115,7 @@ export class SettingTagItemComponent implements OnInit {
 
   protected _clearForm() {
     this.tag = new TagModel();
-    this.tag.cssClass = 'tag_bg-1';
+    this.tag.cssClass = "tag_bg-1";
     this._copyModel();
   }
 }

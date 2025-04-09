@@ -1,77 +1,115 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {InviteService} from '@core/services/invite.service';
-import {IdentityModel} from '@core/models/identity.model';
-import {InviteModel, RoleInterface} from '@core/models/invite.model';
-import {Subscription} from 'rxjs/Subscription';
-import {FormBuilder, Validators} from '@angular/forms';
-import {Validation} from '@core/validation/validation.abstract.class';
-import * as InviteActions from '@core/redux/invite/invite.actions';
-import * as fromRoot from '@core/redux';
-import {Actions, ofType} from '@ngrx/effects';
-import 'rxjs/add/operator/do';
-import {InviteActionTypes} from '@core/redux/invite/invite.actions';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import { InviteService } from "@core/services/invite.service";
+import { IdentityModel } from "@core/models/identity.model";
+import { InviteModel, RoleInterface } from "@core/models/invite.model";
+import { Subscription } from "rxjs";
+import {
+  FormBuilder,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from "@angular/forms";
+import { Validation } from "@core/validation/validation.abstract.class";
+import * as InviteActions from "@core/redux/invite/invite.actions";
+import * as fromRoot from "@core/redux";
+import { Actions, ofType } from "@ngrx/effects";
+import "rxjs/add/operator/do";
+import { InviteActionTypes } from "@core/redux/invite/invite.actions";
+import { NgClass } from "@angular/common";
+import { SelectOnlyHeaderComponent } from "@ux/components/select/only/select-only-header/select-only-header.component";
+import { SelectOnlyItemsComponent } from "@ux/components/select/only/select-only-items/select-only-items.component";
+import { SelectOnlyComponent } from "@ux/components/select/only/select-only/select.component";
 
 @Component({
-  selector: 'app-setting-invite',
-  templateUrl: './setting-invite.component.html',
-  styleUrls: ['./setting-invite.component.less']
+  selector: "app-setting-invite",
+  templateUrl: "./setting-invite.component.html",
+  styleUrls: ["./setting-invite.component.less"],
+  standalone: true,
+  imports: [
+    NgClass,
+    FormsModule,
+    ReactiveFormsModule,
+    SelectOnlyComponent,
+    SelectOnlyHeaderComponent,
+    SelectOnlyItemsComponent,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SettingInviteComponent extends Validation implements OnInit, OnDestroy {
+export class SettingInviteComponent
+  extends Validation
+  implements OnInit, OnDestroy
+{
   roles: RoleInterface[] = [];
 
   user: IdentityModel;
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
   isLoadingForm = false;
   activeInvite: InviteModel[] = [];
   notActiveInvite: InviteModel[] = [];
 
-  constructor(private store: Store<fromRoot.State>,
-              private updates: Actions,
-              private formBuilder: FormBuilder,
-              private inviteService: InviteService) {
+  constructor(
+    private store: Store<fromRoot.State>,
+    private updates: Actions,
+    private formBuilder: FormBuilder,
+    private inviteService: InviteService
+  ) {
     super();
 
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getInviteNoDeleteEntities))
-      .subscribe(invites => {
-        this.activeInvite = invites.filter((invite) => invite.status === 'active');
-        this.notActiveInvite = invites.filter((invite) => invite.status === 'noActive');
-      }));
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getInviteNoDeleteEntities))
+        .subscribe((invites) => {
+          this.activeInvite = invites.filter(
+            (invite) => invite.status === "active"
+          );
+          this.notActiveInvite = invites.filter(
+            (invite) => invite.status === "noActive"
+          );
+        })
+    );
     this.roles = inviteService.findAllRoles();
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getUser))
-      .subscribe((user) => this.user = user));
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getInviteErrors))
-      .subscribe((errors) => this.validateErrors = errors));
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getInviteLoading))
-      .subscribe((isLoading) => this.isLoadingForm = isLoading));
-
-    this.subscription$.add(updates
-      .pipe(ofType(InviteActionTypes.CreateSuccessAction))
-      .subscribe(() => {
-        this._initForm();
-      })
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getUser))
+        .subscribe((user) => (this.user = user))
+    );
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getInviteErrors))
+        .subscribe((errors) => (this.validateErrors = errors))
+    );
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getInviteLoading))
+        .subscribe((isLoading) => (this.isLoadingForm = isLoading))
     );
 
-    this.subscription$.add(updates
-      .pipe(ofType(InviteActionTypes.ResendEmailFailureAction))
-      .subscribe(() => {
-        alert('Ошибка повторной отправки приглашения');
-      })
+    this.subscription$.add(
+      updates
+        .pipe(ofType(InviteActionTypes.CreateSuccessAction))
+        .subscribe(() => {
+          this._initForm();
+        })
+    );
+
+    this.subscription$.add(
+      updates
+        .pipe(ofType(InviteActionTypes.ResendEmailFailureAction))
+        .subscribe(() => {
+          alert("Ошибка повторной отправки приглашения");
+        })
     );
 
     this._initForm();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscription$.unsubscribe();
@@ -79,7 +117,9 @@ export class SettingInviteComponent extends Validation implements OnInit, OnDest
 
   onSubmit() {
     if (this.form.valid) {
-      this.store.dispatch(new InviteActions.CreateAction(this.form.getRawValue()));
+      this.store.dispatch(
+        new InviteActions.CreateAction(this.form.getRawValue())
+      );
     }
   }
 
@@ -97,8 +137,11 @@ export class SettingInviteComponent extends Validation implements OnInit, OnDest
 
   private _initForm() {
     this.form = this.formBuilder.group({
-      email: [null, Validators.compose([Validators.required, Validators.email])],
-      role: [this.roles[0].id, Validators.compose([Validators.required])]
+      email: [
+        null,
+        Validators.compose([Validators.required, Validators.email]),
+      ],
+      role: [this.roles[0].id, Validators.compose([Validators.required])],
     });
   }
 }

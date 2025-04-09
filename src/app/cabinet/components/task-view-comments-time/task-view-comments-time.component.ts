@@ -1,22 +1,29 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-task-view-comments-time',
-  templateUrl: './task-view-comments-time.component.html',
-  styleUrls: ['./task-view-comments-time.component.less']
+  selector: "app-task-view-comments-time",
+  templateUrl: "./task-view-comments-time.component.html",
+  styleUrls: ["./task-view-comments-time.component.less"],
+  imports: [],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskViewCommentsTimeComponent implements OnInit {
   @Output() save = new EventEmitter();
   private _data = {
     hours: 0,
-    minutes: 0
+    minutes: 0,
   };
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onSetHour(hours) {
     this._data.hours = +hours;
@@ -27,7 +34,8 @@ export class TaskViewCommentsTimeComponent implements OnInit {
   }
 
   onSubmit() {
-    const time = this._data.hours + (Math.floor(this._data.minutes / 60 * 100) / 100);
+    const time =
+      this._data.hours + Math.floor((this._data.minutes / 60) * 100) / 100;
     this.save.emit(time);
   }
 }

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { BaseModel } from './base.model';\nexport class UserModel extends BaseModel {}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

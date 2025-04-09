@@ -1,16 +1,25 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MessageModel} from '@core/models/message.model';
-import {Store} from '@ngrx/store';
-import * as MessageActions from '@core/redux/message/message.actions';
-import * as fromRoot from '@core/redux';
-import * as _ from 'lodash';
-import {getUserId} from '@core/utils/getUserId';
-import {ImageService} from '@core/services/image/image.service';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
+import { MessageModel } from "@core/models/message.model";
+import { Store } from "@ngrx/store";
+import * as MessageActions from "@core/redux/message/message.actions";
+import * as fromRoot from "@core/redux";
+import * as _ from "lodash";
+import { getUserId } from "@core/utils/getUserId";
+import { ImageService } from "@core/services/image/image.service";
+import { DatePipe, NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-task-view-comment-item',
-  templateUrl: './task-view-comment-item.component.html',
-  styleUrls: ['./task-view-comment-item.component.less']
+  selector: "app-task-view-comment-item",
+  templateUrl: "./task-view-comment-item.component.html",
+  styleUrls: ["./task-view-comment-item.component.less"],
+  imports: [NgClass, DatePipe],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskViewCommentItemComponent implements OnInit {
   /**
@@ -54,8 +63,10 @@ export class TaskViewCommentItemComponent implements OnInit {
    * @param {Store<State>} store
    * @param imageService
    */
-  constructor(private store: Store<fromRoot.State>,
-              public imageService: ImageService) {
+  constructor(
+    private store: Store<fromRoot.State>,
+    public imageService: ImageService
+  ) {
     this.userId = getUserId();
   }
 

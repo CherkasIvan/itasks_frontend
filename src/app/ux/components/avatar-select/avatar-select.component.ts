@@ -1,13 +1,23 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UserModel} from '@core/models/user.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { UserModel } from "@core/models/user.model";
+import { AvatarComponent } from "../avatar/avatar.component";
 
 @Component({
-  selector: 'ux-avatar-select',
-  templateUrl: './avatar-select.component.html',
-  styleUrls: ['./avatar-select.component.less']
+  selector: "ux-avatar-select",
+  imports: [AvatarComponent],
+  templateUrl: "./avatar-select.component.html",
+  styleUrls: ["./avatar-select.component.less"],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AvatarSelectComponent implements OnInit {
-
   @Input() popupStyle = {};
   @Output() select = new EventEmitter<string>();
   @Output() remove = new EventEmitter();
@@ -35,11 +45,9 @@ export class AvatarSelectComponent implements OnInit {
 
   isOpenPopup = false;
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onTogglePopup(): void {
     this.isOpenPopup = !this.isOpenPopup;

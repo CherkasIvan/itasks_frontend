@@ -1,25 +1,33 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
-import * as fromRoot from '@core/redux/index';
-import * as ProjectActions from '@core/redux/project/project.actions';
-import * as PopupActions from '@core/redux/popup/popup.actions';
-import {IdentityModel} from '@core/models/identity.model';
-import {Subscription} from 'rxjs/Subscription';
-import * as AuthActions from '@core/redux/auth/auth.actions';
-import {ProjectModel} from '@core/models/project.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import * as fromRoot from "@core/redux/index";
+import * as ProjectActions from "@core/redux/project/project.actions";
+import * as PopupActions from "@core/redux/popup/popup.actions";
+import { IdentityModel } from "@core/models/identity.model";
+import { Observable, Subscription } from "rxjs";
+import * as AuthActions from "@core/redux/auth/auth.actions";
+import { ProjectModel } from "@core/models/project.model";
+import { NgClass, NgSwitch } from "@angular/common";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.less']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  standalone: true,
+  styleUrls: ["./dashboard.component.less"],
+  imports: [NgSwitch, NgClass],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   private _subscriptions$: Subscription = new Subscription();
 
   popupProjectMenu$: Observable<any>;
   popupProjectForm$: Observable<any>;
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
   isArchiveProjectList = false;
   isOpenChangeProjectListPopup = false;
   user: IdentityModel;
@@ -36,23 +44,22 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.store.dispatch(new ProjectActions.SearchAction());
     this.store.dispatch(new AuthActions.GetUserAction());
 
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getUser))
-      .subscribe((user) => this.user = user));
-
-    this._subscriptions$.add(
-      this
-        .store
-        .pipe(select(fromRoot.getProjectActiveEntities))
-        .subscribe((projects) => this.activeProjectList = projects)
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getUser))
+        .subscribe((user) => (this.user = user))
     );
 
     this._subscriptions$.add(
-      this
-        .store
+      this.store
+        .pipe(select(fromRoot.getProjectActiveEntities))
+        .subscribe((projects) => (this.activeProjectList = projects))
+    );
+
+    this._subscriptions$.add(
+      this.store
         .pipe(select(fromRoot.getProjectArchiveEntities))
-        .subscribe((projects) => this.archiveProjectList = projects)
+        .subscribe((projects) => (this.archiveProjectList = projects))
     );
   }
 

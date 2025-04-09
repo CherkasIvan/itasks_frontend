@@ -1,10 +1,14 @@
-import {Component, Input} from '@angular/core';
-import {StatusModel} from '@core/models/status.model';
+import { NgStyle } from "@angular/common";
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { StatusModel } from "@core/models/status.model";
 
 @Component({
-  selector: 'ux-status',
-  templateUrl: './status.component.html',
-  styleUrls: ['./status.component.less']
+  selector: "ux-status",
+  templateUrl: "./status.component.html",
+  imports: [NgStyle],
+  standalone: true,
+  styleUrls: ["./status.component.less"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StatusComponent {
   private _status: StatusModel;

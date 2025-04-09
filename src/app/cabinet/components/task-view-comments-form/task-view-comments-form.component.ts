@@ -1,31 +1,38 @@
 import {
-  Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output,
-  ViewChild
-} from '@angular/core';
-import {MessageModel} from '@core/models/message.model';
-import * as MessageActions from '@core/redux/message/message.actions';
-import * as fromRoot from '@core/redux';
-import {select, Store} from '@ngrx/store';
-import {FileService} from '@core/services/file.service';
-import {HttpEventType, HttpResponse} from '@angular/common/http';
-import {Subscription} from 'rxjs/Subscription';
-import * as _ from 'lodash';
-import {CabinetComponent} from '../../cabinet.component';
-import {TaskViewComponent} from '../task-view/task-view.component';
-import {AutoResizeDirective} from '../../../ux/directives/auto-resize.directive';
-import {getUserId} from '@core/utils/getUserId';
-import {getUser} from '@core/utils/getUser';
-import {InviteModel} from '@core/models/invite.model';
-import {StoreMessageService} from '@core/services/store-message.service';
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
+import { MessageModel } from "@core/models/message.model";
+import * as MessageActions from "@core/redux/message/message.actions";
+import * as fromRoot from "@core/redux";
+import { select, Store } from "@ngrx/store";
+import { FileService } from "@core/services/file.service";
+import { HttpEventType, HttpResponse } from "@angular/common/http";
+import { Subscription } from "rxjs";
+import * as _ from "lodash";
+import { CabinetComponent } from "../../cabinet.component";
+import { TaskViewComponent } from "../task-view/task-view.component";
+import { getUserId } from "@core/utils/getUserId";
+import { getUser } from "@core/utils/getUser";
+import { InviteModel } from "@core/models/invite.model";
+import { StoreMessageService } from "@core/services/store-message.service";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'app-task-view-comments-form',
-  templateUrl: './task-view-comments-form.component.html',
-  styleUrls: ['./task-view-comments-form.component.less']
+  selector: "app-task-view-comments-form",
+  templateUrl: "./task-view-comments-form.component.html",
+  styleUrls: ["./task-view-comments-form.component.less"],
+  imports: [FormsModule],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskViewCommentsFormComponent implements OnInit, OnDestroy {
-
-  @ViewChild('inputUploadFiles') inputUploadFiles: any;
+  @ViewChild("inputUploadFiles") inputUploadFiles: any;
 
   private _taskId: string;
 
@@ -43,15 +50,15 @@ export class TaskViewCommentsFormComponent implements OnInit, OnDestroy {
   message: MessageModel = new MessageModel();
   files = [];
   isOpenTimeForm = false;
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
 
-  @HostListener('dragover', ['$event'])
+  @HostListener("dragover", ["$event"])
   onDragOver($event) {
     $event.preventDefault();
     $event.stopPropagation();
   }
 
-  @HostListener('drop', ['$event'])
+  @HostListener("drop", ["$event"])
   onDrop($event) {
     event.preventDefault();
     event.stopPropagation();
@@ -60,19 +67,23 @@ export class TaskViewCommentsFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  constructor(public cabinetComponent: CabinetComponent,
-              private store: Store<fromRoot.State>,
-              private fileService: FileService,
-              private storeMessage: StoreMessageService,
-              private taskView: TaskViewComponent) {
-    this.subscription$.add(this.store
-      .pipe(select(fromRoot.getMessageEdit))
-      .subscribe((message: MessageModel) => {
-        if (message) {
-          this.messageOrigin = Object.assign({}, message);
-          this.message = Object.assign({}, message);
-        }
-      }));
+  constructor(
+    public cabinetComponent: CabinetComponent,
+    private store: Store<fromRoot.State>,
+    private fileService: FileService,
+    private storeMessage: StoreMessageService,
+    private taskView: TaskViewComponent
+  ) {
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getMessageEdit))
+        .subscribe((message: MessageModel) => {
+          if (message) {
+            this.messageOrigin = Object.assign({}, message);
+            this.message = Object.assign({}, message);
+          }
+        })
+    );
   }
 
   ngOnInit() {
@@ -113,30 +124,32 @@ export class TaskViewCommentsFormComponent implements OnInit, OnDestroy {
       this.files.push(files[i]);
     }
 
-    this.inputUploadFiles.nativeElement.value = '';
+    this.inputUploadFiles.nativeElement.value = "";
 
     this.files.forEach((file, i) => {
       file.progress = 0;
       file.isError = false;
       file.error = null;
 
-      const subscription = this
-        .fileService
-        .upload(file, 'comment', this.taskId)
-        .subscribe(event => {
-          file.index = i;
-          if (event.type === HttpEventType.UploadProgress) {
-            file.progress = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            file.progress = 100;
-            this.message.files.push(event.body);
-            const index = _.findIndex(this.files, {name: file.name});
-            this.files.splice(index, 1);
+      const subscription = this.fileService
+        .upload(file, "comment", this.taskId)
+        .subscribe(
+          (event) => {
+            file.index = i;
+            if (event.type === HttpEventType.UploadProgress) {
+              file.progress = Math.round((100 * event.loaded) / event.total);
+            } else if (event instanceof HttpResponse) {
+              file.progress = 100;
+              this.message.files.push(event.body);
+              const index = _.findIndex(this.files, { name: file.name });
+              this.files.splice(index, 1);
+            }
+          },
+          (error) => {
+            file.error = error.error.file;
+            file.isError = true;
           }
-        }, (error) => {
-          file.error = error.error.file;
-          file.isError = true;
-        });
+        );
 
       file.subscription = subscription;
       this.subscription$.add(subscription);
@@ -167,7 +180,7 @@ export class TaskViewCommentsFormComponent implements OnInit, OnDestroy {
   }
 
   onStopUploadAndDeleteFile(file: any) {
-    const index = _.findIndex(this.files, {name: file.name});
+    const index = _.findIndex(this.files, { name: file.name });
     this.files[index].subscription.unsubscribe();
     this.files.splice(index, 1);
   }
