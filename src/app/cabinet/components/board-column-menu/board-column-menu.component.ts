@@ -1,23 +1,30 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {StatusModel} from '@core/models/status.model';
-import * as fromRoot from '@core/redux';
-import {Store} from '@ngrx/store';
-import * as StatusActions from '@core/redux/status/status.actions';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
+import { StatusModel } from "@core/models/status.model";
+import * as fromRoot from "@core/redux";
+import { Store } from "@ngrx/store";
+import * as StatusActions from "@core/redux/status/status.actions";
+import { SelectColorComponent } from "../select-color/select-color.component";
 
 @Component({
-  selector: 'app-board-column-menu',
-  templateUrl: './board-column-menu.component.html',
-  styleUrls: ['./board-column-menu.component.less']
+  selector: "app-board-column-menu",
+  templateUrl: "./board-column-menu.component.html",
+  styleUrls: ["./board-column-menu.component.less"],
+  imports: [SelectColorComponent],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardColumnMenuComponent implements OnInit {
   @Input() model: StatusModel;
   confirmDelete = false;
 
-  constructor(private store: Store<fromRoot.State>) {
-  }
+  constructor(private store: Store<fromRoot.State>) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onDelete() {
     if (this.confirmDelete) {

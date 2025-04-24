@@ -1,8 +1,10 @@
-import {Directive, ElementRef, Input, OnInit} from '@angular/core';
-import {DeviceDetectorService} from 'ngx-device-detector';
+import { Directive, ElementRef, Input, OnInit } from "@angular/core";
+import { DeviceDetectorService } from "ngx-device-detector";
 
 @Directive({
-  selector: '[autoFocus]'
+  selector: "[autoFocus]",
+  standalone: true,
+  providers: [DeviceDetectorService], // Добавьте провайдер здесь
 })
 export class AutoFocusDirective implements OnInit {
   @Input() set autoFocus(condition: boolean) {
@@ -11,9 +13,10 @@ export class AutoFocusDirective implements OnInit {
 
   private focus = true;
 
-  constructor(private el: ElementRef,
-              private deviceService: DeviceDetectorService) {
-  }
+  constructor(
+    private el: ElementRef,
+    private deviceService: DeviceDetectorService
+  ) {}
 
   ngOnInit() {
     if (this.focus && this.deviceService.isDesktop()) {

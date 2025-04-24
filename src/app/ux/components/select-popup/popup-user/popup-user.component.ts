@@ -1,19 +1,31 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {UserModel} from '@core/models/user.model';
-import * as _ from 'lodash';
-import * as fromRoot from '@core/redux';
-import {select, Store} from '@ngrx/store';
-import {InviteModel} from '@core/models/invite.model';
-import {Subscription} from 'rxjs/Subscription';
-import {IdentityModel} from '@core/models/identity.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import { UserModel } from "@core/models/user.model";
+import * as _ from "lodash";
+import * as fromRoot from "@core/redux";
+import { select, Store } from "@ngrx/store";
+import { InviteModel } from "@core/models/invite.model";
+import { Subscription } from "rxjs";
+import { IdentityModel } from "@core/models/identity.model";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'ux-popup-user',
-  templateUrl: './popup-user.component.html',
-  styleUrls: ['./popup-user.component.less']
+  selector: "ux-popup-user",
+  templateUrl: "./popup-user.component.html",
+  imports: [FormsModule],
+  standalone: true,
+  styleUrls: ["./popup-user.component.less"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupUserComponent implements OnInit, OnDestroy {
-  @Input() header = 'Исполнитель';
+  @Input() header = "Исполнитель";
   @Input() multiple = false;
   @Output() selectItem = new EventEmitter<UserModel | IdentityModel>();
   @Output() changeItems = new EventEmitter<string[]>();
@@ -37,19 +49,20 @@ export class PopupUserComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
 
   constructor(private store: Store<fromRoot.State>) {
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getInviteActiveEntities))
-      .subscribe((invites) => this.items = invites));
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getInviteActiveEntities))
+        .subscribe((invites) => (this.items = invites))
+    );
 
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getUser))
-      .subscribe((user: IdentityModel) => this.user = user));
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getUser))
+        .subscribe((user: IdentityModel) => (this.user = user))
+    );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscription$.unsubscribe();

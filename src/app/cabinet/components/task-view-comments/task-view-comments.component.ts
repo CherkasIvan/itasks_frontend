@@ -1,27 +1,36 @@
-import {AfterViewChecked, Component, HostListener, Input, OnDestroy, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {MessageModel} from '@core/models/message.model';
-import {TaskViewComponent} from '../task-view/task-view.component';
-import {StoreMessageService} from '@core/services/store-message.service';
-import {Subscription} from 'rxjs/Subscription';
-import {Subject} from 'rxjs/Subject';
-import * as fromRoot from '@core/redux';
+import {
+  AfterViewChecked,
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  Input,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
+import { Store } from "@ngrx/store";
+import { MessageModel } from "@core/models/message.model";
+import { TaskViewComponent } from "../task-view/task-view.component";
+import { StoreMessageService } from "@core/services/store-message.service";
+import { Subject, Subscription } from "rxjs";
+import * as fromRoot from "@core/redux";
 
 @Component({
-  selector: 'app-task-view-comments',
-  templateUrl: './task-view-comments.component.html',
-  styleUrls: ['./task-view-comments.component.less'],
+  selector: "app-task-view-comments",
+  templateUrl: "./task-view-comments.component.html",
+  styleUrls: ["./task-view-comments.component.less"],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskViewCommentsComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class TaskViewCommentsComponent
+  implements OnInit, AfterViewChecked, OnDestroy
+{
   @Input() newMessageSubject: Subject<MessageModel>;
 
   @Input()
   set taskId(taskId) {
     if (taskId) {
-      this.subscription$.add(this
-        .storeMessage
-        .getMessagesByTaskId(taskId)
-        .subscribe((messages) => {
+      this.subscription$.add(
+        this.storeMessage.getMessagesByTaskId(taskId).subscribe((messages) => {
           this.messageList = messages.messageList;
           this.messageListHide = messages.messageListHide;
           this.messageListPinned = messages.messageListPinned;
@@ -32,7 +41,8 @@ export class TaskViewCommentsComponent implements OnInit, AfterViewChecked, OnDe
           } else {
             this._isFirstLoadingComments = true;
           }
-        }));
+        })
+      );
     }
   }
 
@@ -40,22 +50,25 @@ export class TaskViewCommentsComponent implements OnInit, AfterViewChecked, OnDe
   messageList: MessageModel[] = [];
   messageListPinned: MessageModel[] = [];
   isShowMoreMessage = false;
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
   private _isFirstLoadingComments = true;
 
-  constructor(private store: Store<fromRoot.State>,
-              private taskView: TaskViewComponent,
-              private storeMessage: StoreMessageService) {
-  }
+  constructor(
+    private store: Store<fromRoot.State>,
+    private taskView: TaskViewComponent,
+    private storeMessage: StoreMessageService
+  ) {}
 
   ngOnInit() {
-    this.subscription$.add(this.newMessageSubject.subscribe((message) => {
-      if (this.messageList.length >= this.storeMessage.limitVisible) {
-        this.messageList.splice(0, 1);
-      }
-      this.messageList.push(message);
-      this.taskView.allowScrollDown = true;
-    }));
+    this.subscription$.add(
+      this.newMessageSubject.subscribe((message) => {
+        if (this.messageList.length >= this.storeMessage.limitVisible) {
+          this.messageList.splice(0, 1);
+        }
+        this.messageList.push(message);
+        this.taskView.allowScrollDown = true;
+      })
+    );
   }
 
   ngAfterViewChecked() {

@@ -1,24 +1,34 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {UserModel} from '@core/models/user.model';
-import {TaskModel} from '@core/models/task.model';
-import * as TaskActions from '@core/redux/task/task.actions';
-import * as fromRoot from '@core/redux/index';
-import {Store} from '@ngrx/store';
-import {TaskViewComponent} from '@cabinet/components/task-view/task-view.component';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from "@angular/core";
+import { UserModel } from "@core/models/user.model";
+import { TaskModel } from "@core/models/task.model";
+import * as TaskActions from "@core/redux/task/task.actions";
+import * as fromRoot from "@core/redux/index";
+import { Store } from "@ngrx/store";
+import { TaskViewComponent } from "@cabinet/components/task-view/task-view.component";
+import { DatePipe } from "@angular/common";
 
 @Component({
-  selector: 'app-task-view-archive-popup',
-  templateUrl: './task-view-archive-popup.component.html',
-  styleUrls: ['./task-view-archive-popup.component.less']
+  selector: "app-task-view-archive-popup",
+  templateUrl: "./task-view-archive-popup.component.html",
+  styleUrls: ["./task-view-archive-popup.component.less"],
+  imports: [DatePipe],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskViewArchivePopupComponent implements OnInit {
   @Input() task: TaskModel;
 
-  constructor(private store: Store<fromRoot.State>, private taskViewComponent: TaskViewComponent) {
-  }
+  constructor(
+    private store: Store<fromRoot.State>,
+    private taskViewComponent: TaskViewComponent
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onRevert() {
     this.task.isComplete = false;

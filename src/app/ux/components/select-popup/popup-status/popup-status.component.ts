@@ -1,20 +1,32 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import * as _ from 'lodash';
-import {UserModel} from '@core/models/user.model';
-import {Subscription} from 'rxjs/Subscription';
-import * as fromRoot from '@core/redux';
-import {InviteModel} from '@core/models/invite.model';
-import {select, Store} from '@ngrx/store';
-import {IdentityModel} from '@core/models/identity.model';
-import {StatusModel} from '@core/models/status.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from "@angular/core";
+import * as _ from "lodash";
+import { UserModel } from "@core/models/user.model";
+import { Subscription } from "rxjs";
+import * as fromRoot from "@core/redux";
+import { InviteModel } from "@core/models/invite.model";
+import { select, Store } from "@ngrx/store";
+import { IdentityModel } from "@core/models/identity.model";
+import { StatusModel } from "@core/models/status.model";
+import { FormsModule } from "@angular/forms";
 
 @Component({
-  selector: 'ux-popup-status',
-  templateUrl: './popup-status.component.html',
-  styleUrls: ['./popup-status.component.less']
+  selector: "ux-popup-status",
+  templateUrl: "./popup-status.component.html",
+  styleUrls: ["./popup-status.component.less"],
+  imports: [FormsModule],
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PopupStatusComponent implements OnInit, OnDestroy {
-  @Input() header = 'Статус задачи';
+  @Input() header = "Статус задачи";
   @Input() selected = [];
   @Input() multiple = false;
   @Output() selectItem = new EventEmitter<StatusModel>();
@@ -35,18 +47,17 @@ export class PopupStatusComponent implements OnInit, OnDestroy {
   match: string;
   selectIndex = -1;
 
-  subscription$: Subscription = new Subscription;
+  subscription$: Subscription = new Subscription();
 
   constructor(private store: Store<fromRoot.State>) {
-    this.subscription$.add(this
-      .store
-      .pipe(select(fromRoot.getStatusEntities))
-      .subscribe((statuses) => this.items = statuses));
-
+    this.subscription$.add(
+      this.store
+        .pipe(select(fromRoot.getStatusEntities))
+        .subscribe((statuses) => (this.items = statuses))
+    );
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngOnDestroy() {
     this.subscription$.unsubscribe();
